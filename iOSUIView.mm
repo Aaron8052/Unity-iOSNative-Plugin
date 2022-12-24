@@ -24,13 +24,9 @@
         if(UITraitCollection.currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark){
             blurFX = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
         }
-        else{
-            blurFX = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
-        }
-        
     }
     else{
-        label.textColor = [UIColor darkGrayColor];
+        label.textColor = [UIColor labelColor];
         label.backgroundColor  = [UIColor whiteColor];
     }
     
