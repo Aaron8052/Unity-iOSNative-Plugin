@@ -7,23 +7,27 @@ static BOOL iCloudInited;
 static BOOL availability;
 static BOOL noCloudAlertShown;
 @implementation iCloudKeyValueStore
-
++(BOOL)userLoggedIn{
+    return [[NSFileManager defaultManager] ubiquityIdentityToken] != nil;
+}
 +(void) init{
-    if(iCloudInited != YES){
+    if(!iCloudInited && [iCloudKeyValueStore userLoggedIn]){
         @autoreleasepool{
             NSLog(@"init iCloud!");
         }
         keyValueStore = [NSUbiquitousKeyValueStore defaultStore];
         
         cloudDictionary = [keyValueStore dictionaryRepresentation];
-        
-        [iCloudKeyValueStore checkForAvailability];
+
         iCloudInited = YES;
     }
 }
 
 +(BOOL)checkForAvailability{
-    if(iCloudInited && !availability){
+    if(![iCloudKeyValueStore userLoggedIn] || !iCloudInited){
+        availability = NO;
+    }
+    else if(iCloudInited && !availability){
         NSDate *nowDate = [NSDate date];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -48,13 +52,13 @@ static BOOL noCloudAlertShown;
 }
 +(BOOL)IsICloudAvailable
 {
-    BOOL available = iCloudInited
-    && [[NSFileManager defaultManager] ubiquityIdentityToken] != nil
-    && [iCloudKeyValueStore checkForAvailability];
+    BOOL available = [iCloudKeyValueStore checkForAvailability];
+    
     if(!available && !noCloudAlertShown){
         [iOSUIView ShowTempAlert:@"iCloud save is not available at this point!" duration:20];
         noCloudAlertShown = YES;
     }
+    
     return available;
 }
 
@@ -197,7 +201,3 @@ static BOOL noCloudAlertShown;
     return [keyValueStore synchronize];
 }
 @end
-
-
-    
-
