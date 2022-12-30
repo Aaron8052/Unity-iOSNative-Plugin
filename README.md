@@ -14,8 +14,8 @@
 [(macOS) Xcode](https://developer.apple.com/download/all/?q=Xcode)
 
 ### 兼容性
-iOS10及以上
-Unity2017.4及以上（更早版本未测试）
+- iOS10及以上
+-Unity2017.4及以上（更早版本未测试）
 
 # 使用
 
