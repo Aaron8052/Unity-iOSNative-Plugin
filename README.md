@@ -13,11 +13,9 @@
 ### IDE
 [(macOS) Xcode](https://developer.apple.com/download/all/?q=Xcode)
 
-### SDK版本
-Target: 30（Android 11.0）
-Min: 16（Android 4.1）
-### 编程语言
-Objective-C(++)
+### 兼容性
+iOS10及以上
+Unity2017.4及以上（更早版本未测试）
 
 # 使用
 
