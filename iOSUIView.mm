@@ -85,6 +85,7 @@
             [label removeFromSuperview];
             [vfxView removeFromSuperview];
             
+            //销毁UIView对象
             vfxView = nil;
             label = nil;
         }];
