@@ -1,13 +1,10 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
-namespace PM.iOS
+public class iOSNative
 {
-
-    public class iOSNative
-	{
 #if UNITY_IOS && !UNITY_EDITOR
         [DllImport("__Internal")]
         private static extern void _initialize();
@@ -64,156 +61,157 @@ namespace PM.iOS
         [DllImport("__Internal")]
         private static extern bool _iCloudSaveBool(string key, bool value);
 #endif
-        public static void Initialize(){
+    public static void Initialize()
+    {
 #if UNITY_IOS && !UNITY_EDITOR
             _initialize();
 #endif
-        }
+    }
 
-        public static void _ShowTempAlert(string alertString, int duration = 5)
-        {
+    public static void ShowTempAlert(string alertString, int duration = 5)
+    {
 #if UNITY_IOS && !UNITY_EDITOR
             _ShowTempAlert(alertString, duration);
 #endif
-        }
+    }
 
-        public static bool Synchronize()
-        {
+    public static bool Synchronize()
+    {
 #if UNITY_IOS && !UNITY_EDITOR
             return _Synchronize();
 #else
-            return default(bool);
+        return default(bool);
 #endif
-        }
-        public static bool IsICloudAvailable()
-        {
+    }
+    public static bool IsICloudAvailable()
+    {
 #if UNITY_IOS && !UNITY_EDITOR
             return _IsICloudAvailable();
 #else
-            return default(bool);
+        return default(bool);
 #endif
-        }
-        /// <summary>
-        /// PlayHaptics
-        /// </summary>
-        /// <param name="style">0 = Light, 1=Medium, 2=Heavy</param>
-        /// <param name="intensity">Intensity 0.0 - 1.0</param>
-        public static void PlayHaptics(int style, float intensity)//0 = Light, 1=Medium, 2=Heavy; Intensity 0.0 - 1.0
-        {
+    }
+    /// <summary>
+    /// PlayHaptics
+    /// </summary>
+    /// <param name="style">0 = Light, 1=Medium, 2=Heavy</param>
+    /// <param name="intensity">Intensity 0.0 - 1.0</param>
+    public static void PlayHaptics(int style, float intensity)//0 = Light, 1=Medium, 2=Heavy; Intensity 0.0 - 1.0
+    {
 #if UNITY_IOS && !UNITY_EDITOR
             _PlayHaptics(style, intensity);
 #endif
-        }
+    }
 
 
-        public static void Share(string message, string url = "", string imagePath = "", Action closeCallback = null)
-        {
+    public static void Share(string message, string url = "", string imagePath = "", Action closeCallback = null)
+    {
 #if UNITY_IOS && !UNITY_EDITOR
             _Share(message, url, imagePath);
 #endif
-            iOSCallbackHelper.INSTANCE.SetShareCloseCallback(closeCallback);
-        }
-        public static void PushNotification(string msg, string title, string identifier, int delay){
+        iOSCallbackHelper.INSTANCE.SetShareCloseCallback(closeCallback);
+    }
+    public static void PushNotification(string msg, string title, string identifier, int delay)
+    {
 #if UNITY_IOS && !UNITY_EDITOR
                 _PushNotification(msg, title, identifier, delay);
 #endif
-        }
-        public static void RemovePendingNotifications(string identifier){
+    }
+    public static void RemovePendingNotifications(string identifier)
+    {
 #if UNITY_IOS && !UNITY_EDITOR
                 _RemovePendingNotifications(identifier);
 #endif
-        }
-        public static void RemoveAllPendingNotifications(){
+    }
+    public static void RemoveAllPendingNotifications()
+    {
 #if UNITY_IOS && !UNITY_EDITOR
                 _RemoveAllPendingNotifications();
 #endif
-        }
+    }
 
 
 
 
 
-        public static bool ClearICloudSave()
-        {
+    public static bool ClearICloudSave()
+    {
 #if UNITY_IOS && !UNITY_EDITOR
             return _ClearICloudSave();
 #else
-            return default(bool);
+        return default(bool);
 #endif
-        }
+    }
 
-        public static string iCloudGetStringValue(string key, string defaultValue)
-        {
+    public static string iCloudGetStringValue(string key, string defaultValue)
+    {
 #if UNITY_IOS && !UNITY_EDITOR
             return _iCloudGetString(key, defaultValue);
 #else
-            return default(string);
+        return default(string);
 #endif
-        }
+    }
 
-        public static bool iCloudSaveStringValue(string key, string value)
-        {
+    public static bool iCloudSaveStringValue(string key, string value)
+    {
 #if UNITY_IOS && !UNITY_EDITOR
             return _iCloudSaveString(key, value);
 #else
-            return default(bool);
+        return default(bool);
 #endif
-        }
+    }
 
-        public static int iCloudGetIntValue(string key, int defaultValue)
-        {
+    public static int iCloudGetIntValue(string key, int defaultValue)
+    {
 #if UNITY_IOS && !UNITY_EDITOR
             return _iCloudGetInt(key, defaultValue);
 #else
-            return default(int);
+        return default(int);
 #endif
-        }
+    }
 
-        public static bool iCloudSaveIntValue(string key, int value)
-        {
+    public static bool iCloudSaveIntValue(string key, int value)
+    {
 #if UNITY_IOS && !UNITY_EDITOR
             return _iCloudSaveInt(key, value);
 #else
-            return default(bool);
+        return default(bool);
 #endif
-        }
+    }
 
-        public static float iCloudGetFloatValue(string key, float defaultValue)
-        {
+    public static float iCloudGetFloatValue(string key, float defaultValue)
+    {
 #if UNITY_IOS && !UNITY_EDITOR
             return _iCloudGetFloat(key, defaultValue);
 #else
-            return default(float);
+        return default(float);
 #endif
-        }
+    }
 
-        public static bool iCloudSaveFloatValue(string key, float value)
-        {
+    public static bool iCloudSaveFloatValue(string key, float value)
+    {
 #if UNITY_IOS && !UNITY_EDITOR
             return _iCloudSaveFloat(key, value);
 #else
-            return default(bool);
+        return default(bool);
 #endif
-        }
+    }
 
-        public static bool iCloudGetBoolValue(string key, bool defaultValue)
-        {
+    public static bool iCloudGetBoolValue(string key, bool defaultValue)
+    {
 #if UNITY_IOS && !UNITY_EDITOR
             return _iCloudGetBool(key, defaultValue);
 #else
-            return default(bool);
+        return default(bool);
 #endif
-        }
+    }
 
-        public static bool iCloudSaveBoolValue(string key, bool value)
-        {
+    public static bool iCloudSaveBoolValue(string key, bool value)
+    {
 #if UNITY_IOS && !UNITY_EDITOR
             return _iCloudSaveBool(key, value);
 #else
-            return default(bool);
+        return default(bool);
 #endif
-        }
     }
-
 }
-
