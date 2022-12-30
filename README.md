@@ -18,5 +18,8 @@
 - Unity2017.4及以上（更早版本未测试）
 
 # 使用
+- 直接将所有文件(.h, .mm, .cs)的导入Unity项目的Assets/Plugins/iOS中
+- 调用 iOSNative.cs 中的方法即可 (iOSCallbackHelper.cs不用管，运行时需要时会自动初始化，也可以提前放入场景中)
 
-文档完善中
+#已知问题
+- ClearICloudSave() 会导致游戏卡死
