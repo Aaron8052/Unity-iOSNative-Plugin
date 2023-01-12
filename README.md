@@ -33,5 +33,8 @@
 - `iOSShare.mm` 负责 iOS 自带的分享功能的实现
 - `iOSUIView.mm` 包含部分 iOS Native UI的功能（比如应用内展示横幅，可用于应用内消息推送）
 
+## 注意事项
+- 在调用插件方法之前先调用 `iOSNative.cs` 中的initialize方法进行插件初始化
+
 # 已知问题
 - ClearICloudSave() 会导致游戏卡死
