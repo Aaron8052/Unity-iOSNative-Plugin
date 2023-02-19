@@ -6,6 +6,8 @@ static NSDictionary *cloudDictionary;
 static BOOL iCloudInited;
 static BOOL availability;
 static BOOL noCloudAlertShown;
+static NSInteger availabilityAttemptsCount;
+
 @implementation iCloudKeyValueStore
 +(BOOL)userLoggedIn{
     return [[NSFileManager defaultManager] ubiquityIdentityToken] != nil;
@@ -18,16 +20,20 @@ static BOOL noCloudAlertShown;
         keyValueStore = [NSUbiquitousKeyValueStore defaultStore];
         
         cloudDictionary = [keyValueStore dictionaryRepresentation];
-
+        availabilityAttemptsCount = 0;
         iCloudInited = YES;
     }
 }
 
 +(BOOL)checkForAvailability{
-    if(![iCloudKeyValueStore userLoggedIn] || !iCloudInited){
+    if(availabilityAttemptsCount > 20){
+        return availability;
+    }
+    
+    if(![iCloudKeyValueStore userLoggedIn] || !iCloudInited || !keyValueStore){
         availability = NO;
     }
-    else if(iCloudInited && !availability){
+    else if(iCloudInited && !availability && availabilityAttemptsCount < 20){
         NSDate *nowDate = [NSDate date];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -45,8 +51,10 @@ static BOOL noCloudAlertShown;
         else{
             availability = NO;
         }
+
     }
     LOG([NSString stringWithFormat: @"iCloud availability: %@", availability ? @"YES": @"NO"]);
+    availabilityAttemptsCount ++;
     return availability;
     
 }
@@ -55,7 +63,8 @@ static BOOL noCloudAlertShown;
     BOOL available = [iCloudKeyValueStore checkForAvailability];
     
     if(!available && !noCloudAlertShown){
-        [iOSUIView ShowTempAlert:@"iCloud save is not available at this point!" duration:20];
+        [iOSNotification PushNotification:@"iCloud save is not available at this point!" title:nil identifier:@"iCloudUnavailable" delay:1];
+        
         noCloudAlertShown = YES;
     }
     
@@ -201,3 +210,7 @@ static BOOL noCloudAlertShown;
     return [keyValueStore synchronize];
 }
 @end
+
+
+    
+
