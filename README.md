@@ -37,4 +37,4 @@
 - 在调用插件方法之前先调用 `iOSNative.cs` 中的Initialize方法进行插件初始化
 
 # 已知问题
-- ClearICloudSave() 会导致游戏卡死
+- `ClearICloudSave()` 会导致游戏卡死
