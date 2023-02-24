@@ -49,6 +49,7 @@ extern "C"
                               delay:(NSInteger)delay];
     }
 
+
     void _RemovePendingNotifications(const char *identifier){
         [iOSNotification RemovePendingNotifications:[NSString stringWithUTF8String:identifier]];
     }
@@ -61,7 +62,10 @@ extern "C"
         return [iCloudKeyValueStore IsICloudAvailable];
     }
 
-
+    //ISO 3166-1 alpha-2
+    const char* _GetCountryCode(){
+        return StringCopy([[iOSDevice GetCountryCode]] UTF8String);
+    }
 
     bool _ClearICloudSave(){
         return [iCloudKeyValueStore ClearICloudSave];
