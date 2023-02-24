@@ -40,8 +40,8 @@
 - `IsICloudAvailable()` 判断当前设备iCloud是否可用
 - `Synchronize()` 强制同步iCloud云存档至Apple服务器（Bool返回值：是否同步成功）
 - `ClearICloudSave()` 清空iCloud存档
-- `iCloudGetString/Int/Float/BoolValue()` 从iCloud读取目标数据
-
+- `iCloudGetString/Int/Float/BoolValue(string key, var defaultValue)` 从iCloud读取目标数据
+- `iCloudSaveString/Int/Float/BoolValue(string key, var value)` 保存数据到iCloud
 ### iOSNotification
 - `PushNotification(string msg, string title, string identifier, int delay)`
 
