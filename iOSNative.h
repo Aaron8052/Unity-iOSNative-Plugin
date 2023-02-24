@@ -55,6 +55,7 @@ static void LOG(NSString* log){
 
 @interface iOSDevice : NSObject
 +(void)PlayHaptics:(int)style _intensity:(float)intensity;//参数int style，float intensity
++(NSString *)GetCountryCode;
 @end
 
 
