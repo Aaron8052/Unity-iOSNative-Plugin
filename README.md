@@ -34,32 +34,65 @@
 - `iOSUIView.mm` 包含部分 iOS Native UI的功能（比如应用内展示横幅，可用于应用内消息推送）
 
 ## 功能
-- Initialize() 初始化整个iOSNative插件
+Initialize()
+
+- 初始化整个iOSNative插件
 
 ### iCloudKeyValueStore
-- `IsICloudAvailable()` 判断当前设备iCloud是否可用
-- `Synchronize()` 强制同步iCloud云存档至Apple服务器（Bool返回值：是否同步成功）
-- `ClearICloudSave()` 清空iCloud存档
-- `iCloudGetString/Int/Float/BoolValue(string key, var defaultValue)` 从iCloud读取目标数据
-- `iCloudSaveString/Int/Float/BoolValue(string key, var value)` 保存数据到iCloud
+
+`IsICloudAvailable()`
+
+- 判断当前设备iCloud是否可用
+
+`Synchronize()`
+
+- 强制同步iCloud云存档至Apple服务器（Bool返回值：是否同步成功）
+
+`ClearICloudSave()`
+
+- 清空iCloud存档
+
+`iCloudGetString/Int/Float/BoolValue(string key, var defaultValue)`
+
+- 从iCloud读取目标数据
+
+`iCloudSaveString/Int/Float/BoolValue(string key, var value)`
+
+- 保存数据到iCloud
+
 ### iOSNotification
-- `PushNotification(string msg, string title, string identifier, int delay)`
+`PushNotification(string msg, string title, string identifier, int delay)`
 
-推送本地通知：msg，title：标题（可留空），identifier：本通知的标识符，相同的标识符会被系统判定为同一个通知，delay：延迟待定delay秒后推送此通知
+- 推送本地通知：msg，title：标题（可留空），identifier：本通知的标识符，相同的标识符会被系统判定为同一个通知，delay：延迟待定delay秒后推送此通知
 
-- `RemovePendingNotifications(string identifier)` 移除某个待定通知（对于已经推送的通知无效）
-- `RemoveAllPendingNotifications()` 移除所有待定通知
+`RemovePendingNotifications(string identifier)`
+
+- 移除某个待定通知（对于已经推送的通知无效）
+
+`RemoveAllPendingNotifications()`
+
+- 移除所有待定通知
+
 ### iOSUIView
-- `ShowTempAlert(string alertString, int duration = 5)` 在应用内顶部展示一个内容为alertString，时长duration秒的横幅
+`ShowTempAlert(string alertString, int duration = 5)`
+
+- 在应用内顶部展示一个内容为alertString，时长duration秒的横幅
 
 ### iOSDevice
-- `PlayHaptics(int style, float intensity)` 震动（style：0 = Light, 1=Medium, 2=Heavy），Intensity强度（0.0 - 1.0）
-- `GetCountryCode()` 获取当前设备的ISO地区码
+`PlayHaptics(int style, float intensity)`
+
+- 震动（style：0 = Light, 1=Medium, 2=Heavy），Intensity强度（0.0 - 1.0）
+
+`GetCountryCode()`
+
+- 获取当前设备的ISO地区码
 
 ### iOSShare
-- `Share(string message, string url = "", string imagePath = "", Action closeCallback = null)`
 
-调用系统分享功能 message：分享文本字符串，url：链接，imagePath：要分享的图片的本地路径，closeCallback：用户关闭分享面板的回调
+`Share(string message, string url = "", string imagePath = "", Action closeCallback = null)`
+
+- 调用系统分享功能 message：分享文本字符串，url：链接，imagePath：要分享的图片的本地路径，closeCallback：用户关闭分享面板的回调
+
 ## 注意事项
 - 在调用插件方法之前先调用 `iOSNative.cs` 中的Initialize方法进行插件初始化
 
