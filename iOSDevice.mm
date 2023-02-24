@@ -22,4 +22,9 @@
     }
     
 }
++(NSString *)GetCountryCode{
+    NSLocale *currentLocale = [NSLocale currentLocale];
+    NSString *countryCode = [currentLocale countryCode];
+    return countryCode;
+}
 @end
