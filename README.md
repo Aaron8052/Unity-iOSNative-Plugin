@@ -34,7 +34,7 @@
 - `iOSUIView.mm` 包含部分 iOS Native UI的功能（比如应用内展示横幅，可用于应用内消息推送）
 
 ## 功能
-Initialize()
+`Initialize()`
 
 - 初始化整个iOSNative插件
 
