@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
- public static class iOSNative
+
+public static class iOSNative
 {
-        public static class iCloudKeyValueStore
+    public static class iCloudKeyValueStore
         {
 #if UNITY_IOS && !UNITY_EDITOR
             [DllImport("__Internal")]
@@ -138,10 +139,7 @@ using UnityEngine;
 #endif
             }
         }
-         
-         
-         
-        public static class iOSNotification
+    public static class iOSNotification
         {
 #if UNITY_IOS && !UNITY_EDITOR
             [DllImport("__Internal")]
@@ -172,10 +170,7 @@ using UnityEngine;
 #endif
             }
         }
-         
-         
-         
-        public static class iOSUIView
+    public static class iOSUIView
         {
 #if UNITY_IOS && !UNITY_EDITOR
             [DllImport("__Internal")]
@@ -188,15 +183,13 @@ using UnityEngine;
 #endif
             }
         }
-         
-         
-         
-        public static class iOSDevice
+    public static class iOSDevice
         {
 #if UNITY_IOS && !UNITY_EDITOR
             [DllImport("__Internal")]
-            private static extern void _PlayHaptics(int style, float intensity);//0 = Light, 1=Medium, 2=Heavy
-
+            static extern void _PlayHaptics(int style, float intensity);//0 = Light, 1=Medium, 2=Heavy
+            [DllImport("__Internal")]
+            static extern string _GetCountryCode();
 #endif
             /// <summary>
             /// PlayHaptics
@@ -209,36 +202,42 @@ using UnityEngine;
             _PlayHaptics(style, intensity);
 #endif
             }
-        }
-         
-         
-         
-        public static class iOSShare
-        {
-#if UNITY_IOS && !UNITY_EDITOR
-            [DllImport("__Internal")]
-            private static extern void _Share(string message, string url, string imagePath);
 
-#endif
-            public static void Share(string message, string url = "", string imagePath = "", Action closeCallback = null)
+            public static string GetCountryCode()
             {
 #if UNITY_IOS && !UNITY_EDITOR
-                _Share(message, url, imagePath);
-                iOSCallbackHelper.INSTANCE.SetShareCloseCallback(closeCallback);
+                return _GetCountryCode();
 #endif
+                return string.Empty;
             }
+        }
+    public static class iOSShare
+    {
+#if UNITY_IOS && !UNITY_EDITOR
+        [DllImport("__Internal")]
+        private static extern void _Share(string message, string url, string imagePath);
+
+#endif
+        public static void Share(string message, string url = "", string imagePath = "", Action closeCallback = null)
+        {
+#if UNITY_IOS && !UNITY_EDITOR
+            _Share(message, url, imagePath);
+            iOSCallbackHelper.INSTANCE.SetShareCloseCallback(closeCallback);
+#endif
+        }
 
         }
 
 
 
 #if UNITY_IOS && !UNITY_EDITOR
-        [DllImport("__Internal")]
-        private static extern void _initialize();
+    [DllImport("__Internal")]
+    private static extern void _initialize();
 #endif
-        public static void Initialize(){
+    public static void Initialize(){
 #if UNITY_IOS && !UNITY_EDITOR
-            _initialize();
+        _initialize();
 #endif
-        } 
-    }
+    } 
+}
+
