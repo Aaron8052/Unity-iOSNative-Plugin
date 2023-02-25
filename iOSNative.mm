@@ -64,7 +64,7 @@ extern "C"
 
     //ISO 3166-1 alpha-2
     const char* _GetCountryCode(){
-        return StringCopy([[iOSDevice GetCountryCode]] UTF8String);
+        return StringCopy([[iOSDevice GetCountryCode] UTF8String]);
     }
 
     bool _ClearICloudSave(){
