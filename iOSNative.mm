@@ -27,6 +27,13 @@ extern "C"
         [iOSNative init];
     }
 
+    void _SetStatusBarHidden(bool hidden){
+        [iOSUIView SetStatusBarHidden:hidden];
+    }
+    void _SetStatusBarStyle(int style){
+        [iOSUIView SetStatusBarStyle:style];
+    }
+
     void _ShowTempAlert(const char* alertString, int duration = 5){
         [iOSUIView ShowTempAlert:[NSString stringWithUTF8String:alertString ?: ""] duration:duration];
     }
@@ -41,7 +48,14 @@ extern "C"
     {
         [iOSShare shareMsg:[NSString stringWithUTF8String:message ?: ""] addUrl:[NSString stringWithUTF8String:url ?: ""] imgPath:[NSString stringWithUTF8String:imagePath ?: ""]];
     }
-    
+    void _SaveFileDialog(const char* content, const char* fileName)
+    {
+        [iOSShare SaveFileDialog:[NSString stringWithUTF8String:content ?: ""] fileName:[NSString stringWithUTF8String:fileName ?: ""]];
+    }
+    bool _SelectFileDialog(const char* ext)
+    {
+        return [iOSShare SelectFileDialog:[NSString stringWithUTF8String:ext ?: ""]];
+    }
     void _PushNotification(const char *msg, const char *title, const char *identifier, int delay){
         [iOSNotification PushNotification:[NSString stringWithUTF8String:msg ?: ""]
                               title:[NSString stringWithUTF8String:title ?: ""]

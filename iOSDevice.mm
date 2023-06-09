@@ -2,17 +2,12 @@
 #import "iOSNative.h"
 
 @implementation iOSDevice
+
 +(void)PlayHaptics:(int)style _intensity:(float)intensity//参数int style，float intensity
 {
     if(@available(iOS 10.0, *)){//检测ios版本
-        UIImpactFeedbackGenerator *feedBackGenertor = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
-        if(style == 2){
-            feedBackGenertor = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy];
-        }
-        else if(style == 1){
-            feedBackGenertor = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
-        }
-
+        UIImpactFeedbackGenerator *feedBackGenertor = [[UIImpactFeedbackGenerator alloc] initWithStyle:(UIImpactFeedbackStyle)style];
+        
         //注：intensity设置仅在iOS13或以上可用
         if (@available(iOS 13.0, *)) {
             [feedBackGenertor impactOccurredWithIntensity:intensity];

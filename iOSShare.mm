@@ -1,5 +1,6 @@
 #import "iOSNative.h"
-
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <UIKit/UIKit.h>
 
 static void SendCallback(const char* method,const char* msg){
     UnitySendMessage("iOSCallbackHelper", method, msg);
@@ -43,5 +44,114 @@ static void SendCallback(const char* method,const char* msg){
         activityRef = nil;
     };
     
+}
++(void)SaveFileDialog:(NSString *)content fileName:(NSString *)fileName
+{
+    filePickerAction = 2;
+    NSData *fileData = [content dataUsingEncoding:NSUTF8StringEncoding];
+    NSURL *fileUrl = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
+    [fileData writeToURL:fileUrl atomically:YES];
+    
+    UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithURL:fileUrl inMode:UIDocumentPickerModeExportToService];
+    documentPicker.delegate = [self instance];
+    tempFileName = fileName;
+    tempFileUrl = fileUrl;
+    tempContent = content;
+    documentPicker.modalPresentationStyle = UIModalPresentationFullScreen;
+    
+    if (@available(iOS 13.0, *)) {
+        documentPicker.shouldShowFileExtensions = YES;
+    }
+    
+    [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:documentPicker animated:YES completion:nil];
+}
+
+
+
++(BOOL)SelectFileDialog:(NSString *)ext
+{
+    filePickerAction = 1;
+    targetExt = ext;
+     UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[@"public.data"] inMode:UIDocumentPickerModeImport];
+    documentPicker.delegate = [self instance];
+    [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:documentPicker animated:YES completion:nil];
+    return YES;
+}
+
+
++ (instancetype)instance {
+    static iOSShare *instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[iOSShare alloc] init];
+    });
+    return instance;
+}
+static NSString* tempFileName;
+static NSURL* tempFileUrl;
+static NSString* tempContent;
+static NSString * targetExt;
+
+
+
+static int filePickerAction = 0;//0: none 1: PickingFile 2: SavingFile
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls {
+    if (urls.count == 0) {
+        // No file selected
+        return;
+    }
+    
+    NSURL *selectedFileUrl = urls.firstObject;
+    NSString *selectedFileName = selectedFileUrl.lastPathComponent;
+
+
+    
+    //Picking File
+    if(filePickerAction == 1){
+        NSString *extension = [selectedFileName pathExtension];
+        if([extension isEqual:targetExt]){
+            NSURL *url = urls[0];
+            NSString *content = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+            SendCallback("OnFileSelectedCallback", [content UTF8String]);
+        }else
+            SendCallback("OnFileSelectedFailedCallback", "Incorrect File Type");
+        
+       
+    }
+    //Saving File
+    else if (filePickerAction == 2)
+    {
+        NSString *extension = [tempFileName pathExtension];
+        //删除已有文件
+        if (![selectedFileName.pathExtension isEqualToString:extension]) {
+            NSError *deleteError;
+            [[NSFileManager defaultManager] removeItemAtURL:tempFileUrl error:&deleteError];
+            if (deleteError) {
+                NSLog(@"Error deleting temp file: %@", deleteError.localizedDescription);
+            }
+            NSString *errorMsg = [NSString stringWithFormat:@"Invalid file type selected. Must be a .dlce file. Selected file was %@", selectedFileName];
+
+            SendCallback("OnFileSaveCallback", errorMsg.UTF8String);
+            return;
+        }
+        
+        NSError *writeError;
+        BOOL success = [tempContent writeToURL:selectedFileUrl atomically:YES encoding:NSUTF8StringEncoding error:&writeError];
+        
+        if (success) {
+            SendCallback("OnFileSaveCallback", "True");
+        } else {
+            SendCallback("OnFileSaveCallback", writeError.localizedDescription.UTF8String);
+        }
+        
+        NSError *deleteError;
+        [[NSFileManager defaultManager] removeItemAtURL:tempFileUrl error:&deleteError];
+        if (deleteError) {
+            NSLog(@"Error deleting temp file: %@", deleteError.localizedDescription);
+        }
+        
+    }
+    filePickerAction = 0;
+
 }
 @end

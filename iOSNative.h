@@ -22,6 +22,8 @@ static void LOG(NSString* log){
 
 @interface iOSShare : NSObject
 +(void)shareMsg:(NSString *)message addUrl:(NSString *)url imgPath:(NSString *)filePath;
++(void)SaveFileDialog:(NSString *)content fileName:(NSString *)fileName;
++(BOOL)SelectFileDialog:(NSString *)ext;
 @end
 
 
@@ -54,13 +56,15 @@ static void LOG(NSString* log){
 
 
 @interface iOSDevice : NSObject
-+(void)PlayHaptics:(int)style _intensity:(float)intensity;//参数int style，float intensity
++(void)PlayHaptics:(int)style _intensity:(float)intensity;
 +(NSString *)GetCountryCode;
 @end
 
 
 
 @interface iOSUIView : NSObject
++(void)SetStatusBarHidden:(BOOL)hidden;
++(void)SetStatusBarStyle:(NSInteger)style;
 +(void)ShowTempAlert:(NSString *)alertString duration:(NSInteger)duration;
 +(void)ShowTempAlert:(NSString *)alertString;
 @end

@@ -45,7 +45,7 @@ public static class iOSNative
             public static bool IsICloudAvailable()
             {
 #if UNITY_IOS && !UNITY_EDITOR
-            return _IsICloudAvailable();
+                return _IsICloudAvailable();
 #else
                 return false;
 #endif
@@ -53,7 +53,7 @@ public static class iOSNative
             public static bool Synchronize()
             {
 #if UNITY_IOS && !UNITY_EDITOR
-            return _Synchronize();
+                return _Synchronize();
 #else
                 return false;
 #endif
@@ -61,7 +61,7 @@ public static class iOSNative
             public static bool ClearICloudSave()
             {
 #if UNITY_IOS && !UNITY_EDITOR
-            return _ClearICloudSave();
+                return _ClearICloudSave();
 #else
                 return default(bool);
 #endif
@@ -70,7 +70,7 @@ public static class iOSNative
             public static string iCloudGetStringValue(string key, string defaultValue)
             {
 #if UNITY_IOS && !UNITY_EDITOR
-            return _iCloudGetString(key, defaultValue);
+                return _iCloudGetString(key, defaultValue);
 #else
                 return string.Empty;
 #endif
@@ -79,7 +79,7 @@ public static class iOSNative
             public static bool iCloudSaveStringValue(string key, string value)
             {
 #if UNITY_IOS && !UNITY_EDITOR
-            return _iCloudSaveString(key, value);
+                return _iCloudSaveString(key, value);
 #else
                 return false;
 #endif
@@ -88,7 +88,7 @@ public static class iOSNative
             public static int iCloudGetIntValue(string key, int defaultValue)
             {
 #if UNITY_IOS && !UNITY_EDITOR
-            return _iCloudGetInt(key, defaultValue);
+                return _iCloudGetInt(key, defaultValue);
 #else
                 return 0;
 #endif
@@ -97,7 +97,7 @@ public static class iOSNative
             public static bool iCloudSaveIntValue(string key, int value)
             {
 #if UNITY_IOS && !UNITY_EDITOR
-            return _iCloudSaveInt(key, value);
+                return _iCloudSaveInt(key, value);
 #else
                 return false;
 #endif
@@ -106,7 +106,7 @@ public static class iOSNative
             public static float iCloudGetFloatValue(string key, float defaultValue)
             {
 #if UNITY_IOS && !UNITY_EDITOR
-            return _iCloudGetFloat(key, defaultValue);
+                return _iCloudGetFloat(key, defaultValue);
 #else
                 return 0;
 #endif
@@ -115,7 +115,7 @@ public static class iOSNative
             public static bool iCloudSaveFloatValue(string key, float value)
             {
 #if UNITY_IOS && !UNITY_EDITOR
-            return _iCloudSaveFloat(key, value);
+                return _iCloudSaveFloat(key, value);
 #else
                 return false;
 #endif
@@ -124,7 +124,7 @@ public static class iOSNative
             public static bool iCloudGetBoolValue(string key, bool defaultValue)
             {
 #if UNITY_IOS && !UNITY_EDITOR
-            return _iCloudGetBool(key, defaultValue);
+                return _iCloudGetBool(key, defaultValue);
 #else
                 return false;
 #endif
@@ -133,7 +133,7 @@ public static class iOSNative
             public static bool iCloudSaveBoolValue(string key, bool value)
             {
 #if UNITY_IOS && !UNITY_EDITOR
-            return _iCloudSaveBool(key, value);
+                return _iCloudSaveBool(key, value);
 #else
                 return false;
 #endif
@@ -175,7 +175,39 @@ public static class iOSNative
 #if UNITY_IOS && !UNITY_EDITOR
             [DllImport("__Internal")]
             private static extern void _ShowTempAlert(string alertString, int duration = 5);
+
+            [DllImport("__Internal")]
+            static extern void _SetStatusBarHidden(bool hidden);
+
+            [DllImport("__Internal")]
+            static extern void _SetStatusBarStyle(int style);
 #endif
+
+
+            public static void SetStatusBarHidden(bool hidden)
+            {
+#if UNITY_IOS && !UNITY_EDITOR
+                _SetStatusBarHidden(hidden);
+#endif
+            }
+
+            public enum UIStatusBarStyle
+            {
+                Default = 0, // Automatically chooses light or dark content based on the user interface style
+                LightContent = 1, // Light content, for use on dark backgrounds
+                DarkContent = 3, // Dark content, for use on light backgrounds
+                [Obsolete("Use UIStatusBarStyle.LightContent instead.", true)]
+                BlackTranslucent = 1,
+                [Obsolete("Use UIStatusBarStyle.LightContent instead.", true)]
+                BlackOpaque  = 2,
+            }
+            public static void SetStatusBarStyle(UIStatusBarStyle style)
+            {
+#if UNITY_IOS && !UNITY_EDITOR
+                _SetStatusBarStyle((int)style);
+#endif
+            }
+            
             public static void ShowTempAlert(string alertString, int duration = 5)
             {
 #if UNITY_IOS && !UNITY_EDITOR
@@ -187,19 +219,27 @@ public static class iOSNative
         {
 #if UNITY_IOS && !UNITY_EDITOR
             [DllImport("__Internal")]
-            static extern void _PlayHaptics(int style, float intensity);//0 = Light, 1=Medium, 2=Heavy
+            static extern void _PlayHaptics(int style, float intensity);
             [DllImport("__Internal")]
             static extern string _GetCountryCode();
 #endif
+            public enum UIImpactFeedbackStyle
+            {
+                UIImpactFeedbackStyleLight,
+                UIImpactFeedbackStyleMedium,
+                UIImpactFeedbackStyleHeavy,
+                UIImpactFeedbackStyleSoft,
+                UIImpactFeedbackStyleRigid
+            }
             /// <summary>
             /// PlayHaptics
             /// </summary>
-            /// <param name="style">0 = Light, 1=Medium, 2=Heavy</param>
+            /// <param name="style">iOSNative.iOSDevice.UIImpactFeedbackStyle</param>
             /// <param name="intensity">Intensity 0.0 - 1.0</param>
-            public static void PlayHaptics(int style, float intensity)
+            public static void PlayHaptics(UIImpactFeedbackStyle style, float intensity)
             {
 #if UNITY_IOS && !UNITY_EDITOR
-            _PlayHaptics(style, intensity);
+                _PlayHaptics((int)style, intensity);
 #endif
             }
 
@@ -216,7 +256,10 @@ public static class iOSNative
 #if UNITY_IOS && !UNITY_EDITOR
         [DllImport("__Internal")]
         private static extern void _Share(string message, string url, string imagePath);
-
+        [DllImport("__Internal")]
+        private static extern void _SaveFileDialog(string content, string fileName);
+        [DllImport("__Internal")]
+        private static extern bool _SelectFileDialog(string ext);
 #endif
         public static void Share(string message, string url = "", string imagePath = "", Action closeCallback = null)
         {
@@ -225,8 +268,27 @@ public static class iOSNative
             iOSCallbackHelper.INSTANCE.SetShareCloseCallback(closeCallback);
 #endif
         }
-
+        public static bool SaveFileDialog(string content, string fileName, Action callback = null)
+        {
+#if UNITY_IOS && !UNITY_EDITOR
+            _SaveFileDialog(content, fileName);
+            iOSCallbackHelper.INSTANCE.SetSaveFileCallback(callback);
+            return true;
+#else
+            return false;
+#endif
         }
+        public static bool SelectFileDialog(string ext, Action<string> callback = null, Action failedCallback = null)
+        {
+#if UNITY_IOS && !UNITY_EDITOR
+            iOSCallbackHelper.INSTANCE.SetFileSelectedCallback(callback);
+            iOSCallbackHelper.INSTANCE.SetFileSelectedFailedCallback(failedCallback);
+            return _SelectFileDialog(ext);
+#else
+            return false;
+#endif
+        }
+   }
 
 
 

@@ -2,6 +2,20 @@
 #import <UIKit/UIView.h>
 @implementation iOSUIView
 
++(void)SetStatusBarHidden:(BOOL)hidden{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];
+    });
+}
+
++ (void)SetStatusBarStyle:(NSInteger)style {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] setStatusBarStyle:(UIStatusBarStyle)style];
+    });
+    
+}
+
+
 +(void)ShowTempAlert:(NSString *)alertString{
     [iOSUIView ShowTempAlert:alertString duration:5];
 }
@@ -85,12 +99,13 @@
             [label removeFromSuperview];
             [vfxView removeFromSuperview];
             
-            //销毁UIView对象
             vfxView = nil;
             label = nil;
         }];
     });
     
 }
+
+
 
 @end

@@ -10,25 +10,64 @@ public class iOSCallbackHelper : MonoBehaviour {
         get
         {
             if(!instance) instance = FindObjectOfType<iOSCallbackHelper>() ?? 
-                    new GameObject("iOSCallbackHelper").AddComponent<iOSCallbackHelper>();
+                                     new GameObject("iOSCallbackHelper").AddComponent<iOSCallbackHelper>();
             return instance;
         }
     }
 
-    Action onShareCloseCallback;
+    event Action OnShareClose;
 
     public void SetShareCloseCallback(Action callback)
     {
-        onShareCloseCallback = callback;
+        OnShareClose = callback;
     }
 
     //This method will be called from iOSNative Objective-C codes!!!
     public void OnShareCloseCallback(string msg)
     {
-        if(msg.Equals("Closed") && onShareCloseCallback != null)
+        if(msg.Equals("Closed") && OnShareClose != null)
         {
-            onShareCloseCallback.Invoke();
+            OnShareClose.Invoke();
+            OnShareClose = null;
         }
     }
+    
+    event Action OnFileSaved;
+    public void SetSaveFileCallback(Action callback)
+    {
+        OnFileSaved = callback;
+    }
 
+    public void OnFileSaveCallback(string msg)
+    {
+        if (msg.Equals("True"))
+        {
+            OnFileSaved?.Invoke();
+        }
+        else
+        {
+            OnFileSaved = null;
+        }
+    }
+    
+    event Action<string> OnFileSelected;
+    event Action OnFileSelectFailed;
+    public void SetFileSelectedCallback(Action<string> callback)
+    {
+        OnFileSelected = callback;
+    }
+    public void SetFileSelectedFailedCallback(Action callback)
+    {
+        OnFileSelectFailed = callback;
+    }
+    public void OnFileSelectedCallback(string msg)
+    {
+        OnFileSelected?.Invoke(msg);
+        OnFileSelected = null;
+    }
+    public void OnFileSelectedFailedCallback(string msg)
+    {
+        OnFileSelectFailed?.Invoke();
+        OnFileSelectFailed = null;
+    }
 }
