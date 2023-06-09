@@ -50,6 +50,8 @@
 
 `ClearICloudSave()`
 
+> 此方法可用性未经测试
+
 - 清空iCloud存档
 
 `iCloudGetString/Int/Float/BoolValue(string key, var defaultValue)`
@@ -88,6 +90,8 @@
 
 ### iOSDevice
 `PlayHaptics(UIImpactFeedbackStyle style, float intensity)`
+
+> 此方法可用性未经测试
 
 - style 震动强度，Intensity强度（0.0 - 1.0）
 
