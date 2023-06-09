@@ -93,13 +93,24 @@
 
 `GetCountryCode()`
 
-- 获取当前设备的ISO地区码
+- 获取当前设备的ISO地区码（ISO 639-1）
 
 ### iOSShare
 
 `Share(string message, string url = "", string imagePath = "", Action closeCallback = null)`
 
 - 调用系统分享功能 message：分享文本字符串，url：链接，imagePath：要分享的图片的本地路径，closeCallback：用户关闭分享面板的回调
+
+`SaveFileDialog(string content, string fileName, Action callback = null)`
+
+- 调用系统保存文件对话框，允许玩家选择保存文件的路径
+- callback：玩家关闭对话框回调
+
+`SelectFileDialog(string ext, Action<string> callback = null, Action failedCallback = null)`
+
+- 调用系统选择文件对话框，允许玩家选择文件
+ - callback：玩家选择并读取文件后的回调（String）
+ - failedCallback：文件读取失败的回调（文件类型无效）
 
 ## 注意事项
 - 在调用插件方法之前先调用 `iOSNative.cs` 中的Initialize方法进行插件初始化
