@@ -74,14 +74,22 @@
 - 移除所有待定通知
 
 ### iOSUIView
+`SetStatusBarHidden(bool hidden)`
+
+- 设置状态栏的是否隐藏
+
+`SetStatusBarStyle(UIStatusBarStyle style)`
+
+- 设置状态栏的样式（白色、黑色、自动）
+
 `ShowTempAlert(string alertString, int duration = 5)`
 
 - 在应用内顶部展示一个内容为alertString，时长duration秒的横幅
 
 ### iOSDevice
-`PlayHaptics(int style, float intensity)`
+`PlayHaptics(UIImpactFeedbackStyle style, float intensity)`
 
-- 震动（style：0 = Light, 1=Medium, 2=Heavy），Intensity强度（0.0 - 1.0）
+- style 震动强度，Intensity强度（0.0 - 1.0）
 
 `GetCountryCode()`
 
