@@ -97,7 +97,7 @@
 
 `GetCountryCode()`
 
-- 获取当前设备的ISO地区码（ISO 639-1）
+- 获取当前设备的ISO地区码（ISO 3166-1 alpha-2）
 
 ### iOSShare
 
