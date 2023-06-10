@@ -63,7 +63,7 @@ static NSInteger availabilityAttemptsCount;
     BOOL available = [iCloudKeyValueStore checkForAvailability];
     
     if(!available && !noCloudAlertShown){
-        [iOSNotification PushNotification:@"iCloud save is not available at this point!" title:nil identifier:@"iCloudUnavailable" delay:1];
+        [Notification PushNotification:@"iCloud save is not available at this point!" title:nil identifier:@"iCloudUnavailable" delay:1];
         
         noCloudAlertShown = YES;
     }

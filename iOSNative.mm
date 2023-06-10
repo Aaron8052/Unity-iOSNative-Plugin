@@ -4,7 +4,7 @@
 
 @implementation iOSNative
 +(void)init{
-    [iOSNotification init];
+    [Notification init];
     [iCloudKeyValueStore init];
 }
 
@@ -27,39 +27,43 @@ extern "C"
         [iOSNative init];
     }
     bool _IsStatusBarHidden(){
-        return [iOSUIView IsStatusBarHidden];   
+        return [NativeUI IsStatusBarHidden];
     }
-    void _SetStatusBarHidden(bool hidden){
-        [iOSUIView SetStatusBarHidden:hidden];
+    void _SetStatusBarHidden(bool hidden, int withAnimation){
+        [NativeUI SetStatusBarHidden:hidden withAnimation:withAnimation];
     }
     void _SetStatusBarStyle(int style){
-        [iOSUIView SetStatusBarStyle:style];
+        [NativeUI SetStatusBarStyle:style];
     }
 
     void _ShowTempAlert(const char* alertString, int duration = 5){
-        [iOSUIView ShowTempAlert:[NSString stringWithUTF8String:alertString ?: ""] duration:duration];
+        [NativeUI ShowTempAlert:[NSString stringWithUTF8String:alertString ?: ""] duration:duration];
+    }
+
+    void _SetAudioExclusive(bool exclusive){
+        [Device SetAudioExclusive:exclusive];
     }
 
     void _PlayHaptics(int style, float intensity){
-        [iOSDevice PlayHaptics:style _intensity:intensity];
+        [Device PlayHaptics:style _intensity:intensity];
     }
 
 
 
     void _Share(const char* message, const char* url, const char* imagePath)
     {
-        [iOSShare shareMsg:[NSString stringWithUTF8String:message ?: ""] addUrl:[NSString stringWithUTF8String:url ?: ""] imgPath:[NSString stringWithUTF8String:imagePath ?: ""]];
+        [NativeShare shareMsg:[NSString stringWithUTF8String:message ?: ""] addUrl:[NSString stringWithUTF8String:url ?: ""] imgPath:[NSString stringWithUTF8String:imagePath ?: ""]];
     }
     void _SaveFileDialog(const char* content, const char* fileName)
     {
-        [iOSShare SaveFileDialog:[NSString stringWithUTF8String:content ?: ""] fileName:[NSString stringWithUTF8String:fileName ?: ""]];
+        [NativeShare SaveFileDialog:[NSString stringWithUTF8String:content ?: ""] fileName:[NSString stringWithUTF8String:fileName ?: ""]];
     }
     bool _SelectFileDialog(const char* ext)
     {
-        return [iOSShare SelectFileDialog:[NSString stringWithUTF8String:ext ?: ""]];
+        return [NativeShare SelectFileDialog:[NSString stringWithUTF8String:ext ?: ""]];
     }
     void _PushNotification(const char *msg, const char *title, const char *identifier, int delay){
-        [iOSNotification PushNotification:[NSString stringWithUTF8String:msg ?: ""]
+        [Notification PushNotification:[NSString stringWithUTF8String:msg ?: ""]
                               title:[NSString stringWithUTF8String:title ?: ""]
                          identifier:[NSString stringWithUTF8String:identifier ?: ""]
                               delay:(NSInteger)delay];
@@ -67,11 +71,11 @@ extern "C"
 
 
     void _RemovePendingNotifications(const char *identifier){
-        [iOSNotification RemovePendingNotifications:[NSString stringWithUTF8String:identifier]];
+        [Notification RemovePendingNotifications:[NSString stringWithUTF8String:identifier]];
     }
 
     void _RemoveAllPendingNotifications(){
-        [iOSNotification RemoveAllPendingNotificaions];
+        [Notification RemoveAllPendingNotificaions];
     }
 
     bool _IsICloudAvailable(){
@@ -80,7 +84,7 @@ extern "C"
 
     //ISO 3166-1 alpha-2
     const char* _GetCountryCode(){
-        return StringCopy([[iOSDevice GetCountryCode] UTF8String]);
+        return StringCopy([[Device GetCountryCode] UTF8String]);
     }
 
     bool _ClearICloudSave(){

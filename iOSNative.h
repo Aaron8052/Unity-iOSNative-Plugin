@@ -1,5 +1,4 @@
-//此文件包含了所有类的头定义以及通用的一些方法
-//所有类的实现都在对应的同名.mm文件中
+//此文件包含了所有类的头定义以及通用的一些方UIView有类的实现都在对应的同名.mm文件中
 #import <Foundation/Foundation.h>
 #import "UnityAppController.h"
 
@@ -10,7 +9,9 @@ static void LOG(NSString* log){
         NSLog(@"[iOS Native] %@", log);
     }
 }
-
+static void SendCallback(const char* method,const char* msg){
+    UnitySendMessage("iOSCallbackHelper", method, msg);
+}
 
 
 
@@ -20,7 +21,7 @@ static void LOG(NSString* log){
 
 
 
-@interface iOSShare : NSObject
+@interface NativeShare : NSObject
 +(void)shareMsg:(NSString *)message addUrl:(NSString *)url imgPath:(NSString *)filePath;
 +(void)SaveFileDialog:(NSString *)content fileName:(NSString *)fileName;
 +(BOOL)SelectFileDialog:(NSString *)ext;
@@ -28,7 +29,7 @@ static void LOG(NSString* log){
 
 
 
-@interface iOSNotification : NSObject
+@interface Notification : NSObject
 +(void)init;
 +(void)PushNotification:(NSString *)msg title:(NSString *)title identifier:(NSString *)identifier delay:(NSInteger)time;
 +(void)RemovePendingNotifications:(NSString *)identifier;
@@ -55,16 +56,17 @@ static void LOG(NSString* log){
 
 
 
-@interface iOSDevice : NSObject
+@interface Device : NSObject
++(void)SetAudioExclusive:(BOOL)exclusiveOn;
 +(void)PlayHaptics:(int)style _intensity:(float)intensity;
 +(NSString *)GetCountryCode;
 @end
 
 
 
-@interface iOSUIView : NSObject
+@interface NativeUI : NSObject
 +(BOOL)IsStatusBarHidden;
-+(void)SetStatusBarHidden:(BOOL)hidden;
++(void)SetStatusBarHidden:(BOOL)hidden withAnimation:(NSInteger)withAnimation;
 +(void)SetStatusBarStyle:(NSInteger)style;
 +(void)ShowTempAlert:(NSString *)alertString duration:(NSInteger)duration;
 +(void)ShowTempAlert:(NSString *)alertString;

@@ -100,7 +100,7 @@ public static class iOSNative
             return _iCloudSaveBool(key, value);
         }
     }
-    public static class iOSNotification
+    public static class Notification
     {
         [DllImport("__Internal")]
         private static extern void _PushNotification(string msg, string title, string identifier, int delay);
@@ -123,7 +123,7 @@ public static class iOSNative
             _RemoveAllPendingNotifications();
         }
     }
-    public static class iOSUIView
+    public static class NativeUI
     {
         [DllImport("__Internal")]
         static extern bool _IsStatusBarHidden();
@@ -132,7 +132,7 @@ public static class iOSNative
         private static extern void _ShowTempAlert(string alertString, int duration = 5);
 
         [DllImport("__Internal")]
-        static extern void _SetStatusBarHidden(bool hidden);
+        static extern void _SetStatusBarHidden(bool hidden, int withAnimation);
 
         [DllImport("__Internal")]
         static extern void _SetStatusBarStyle(int style);
@@ -141,9 +141,16 @@ public static class iOSNative
         {
             return _IsStatusBarHidden();
         }
-        public static void SetStatusBarHidden(bool hidden)
+
+        public enum UIStatusBarAnimation
         {
-            _SetStatusBarHidden(hidden);
+            None,
+            Fade,
+            Slide,
+        }
+        public static void SetStatusBarHidden(bool hidden, UIStatusBarAnimation withAnimation = UIStatusBarAnimation.Fade)
+        {
+            _SetStatusBarHidden(hidden, (int)withAnimation);
         }
 
         public enum UIStatusBarStyle
@@ -166,13 +173,24 @@ public static class iOSNative
             _ShowTempAlert(alertString, duration);
         }
     }
-    public static class iOSDevice
+    public static class Device
     {
+        [DllImport("__Internal")]
+        static extern void _SetAudioExclusive(bool exclusive);
+        
         [DllImport("__Internal")]
         static extern void _PlayHaptics(int style, float intensity);
             
         [DllImport("__Internal")]
         static extern string _GetCountryCode();
+
+
+        public static void SetAudioExclusive(bool exclusive)
+        {
+            _SetAudioExclusive(exclusive);
+        }
+        
+        
         public enum UIImpactFeedbackStyle
         {
             Light,
@@ -196,7 +214,7 @@ public static class iOSNative
             return _GetCountryCode();
         }
     }
-    public static class iOSShare
+    public static class NativeShare
     {
         [DllImport("__Internal")]
         private static extern void _Share(string message, string url, string imagePath);
