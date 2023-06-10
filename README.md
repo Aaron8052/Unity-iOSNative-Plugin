@@ -34,88 +34,88 @@
 - `NativeUI.mm` 包含部分 iOS Native UI的功能（比如应用内展示横幅，可用于应用内消息推送）
 
 ## 子类/功能介绍
-`Initialize()`
+#### `Initialize()`
 
 - 初始化整个iOSNative插件
 
 ### iCloudKeyValueStore
 
-`IsICloudAvailable()`
+#### `IsICloudAvailable()`
 
 - 判断当前设备iCloud是否可用
 
-`Synchronize()`
+#### `Synchronize()`
 
 - 强制同步iCloud云存档至Apple服务器（Bool返回值：是否同步成功）
 
-`ClearICloudSave()`
+#### `ClearICloudSave()`
 
 > 此方法可用性未经测试
 
 - 清空iCloud存档
 
-`iCloudGetString/Int/Float/BoolValue(string key, var defaultValue)`
+#### `iCloudGetString/Int/Float/BoolValue(string key, var defaultValue)`
 
 - 从iCloud读取目标数据
 
-`iCloudSaveString/Int/Float/BoolValue(string key, var value)`
+#### `iCloudSaveString/Int/Float/BoolValue(string key, var value)`
 
 - 保存数据到iCloud
 
 ### Notification
-`PushNotification(string msg, string title, string identifier, int delay)`
+#### `PushNotification(string msg, string title, string identifier, int delay)`
 
 - 推送本地通知：msg，title：标题（可留空），identifier：本通知的标识符，相同的标识符会被系统判定为同一个通知，delay：延迟待定delay秒后推送此通知
 
-`RemovePendingNotifications(string identifier)`
+#### `RemovePendingNotifications(string identifier)`
 
 - 移除某个待定通知（对于已经推送的通知无效）
 
-`RemoveAllPendingNotifications()`
+#### `RemoveAllPendingNotifications()`
 
 - 移除所有待定通知
 
 ### NativeUI
-`bool IsStatusBarHidden()`
+#### `IsStatusBarHidden()`
 
-- 当前系统状态栏是否被隐藏
+- 判断当前系统状态栏是否被隐藏
 
-`SetStatusBarHidden(bool hidden, UIStatusBarAnimation withAnimation = UIStatusBarAnimation.Fade)`
+#### `SetStatusBarHidden(bool hidden, UIStatusBarAnimation withAnimation = UIStatusBarAnimation.Fade)`
 
 - 设置状态栏的隐藏状态
 - withAnimation：隐藏显示时的动画类型，无动画/渐变/滑动
 
-`SetStatusBarStyle(UIStatusBarStyle style)`
+#### `SetStatusBarStyle(UIStatusBarStyle style)`
 
 - 设置状态栏的样式（白色、黑色、自动）
 
-`ShowTempAlert(string alertString, int duration = 5)`
+#### `ShowTempAlert(string alertString, int duration = 5)`
 
 - 在应用内顶部展示一个内容为alertString，时长duration秒的横幅
 
 ### Device
-`PlayHaptics(UIImpactFeedbackStyle style, float intensity)`
+#### `PlayHaptics(UIImpactFeedbackStyle style, float intensity)`
 
 > 此方法可用性未经测试
 
 - style 震动强度，Intensity强度（0.0 - 1.0）
 
-`GetCountryCode()`
+#### `GetCountryCode()`
 
 - 获取当前设备的ISO地区码（ISO 3166-1 alpha-2）
 
 ### NativeShare
 
-`Share(string message, string url = "", string imagePath = "", Action closeCallback = null)`
+#### `Share(string message, string url = "", string imagePath = "", Action closeCallback = null)`
 
 - 调用系统分享功能 message：分享文本字符串，url：链接，imagePath：要分享的图片的本地路径，closeCallback：用户关闭分享面板的回调
 
-`SaveFileDialog(string content, string fileName, Action callback = null)`
+#### `SaveFileDialog(string content, string fileName, Action callback = null)`
 
 - 调用系统保存文件对话框，允许玩家选择保存文件的路径
 - callback：玩家关闭对话框回调
 
-`SelectFileDialog(string ext, Action<string> callback = null, Action failedCallback = null)`
+#### `SelectFileDialog(string ext, Action<string> callback = null, Action failedCallback = null)`
 
 - 调用系统选择文件对话框，允许玩家选择文件
  - callback：玩家选择并读取文件后的回调（String）
