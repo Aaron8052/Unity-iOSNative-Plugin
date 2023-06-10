@@ -94,6 +94,11 @@
 - 在应用内顶部展示一个内容为alertString，时长duration秒的横幅
 
 ### Device
+#### `SetAudioExclusive(bool exclusive)`
+- 调用此方法可静音/暂停设备后台正在播放的音频
+- exclusive为true时：静音后台音频
+- exclusive为false时：游戏音频可与后台音频同时播放
+
 #### `PlayHaptics(UIImpactFeedbackStyle style, float intensity)`
 
 > 此方法可用性未经测试
