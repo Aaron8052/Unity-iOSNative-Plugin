@@ -20,7 +20,7 @@
 # 使用
 ## 导入
 - 直接将所有文件(`.h`, `.mm`, `.cs`)导入Unity项目的Assets/Plugins/iOS中
-- 调用 iOSNative.cs 中的方法和子类即可 (iOSCallbackHelper.cs不用管，运行时会根据需要自动初始化，也可以提前放入场景中)
+- 调用 iOSNative.cs 中的方法和**子类**即可 (iOSCallbackHelper.cs不用管，运行时会根据需要自动初始化，也可以提前放入场景中)
 
 ## 模块介绍
 - `iOSNative.cs` 插件与UnityC#项目的接口，调用里面的方法可以实现与iOS的OC代码交互
@@ -28,12 +28,12 @@
 - `iOSNative.h` 头文件，本Native插件的所有类的声明以及公开方法都在这里面
 - `iOSNative.mm` 负责将插件的方法暴露给UnityC#端以进行交互
 - `iCloudKeyValueStore.mm` 负责iCloud相关功能的实现
-- `iOSDevice.mm` 负责 iPhone 设备相关功能的实现
-- `iOSNotification.mm` 负责 iOS 本地通知推送的实现
-- `iOSShare.mm` 负责 iOS 自带的分享功能的实现
-- `iOSUIView.mm` 包含部分 iOS Native UI的功能（比如应用内展示横幅，可用于应用内消息推送）
+- `Device.mm` 负责 iPhone 设备相关功能的实现
+- `Notification.mm` 负责 iOS 本地通知推送的实现
+- `NativeShare.mm` 负责 iOS 自带的分享功能的实现
+- `NativeUI.mm` 包含部分 iOS Native UI的功能（比如应用内展示横幅，可用于应用内消息推送）
 
-## 功能
+## 子类/功能介绍
 `Initialize()`
 
 - 初始化整个iOSNative插件
@@ -62,7 +62,7 @@
 
 - 保存数据到iCloud
 
-### iOSNotification
+### Notification
 `PushNotification(string msg, string title, string identifier, int delay)`
 
 - 推送本地通知：msg，title：标题（可留空），identifier：本通知的标识符，相同的标识符会被系统判定为同一个通知，delay：延迟待定delay秒后推送此通知
@@ -75,10 +75,15 @@
 
 - 移除所有待定通知
 
-### iOSUIView
-`SetStatusBarHidden(bool hidden)`
+### NativeUI
+`bool IsStatusBarHidden()`
 
-- 设置状态栏的是否隐藏
+- 当前系统状态栏是否被隐藏
+
+`SetStatusBarHidden(bool hidden, UIStatusBarAnimation withAnimation = UIStatusBarAnimation.Fade)`
+
+- 设置状态栏的隐藏状态
+- withAnimation：隐藏显示时的动画类型，无动画/渐变/滑动
 
 `SetStatusBarStyle(UIStatusBarStyle style)`
 
@@ -88,7 +93,7 @@
 
 - 在应用内顶部展示一个内容为alertString，时长duration秒的横幅
 
-### iOSDevice
+### Device
 `PlayHaptics(UIImpactFeedbackStyle style, float intensity)`
 
 > 此方法可用性未经测试
@@ -99,7 +104,7 @@
 
 - 获取当前设备的ISO地区码（ISO 3166-1 alpha-2）
 
-### iOSShare
+### NativeShare
 
 `Share(string message, string url = "", string imagePath = "", Action closeCallback = null)`
 
