@@ -63,6 +63,7 @@ static void LOG(NSString* log){
 
 
 @interface iOSUIView : NSObject
++(BOOL)IsStatusBarHidden;
 +(void)SetStatusBarHidden:(BOOL)hidden;
 +(void)SetStatusBarStyle:(NSInteger)style;
 +(void)ShowTempAlert:(NSString *)alertString duration:(NSInteger)duration;

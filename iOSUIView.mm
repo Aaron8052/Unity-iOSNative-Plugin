@@ -2,13 +2,21 @@
 #import <UIKit/UIView.h>
 @implementation iOSUIView
 
-+(void)SetStatusBarHidden:(BOOL)hidden{
++(BOOL)IsStatusBarHidden {
+    return [UIApplication sharedApplication].isStatusBarHidden;
+}
+
+
++(void)SetStatusBarHidden:(BOOL)hidden {
+    if([iOSUIView IsStatusBarHidden] == hidden)
+        return;
+        
     dispatch_async(dispatch_get_main_queue(), ^{
         [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];
     });
 }
 
-+ (void)SetStatusBarStyle:(NSInteger)style {
++(void)SetStatusBarStyle:(NSInteger)style {
     dispatch_async(dispatch_get_main_queue(), ^{
         [[UIApplication sharedApplication] setStatusBarStyle:(UIStatusBarStyle)style];
     });

@@ -26,7 +26,9 @@ extern "C"
     void _initialize(){
         [iOSNative init];
     }
-
+    bool _IsStatusBarHidden(){
+        return [iOSUIView IsStatusBarHidden];   
+    }
     void _SetStatusBarHidden(bool hidden){
         [iOSUIView SetStatusBarHidden:hidden];
     }

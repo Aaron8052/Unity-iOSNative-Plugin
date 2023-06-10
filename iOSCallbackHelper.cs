@@ -10,7 +10,7 @@ public class iOSCallbackHelper : MonoBehaviour {
         get
         {
             if(!instance) instance = FindObjectOfType<iOSCallbackHelper>() ?? 
-                                     new GameObject("iOSCallbackHelper").AddComponent<iOSCallbackHelper>();
+                    new GameObject("iOSCallbackHelper").AddComponent<iOSCallbackHelper>();
             return instance;
         }
     }
