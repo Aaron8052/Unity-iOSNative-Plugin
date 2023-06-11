@@ -1,0 +1,17 @@
+{
+  "name": "com.fengyan.iosnativeplugin",
+  "version": "2.1.0",
+  "displayName": "Unity-iOSNative-Plugin",
+  "description": "iOS Native Plugin for Unity",
+  "unity": "2017.4",
+  "dependencies": {},
+  "keywords": [
+    "iOS",
+    "Native",
+    "Plugin"
+  ],
+  "author": {
+    "name": "FengYan",
+    "url": "https://github.com/Aaron8052/Unity-iOSNative-Plugin"
+  }
+}

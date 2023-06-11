@@ -21,9 +21,6 @@
     
     UIStatusBarStyle statusBarStyle = (UIStatusBarStyle)style;
     
-    if([UIApplication sharedApplication].statusBarStyle == statusBarStyle)
-        return;
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         [[UIApplication sharedApplication] setStatusBarStyle:statusBarStyle animated:animated];
     });
