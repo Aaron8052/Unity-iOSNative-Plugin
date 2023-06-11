@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,8 +9,11 @@ public class iOSCallbackHelper : MonoBehaviour {
     {
         get
         {
-            if(!instance) instance = FindObjectOfType<iOSCallbackHelper>() ?? 
+            if(!instance) {
+                instance = FindObjectOfType<iOSCallbackHelper>() ?? 
                     new GameObject("iOSCallbackHelper").AddComponent<iOSCallbackHelper>();
+                DontDestroyOnLoad(instance);
+            }
             return instance;
         }
     }
