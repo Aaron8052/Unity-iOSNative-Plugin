@@ -135,7 +135,7 @@ public static class iOSNative
         static extern void _SetStatusBarHidden(bool hidden, int withAnimation);
 
         [DllImport("__Internal")]
-        static extern void _SetStatusBarStyle(int style);
+        static extern void _SetStatusBarStyle(int style, bool animated);
 
         public static bool IsStatusBarHidden()
         {
@@ -163,9 +163,9 @@ public static class iOSNative
             [Obsolete("Use UIStatusBarStyle.LightContent instead.", true)]
             BlackOpaque  = 2,
         }
-        public static void SetStatusBarStyle(UIStatusBarStyle style)
+        public static void SetStatusBarStyle(UIStatusBarStyle style, bool animated = false)
         {
-            _SetStatusBarStyle((int)style);
+            _SetStatusBarStyle((int)style, animated);
         }
             
         public static void ShowTempAlert(string alertString, int duration = 5)

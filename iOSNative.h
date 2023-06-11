@@ -67,7 +67,7 @@ static void SendCallback(const char* method,const char* msg){
 @interface NativeUI : NSObject
 +(BOOL)IsStatusBarHidden;
 +(void)SetStatusBarHidden:(BOOL)hidden withAnimation:(NSInteger)withAnimation;
-+(void)SetStatusBarStyle:(NSInteger)style;
++(void)SetStatusBarStyle:(NSInteger)style animated:(BOOL)animated;
 +(void)ShowTempAlert:(NSString *)alertString duration:(NSInteger)duration;
 +(void)ShowTempAlert:(NSString *)alertString;
 @end

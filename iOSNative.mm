@@ -32,8 +32,8 @@ extern "C"
     void _SetStatusBarHidden(bool hidden, int withAnimation){
         [NativeUI SetStatusBarHidden:hidden withAnimation:withAnimation];
     }
-    void _SetStatusBarStyle(int style){
-        [NativeUI SetStatusBarStyle:style];
+    void _SetStatusBarStyle(int style, bool animated){
+        [NativeUI SetStatusBarStyle:style animated:animated];
     }
 
     void _ShowTempAlert(const char* alertString, int duration = 5){

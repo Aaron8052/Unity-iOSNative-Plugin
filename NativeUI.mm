@@ -17,9 +17,15 @@
     });
 }
 
-+(void)SetStatusBarStyle:(NSInteger)style {
++(void)SetStatusBarStyle:(NSInteger)style animated:(BOOL)animated{
+    
+    UIStatusBarStyle statusBarStyle = (UIStatusBarStyle)style;
+    
+    if([UIApplication sharedApplication].statusBarStyle == statusBarStyle)
+        return;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[UIApplication sharedApplication] setStatusBarStyle:(UIStatusBarStyle)style];
+        [[UIApplication sharedApplication] setStatusBarStyle:statusBarStyle animated:animated];
     });
     
 }
