@@ -43,9 +43,9 @@ public class iOSCallbackHelper : MonoBehaviour {
 
     public void OnFileSaveCallback(string msg)
     {
-        if (msg.Equals("True"))
+        if (msg.Equals("True") && OnFileSaved != null)
         {
-            OnFileSaved?.Invoke();
+            OnFileSaved.Invoke();
         }
         else
         {
@@ -65,12 +65,20 @@ public class iOSCallbackHelper : MonoBehaviour {
     }
     public void OnFileSelectedCallback(string msg)
     {
-        OnFileSelected?.Invoke(msg);
-        OnFileSelected = null;
+        if (OnFileSelected != null)
+        {
+            OnFileSelected.Invoke(msg);
+            OnFileSelected = null;
+        }
+
     }
     public void OnFileSelectedFailedCallback(string msg)
     {
-        OnFileSelectFailed?.Invoke();
-        OnFileSelectFailed = null;
+        if (OnFileSelectFailed != null)
+        {
+            OnFileSelectFailed.Invoke();
+            OnFileSelectFailed = null;
+        }
+        
     }
 }
