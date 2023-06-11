@@ -9,7 +9,6 @@
     "url": "git+https://github.com/Aaron8052/Unity-iOSNative-Plugin.git"
   },
   "dependencies": {
-    "com.fengyan.ios-native-plugin": "https://github.com/Aaron8052/Unity-iOSNative-Plugin.git"
   },
   "keywords": [
     "iOS",
