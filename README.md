@@ -36,15 +36,18 @@
 - 将仓库的 `Plugins` 文件夹中的**全部内容**导入到你的**Unity项目**中的 `Plugins` 文件夹即可
 
 ## 模块介绍
-- `iOSNative.cs` 插件与UnityC#项目的接口，调用里面的方法可以实现与iOS的OC代码交互
-- `iOSCallbackHelper.cs` 用于接收从OC代码中的回调
-- `iOSNative.h` 头文件，本Native插件的所有类的声明以及公开方法都在这里面
-- `iOSNative.mm` 负责将插件的方法暴露给UnityC#端以进行交互
-- `iCloudKeyValueStore.mm` 负责iCloud相关功能的实现
-- `Device.mm` 负责 iPhone 设备相关功能的实现
-- `Notification.mm` 负责 iOS 本地通知推送的实现
-- `NativeShare.mm` 负责 iOS 自带的分享功能的实现
-- `NativeUI.mm` 包含部分 iOS Native UI的功能（比如应用内展示横幅，可用于应用内消息推送）
+
+| 模块名                      | 功能                                     |
+|--------------------------|----------------------------------------|
+| `iOSNative.cs`           | 插件与UnityC#项目的接口，调用里面的方法可以实现与iOS的OC代码交互 |
+| `iOSCallbackHelper.cs`   | 用于接收从OC代码中的回调                          |
+| `iOSNative.h`            | 头文件，本Native插件的所有类的声明以及公开方法都在这里面        |
+| `iOSNative.mm`           | 负责将插件的方法暴露给UnityC#端以进行交互               |
+| `iCloudKeyValueStore.mm` | 负责iCloud相关功能的实现                        |
+| `Device.mm`              | 负责 iPhone 设备相关功能的实现                    |
+| `Notification.mm`        | 负责 iOS 本地通知推送的实现                       |
+| `NativeShare.mm`         | 负责 iOS 自带的分享功能的实现                      |
+| `NativeUI.mm`            | 包含部分 iOS Native UI的功能（比如应用内显示/隐藏状态栏）   |
 
 ## 子类/功能介绍
 #### `Initialize()`

@@ -1,9 +1,10 @@
 {
   "name": "com.fengyan.ios-native-plugin",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "displayName": "iOS Native Plugin",
   "description": "iOS Native Plugin for Unity",
   "unity": "2017.4",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Aaron8052/Unity-iOSNative-Plugin.git"
