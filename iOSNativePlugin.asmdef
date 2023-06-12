@@ -1,6 +1,6 @@
 {
     "name": "iOSNativePlugin",
-    "rootNamespace": "",
+    "rootNamespace": "iOSNativePlugin",
     "references": [],
     "includePlatforms": [
         "Editor",
