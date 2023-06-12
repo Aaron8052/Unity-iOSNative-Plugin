@@ -20,9 +20,15 @@
 # 使用
 ## 导入
 ### Unity 2019.3 或更新
-- 前往Unity的Package Manager
-- 点击**左上角的加号**，选择 `Add package from git URL`
+- 前往Unity的 **Package Manager**
+- 点击**左上角的加号**
+- 选择 `Add package from git URL`
 - 输入链接 `https://github.com/Aaron8052/Unity-iOSNative-Plugin.git`
+
+#### 如果显示导入失败
+- **将本仓库完整地Clone到你的电脑中**
+- 在 **Package Manager** 选择 `Add package from disk`
+- 在弹出的**文件选择对话框**中**找到刚才Clone的文件夹**，**进入并选择** `package.json` 即可成功导入
 
 ### Unity 2019.3 之前的版本
 - 将仓库的 `Plugins` 文件夹中的**全部内容**导入到你的**Unity项目**中的 `Plugins` 文件夹即可
