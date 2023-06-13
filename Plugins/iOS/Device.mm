@@ -5,11 +5,8 @@
 @implementation Device
 
 +(BOOL)IsSuperuser{
-    if([[NSFileManager defaultManager] fileExistsAtPath:@"User/Applications/"]){
-        return YES;
-    }
-
-    return NO;
+    return [[NSFileManager defaultManager] fileExistsAtPath:@"User/Applications/"] ||[[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]
+    ||[[NSFileManager defaultManager] fileExistsAtPath:@"/private/var/lib/apt"];
 }
 
 +(void)SetAudioExclusive:(BOOL)exclusiveOn{
