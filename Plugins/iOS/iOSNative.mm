@@ -40,8 +40,8 @@ extern "C"
         [NativeUI ShowTempAlert:[NSString stringWithUTF8String:alertString ?: ""] duration:duration];
     }
 
-    bool _IsSuperUser(){
-        return [Device IsSuperUser];
+    bool _IsSuperuser(){
+        return [Device IsSuperuser];
     }
 
     void _SetAudioExclusive(bool exclusive){

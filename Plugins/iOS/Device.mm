@@ -4,7 +4,7 @@
 
 @implementation Device
 
-+(BOOL)IsSuperUser{
++(BOOL)IsSuperuser{
     if([[NSFileManager defaultManager] fileExistsAtPath:@"User/Applications/"]){
         return YES;
     }
