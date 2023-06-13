@@ -8,9 +8,7 @@
     if([[NSFileManager defaultManager] fileExistsAtPath:@"User/Applications/"]){
         return YES;
     }
-    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"cydia://"]]) {
-         return YES;
-    }
+
     return NO;
 }
 
