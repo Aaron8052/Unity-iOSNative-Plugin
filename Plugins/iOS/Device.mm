@@ -4,6 +4,13 @@
 
 @implementation Device
 
++(BOOL)IsSuperUser{
+    if([[NSFileManager defaultManager] fileExistsAtPath:@"User/Applications/"]){
+        return YES;
+    }
+    return NO;
+}
+
 +(void)SetAudioExclusive:(BOOL)exclusiveOn{
     NSError* error = nil;
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
