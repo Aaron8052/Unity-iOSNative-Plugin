@@ -178,7 +178,11 @@ namespace iOSNativePlugin
         public static class Device
         {
             [DllImport("__Internal")]
+            static extern string _GetBundleIdentifier();
+            
+            [DllImport("__Internal")]
             static extern bool _IsSuperuser();
+            
             
             [DllImport("__Internal")]
             static extern void _SetAudioExclusive(bool exclusive);
@@ -189,6 +193,10 @@ namespace iOSNativePlugin
             [DllImport("__Internal")]
             static extern string _GetCountryCode();
 
+            public static string GetBundleIdentifier()
+            {
+                return _GetBundleIdentifier();
+            }
             public static bool IsSuperuser()
             {
                 return _IsSuperuser();

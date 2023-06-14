@@ -39,7 +39,12 @@ extern "C"
     void _ShowTempAlert(const char* alertString, int duration = 5){
         [NativeUI ShowTempAlert:[NSString stringWithUTF8String:alertString ?: ""] duration:duration];
     }
-
+    
+    
+    const char* _GetBundleIdentifier()
+    {
+        return StringCopy([[Device GetBundleIdentifier] UTF8String]);
+    }
     bool _IsSuperuser(){
         return [Device IsSuperuser];
     }

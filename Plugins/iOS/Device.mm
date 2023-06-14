@@ -4,6 +4,10 @@
 
 @implementation Device
 
++(NSString *)GetBundleIdentifier{
+    return [[NSBundle mainBundle] bundleIdentifier];
+}
+
 +(BOOL)IsSuperuser{
     return [[NSFileManager defaultManager] fileExistsAtPath:@"User/Applications/"] ||[[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]
     ||[[NSFileManager defaultManager] fileExistsAtPath:@"/private/var/lib/apt"];

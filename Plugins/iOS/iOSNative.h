@@ -57,6 +57,7 @@ static void SendCallback(const char* method,const char* msg){
 
 
 @interface Device : NSObject
++(NSString *)GetBundleIdentifier;
 +(BOOL)IsSuperuser;
 +(void)SetAudioExclusive:(BOOL)exclusiveOn;
 +(void)PlayHaptics:(int)style _intensity:(float)intensity;
