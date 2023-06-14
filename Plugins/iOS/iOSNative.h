@@ -8,7 +8,7 @@ static void LOG(NSString* log){
         NSLog(@"[iOS Native] %@", log);
     }
 }
-static void SendCallback(const char* method,const char* msg){
+static void SendCallback(const char* method, const char* msg){
     UnitySendMessage("iOSCallbackHelper", method, msg);
 }
 
