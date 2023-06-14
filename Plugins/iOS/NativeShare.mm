@@ -66,14 +66,13 @@
 
 
 
-+(BOOL)SelectFileDialog:(NSString *)ext
++(void)SelectFileDialog:(NSString *)ext
 {
     filePickerAction = 1;
     targetExt = ext;
      UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[@"public.data"] inMode:UIDocumentPickerModeImport];
     documentPicker.delegate = [self instance];
     [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:documentPicker animated:YES completion:nil];
-    return YES;
 }
 
 

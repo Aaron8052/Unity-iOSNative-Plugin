@@ -24,7 +24,7 @@ static void SendCallback(const char* method,const char* msg){
 @interface NativeShare : NSObject
 +(void)shareMsg:(NSString *)message addUrl:(NSString *)url imgPath:(NSString *)filePath;
 +(void)SaveFileDialog:(NSString *)content fileName:(NSString *)fileName;
-+(BOOL)SelectFileDialog:(NSString *)ext;
++(void)SelectFileDialog:(NSString *)ext;
 @end
 
 

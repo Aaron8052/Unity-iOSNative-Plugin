@@ -5,25 +5,25 @@ using UnityEngine;
 
 namespace iOSNativePlugin
 {
-    public class iOSCallbackHelper : MonoBehaviour 
+    internal class iOSCallbackHelper : MonoBehaviour 
     {
-        static iOSCallbackHelper instance;
-        static public iOSCallbackHelper INSTANCE
+        static iOSCallbackHelper _instance;
+        internal static iOSCallbackHelper Instance
         {
             get
             {
-                if(!instance) {
-                    instance = FindObjectOfType<iOSCallbackHelper>() ?? 
+                if(!_instance) {
+                    _instance = FindObjectOfType<iOSCallbackHelper>() ?? 
                                new GameObject("iOSCallbackHelper").AddComponent<iOSCallbackHelper>();
-                    DontDestroyOnLoad(instance);
+                    DontDestroyOnLoad(_instance);
                 }
-                return instance;
+                return _instance;
             }
         }
 
         event Action OnShareClose;
 
-        public void SetShareCloseCallback(Action callback)
+        internal void SetShareCloseCallback(Action callback)
         {
             OnShareClose = callback;
         }
@@ -39,7 +39,7 @@ namespace iOSNativePlugin
         }
     
         event Action OnFileSaved;
-        public void SetSaveFileCallback(Action callback)
+        internal void SetSaveFileCallback(Action callback)
         {
             OnFileSaved = callback;
         }
@@ -58,11 +58,11 @@ namespace iOSNativePlugin
     
         event Action<string> OnFileSelected;
         event Action OnFileSelectFailed;
-        public void SetFileSelectedCallback(Action<string> callback)
+        internal void SetFileSelectedCallback(Action<string> callback)
         {
             OnFileSelected = callback;
         }
-        public void SetFileSelectedFailedCallback(Action callback)
+        internal void SetFileSelectedFailedCallback(Action callback)
         {
             OnFileSelectFailed = callback;
         }
