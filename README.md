@@ -102,7 +102,7 @@
 
 ### Device
 #### `IsSuperuser()`
-- 断当前设备是否越狱
+- 判断当前设备是否越狱
 
 #### `SetAudioExclusive(bool exclusive)`
 - 调用此方法可静音/暂停设备后台正在播放的音频
