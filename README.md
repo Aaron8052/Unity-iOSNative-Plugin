@@ -72,7 +72,7 @@
 ### Notification
 #### `PushNotification(string msg, string title, string identifier, int delay)`
 
-- 推送本地通知：msg，title：标题（可留空），identifier：本通知的标识符，相同的标识符会被系统判定为同一个通知，delay：延迟待定delay秒后推送此通知
+- 推送本地定时通知：msg，title：标题（可留空），identifier：本通知的标识符，相同的标识符会被系统判定为同一个通知，delay：延迟待定delay秒后推送此通知
 
 #### `RemovePendingNotifications(string identifier)`
 
@@ -102,7 +102,7 @@
 
 ### Device
 #### `IsSuperuser()`
--判断当前设备是否越狱
+- 断当前设备是否越狱
 
 #### `SetAudioExclusive(bool exclusive)`
 - 调用此方法可静音/暂停设备后台正在播放的音频
