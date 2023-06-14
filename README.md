@@ -110,6 +110,9 @@
 - 在应用内顶部展示一个内容为alertString，时长duration秒的横幅
 
 ### Device
+#### `IsSuperuser()`
+-判断当前设备是否越狱
+
 #### `SetAudioExclusive(bool exclusive)`
 - 调用此方法可静音/暂停设备后台正在播放的音频
 - exclusive为true时：静音后台音频
