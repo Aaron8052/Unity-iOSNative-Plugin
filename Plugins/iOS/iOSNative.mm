@@ -1,5 +1,3 @@
-//此文件包含了iOS原生插件的初始化方法以及暴露给Unity C#端的接口
-
 #import "iOSNative.h"
 
 @implementation iOSNative

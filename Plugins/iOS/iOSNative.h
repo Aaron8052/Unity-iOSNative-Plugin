@@ -1,4 +1,3 @@
-//此文件包含了所有类的头定义以及通用的一些方UIView有类的实现都在对应的同名.mm文件中
 #import <Foundation/Foundation.h>
 #import "UnityAppController.h"
 
