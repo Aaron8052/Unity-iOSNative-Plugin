@@ -60,7 +60,7 @@ delay:(NSInteger)time{
 
 }
 
-+(void)RemoveAllPendingNotificaions{
++(void)RemoveAllPendingNotifications{
     if(notificationGranted){
         [notificationCenter removeAllPendingNotificationRequests];
     }

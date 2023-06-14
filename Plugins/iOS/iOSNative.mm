@@ -84,7 +84,7 @@ extern "C"
         [Notification RemovePendingNotifications:[NSString stringWithUTF8String:identifier]];
     }
     void _RemoveAllPendingNotifications(){
-        [Notification RemoveAllPendingNotificaions];
+        [Notification RemoveAllPendingNotifications];
     }
     
     
