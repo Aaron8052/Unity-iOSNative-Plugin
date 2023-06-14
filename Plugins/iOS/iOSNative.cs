@@ -7,12 +7,27 @@ namespace iOSNativePlugin
     {
         [DllImport("__Internal")]
         private static extern void _initialize();
+        
+        [DllImport("__Internal")]
+        static extern string _GetBundleIdentifier();
+        
+        
         /// <summary>
         /// 初始化整个iOSNative插件
         /// </summary>
         public static void Initialize(){
             _initialize();
-        } 
+        }
+        
+        /// <summary>
+        /// 获取当前应用的Bundle Identifier
+        /// </summary>
+        /// <returns>Bundle Identifier (与<c>Application.identifier</c>一致)</returns>
+        public static string GetBundleIdentifier()
+        {
+            return _GetBundleIdentifier();
+        }
+        
         
         public static class iCloudKeyValueStore
         {
@@ -283,11 +298,7 @@ namespace iOSNativePlugin
         public static class Device
         {
             [DllImport("__Internal")]
-            static extern string _GetBundleIdentifier();
-            
-            [DllImport("__Internal")]
             static extern bool _IsSuperuser();
-            
             
             [DllImport("__Internal")]
             static extern void _SetAudioExclusive(bool exclusive);
@@ -297,15 +308,7 @@ namespace iOSNativePlugin
                 
             [DllImport("__Internal")]
             static extern string _GetCountryCode();
-
-            /// <summary>
-            /// 获取当前应用的Bundle Identifier
-            /// </summary>
-            /// <returns>Bundle Identifier (与<c>Application.identifier</c>一致)</returns>
-            public static string GetBundleIdentifier()
-            {
-                return _GetBundleIdentifier();
-            }
+            
             
             /// <summary>
             /// 判断当前设备是否越狱

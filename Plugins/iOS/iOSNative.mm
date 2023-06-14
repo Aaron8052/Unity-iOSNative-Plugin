@@ -6,6 +6,10 @@
     [iCloudKeyValueStore init];
 }
 
++(NSString *)GetBundleIdentifier{
+    return [[NSBundle mainBundle] bundleIdentifier];
+}
+
 @end
 
 char* StringCopy(const char* string)
@@ -24,6 +28,12 @@ extern "C"
     void _initialize(){
         [iOSNative init];
     }
+    const char* _GetBundleIdentifier()
+    {
+        return StringCopy([[iOSNative GetBundleIdentifier] UTF8String]);
+    }
+    
+    
     bool _IsStatusBarHidden(){
         return [NativeUI IsStatusBarHidden];
     }
@@ -39,10 +49,7 @@ extern "C"
     }
     
     
-    const char* _GetBundleIdentifier()
-    {
-        return StringCopy([[Device GetBundleIdentifier] UTF8String]);
-    }
+    
     bool _IsSuperuser(){
         return [Device IsSuperuser];
     }
