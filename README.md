@@ -48,12 +48,14 @@
 
 > 在调用插件方法之前先调用 `Initialize` 方法进行插件初始化
 
+### 父类 - iOSNative
+
 | 方法                      | 功能                       |
 |-------------------------|--------------------------|
 | `Initialize()`          | 初始化整个iOSNative插件         |
 | `GetBundleIdentifier()` | 获取当前应用的Bundle Identifier |
 
-### iCloudKeyValueStore
+### 子类 - iOSNative.iCloudKeyValueStore
 
 | 方法                        | 功能                                     |
 |---------------------------|----------------------------------------|
@@ -69,7 +71,7 @@
 | `iCloudSaveFloatValue()`  | 保存Float值到iCloud                        |
 | `iCloudSaveBoolValue()`   | 保存Bool值到iCloud                         |
 
-### Notification
+### 子类 - iOSNative.Notification
 
 | 方法                                | 功能                    |
 |-----------------------------------|-----------------------|
@@ -77,7 +79,7 @@
 | `RemovePendingNotifications()`    | 移除某个待定通知（对于已经推送的通知无效） |
 | `RemoveAllPendingNotifications()` | 移除所有待定通知              |
 
-### NativeUI
+### 子类 - iOSNative.NativeUI
 
 | 方法                     | 功能                                      |
 |------------------------|-----------------------------------------|
@@ -86,7 +88,7 @@
 | `SetStatusBarStyle()`  | 设置状态栏的样式（白色、黑色、自动）                      |
 | `ShowTempAlert()`      | 在应用内顶部展示一个内容为alertString，时长duration秒的横幅 |
 
-### Device
+### 子类 - iOSNative.Device
 
 | 方法                      | 功能                                |
 |-------------------------|-----------------------------------|
@@ -95,7 +97,7 @@
 | * `PlayHaptics()`       | 震动                                |
 | `GetCountryCode()`      | 获取当前设备的ISO地区码（ISO 3166-1 alpha-2） |
 
-### NativeShare
+### 子类 - iOSNative.NativeShare
 
 | 方法                   | 功能                        |
 |----------------------|---------------------------|
