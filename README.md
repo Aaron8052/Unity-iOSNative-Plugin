@@ -1,11 +1,8 @@
 # Unity-iOSNative-Plugin
- iOS Native Plugin for Unity
-
-# 简介
-适用于Unity引擎的iOS端Native插件，后续会开发更多功能，敬请期待
+适用于Unity引擎的iOS端Native插件
 
 ### 兼容性
-- iOS10及以上
+- iOS11及以上
 - Unity2017.4及以上（更早版本未测试）
 
 # 使用
