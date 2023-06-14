@@ -32,7 +32,7 @@ static void SendCallback(const char* method, const char* msg){
 +(void)init;
 +(void)PushNotification:(NSString *)msg title:(NSString *)title identifier:(NSString *)identifier delay:(NSInteger)time;
 +(void)RemovePendingNotifications:(NSString *)identifier;
-+(void)RemoveAllPendingNotificaions;
++(void)RemoveAllPendingNotifications;
 @end
 
 
