@@ -43,9 +43,10 @@
 
 > 在调用插件方法之前先调用 `Initialize` 方法进行插件初始化
 
-| 方法             | 功能               |
-|----------------|------------------|
-| `Initialize()` | 初始化整个iOSNative插件 |
+| 方法                      | 功能                       |
+|-------------------------|--------------------------|
+| `Initialize()`          | 初始化整个iOSNative插件         |
+| `GetBundleIdentifier()` | 获取当前应用的Bundle Identifier |
 
 ### iCloudKeyValueStore
 
@@ -84,7 +85,6 @@
 
 | 方法                      | 功能                                |
 |-------------------------|-----------------------------------|
-| `GetBundleIdentifier()` | 获取当前应用的Bundle Identifier          |
 | `IsSuperuser()`         | 判断当前设备是否越狱                        |
 | `SetAudioExclusive()`   | 调用此方法可静音/暂停设备后台正在播放的音频            |
 | * `PlayHaptics()`       | 震动                                |
