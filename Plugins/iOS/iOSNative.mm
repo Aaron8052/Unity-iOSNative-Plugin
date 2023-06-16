@@ -47,7 +47,14 @@ extern "C"
     void _ShowTempAlert(const char* alertString, int duration = 5){
         [NativeUI ShowTempAlert:[NSString stringWithUTF8String:alertString ?: ""] duration:duration];
     }
-    
+    void _ShowDialog(const char* title, const char* message, const char* yesButtonText, const char* noButtonText, DialogSelectionCallback callback)
+{
+        [NativeUI ShowDialog:[NSString stringWithUTF8String:title ?: ""]
+                     message:[NSString stringWithUTF8String:message ?: ""]
+                   yesButton:[NSString stringWithUTF8String:yesButtonText ?: ""]
+                    noButton:[NSString stringWithUTF8String:noButtonText ?: ""]
+                    callback:callback];
+    }
     
     
     bool _IsSuperuser(){

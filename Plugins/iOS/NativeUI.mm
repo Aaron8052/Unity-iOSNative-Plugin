@@ -1,5 +1,6 @@
 #import "iOSNative.h"
 #import <UIKit/UIView.h>
+
 @implementation NativeUI
 
 +(BOOL)IsStatusBarHidden {
@@ -118,8 +119,29 @@
     
 }
 
-
-+(void)ShowDialog:(NSString *) title message:(NSString *)message yesButton:(NSString *)yes noButton:(NSString *)no{
++(void)ShowDialog:(NSString *) title message:(NSString *)message yesButton:(NSString *)yes noButton:(NSString *)no callback:(DialogSelectionCallback)callback
+{
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:yes style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        if(callback != nil)
+            callback(0);
+    }];
+    
+    
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:no style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        if(callback != nil)
+            callback(1);
+    }];
+    
+    [alertController addAction:yesAction];
+    [alertController addAction:noAction];
+    
+    
+    [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:alertController animated:YES completion:nil];
 }
+
+
 @end

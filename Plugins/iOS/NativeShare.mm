@@ -91,8 +91,8 @@ static NSURL* tempFileUrl;
 static NSString* tempContent;
 static NSString * targetExt;
 
-static FileSavedCallback OnFileSavedCallback;
-static FileSelectCallback OnFileSelectedCallback;
+static FileSavedCallback OnFileSavedCallback  = nil;
+static FileSelectCallback OnFileSelectedCallback = nil;
 
 static int filePickerAction = 0;//0: none 1: PickingFile 2: SavingFile
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls {

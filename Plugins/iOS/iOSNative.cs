@@ -235,6 +235,9 @@ namespace iOSNativePlugin
 
             [DllImport("__Internal")]
             static extern void _SetStatusBarStyle(int style, bool animated);
+            
+            [DllImport("__Internal")]
+            static extern void _ShowDialog(string title, string message, string yesButtonText, string noButtonText, DialogSelectionCallback callback);
 
             /// <summary>
             /// 判断当前系统状态栏是否被隐藏
@@ -294,6 +297,25 @@ namespace iOSNativePlugin
             public static void ShowTempAlert(string alertString, int duration = 5)
             {
                 _ShowTempAlert(alertString, duration);
+            }
+
+            delegate void DialogSelectionCallback(int selection);
+
+            private static Action<bool> ShowDialogCallback;
+            public static void ShowDialog(string title, string message, string yesButtonText, string noButtonText,
+                Action<bool> callback)
+            {
+                _ShowDialog(title, message, yesButtonText, noButtonText, OnDialogSelectionCallback);
+                ShowDialogCallback = callback;
+            }
+
+            [MonoPInvokeCallback(typeof(DialogSelectionCallback))]
+            static void OnDialogSelectionCallback(int selection)
+            {
+                if (ShowDialogCallback != null)
+                    ShowDialogCallback(selection == 0);
+
+                ShowDialogCallback = null;
             }
         }
         public static class Device
@@ -381,6 +403,7 @@ namespace iOSNativePlugin
             }
             static event Action OnShareClose;
             delegate void ShareCloseCallback();
+            
             [MonoPInvokeCallback(typeof(ShareCloseCallback))]
             static void OnShareCloseCallback()
             {
@@ -406,6 +429,7 @@ namespace iOSNativePlugin
             
             static event Action OnFileSaved;
             delegate void FileSavedCallback(bool saved);
+            
             [MonoPInvokeCallback(typeof(FileSavedCallback))]
             static void OnFileSavedCallback(bool saved)
             {
@@ -432,6 +456,7 @@ namespace iOSNativePlugin
             static event Action<string> OnFiledSelected;
             static event Action OnFileSelectFailed;
             delegate void FileSelectCallback(bool selected, string content);
+            
             [MonoPInvokeCallback(typeof(FileSelectCallback))]
             static void OnFileSelectedCallback(bool selected, string content)
             {

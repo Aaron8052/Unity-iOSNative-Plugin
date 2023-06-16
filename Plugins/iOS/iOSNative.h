@@ -11,10 +11,10 @@ static void LOG(NSString* log){
 
 
 typedef void (*ShareCloseCallback)();
-
 typedef void (*FileSavedCallback)(bool);
-
 typedef void (*FileSelectCallback)(bool, const char*);
+
+typedef void (*DialogSelectionCallback)(int);
 
 
 @interface iOSNative : NSObject
@@ -74,5 +74,5 @@ typedef void (*FileSelectCallback)(bool, const char*);
 +(void)SetStatusBarStyle:(NSInteger)style animated:(BOOL)animated;
 +(void)ShowTempAlert:(NSString *)alertString duration:(NSInteger)duration;
 +(void)ShowTempAlert:(NSString *)alertString;
-+(void)ShowDialog:(NSString *) title message:(NSString *)message yesButton:(NSString *)yes noButton:(NSString *)no;
++(void)ShowDialog:(NSString *) title message:(NSString *)message yesButton:(NSString *)yes noButton:(NSString *)no callback:(DialogSelectionCallback)callback;
 @end
