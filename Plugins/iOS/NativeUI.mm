@@ -119,5 +119,7 @@
 }
 
 
-
++(void)ShowDialog:(NSString *) title message:(NSString *)message yesButton:(NSString *)yes noButton:(NSString *)no{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+}
 @end

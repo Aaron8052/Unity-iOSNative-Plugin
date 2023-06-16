@@ -65,17 +65,23 @@ extern "C"
     }
 
 
-    void _Share(const char* message, const char* url, const char* imagePath)
+    void _Share(const char* message, const char* url, const char* imagePath, ShareCloseCallback callback)
     {
-        [NativeShare shareMsg:[NSString stringWithUTF8String:message ?: ""] addUrl:[NSString stringWithUTF8String:url ?: ""] imgPath:[NSString stringWithUTF8String:imagePath ?: ""]];
+        [NativeShare shareMsg:[NSString stringWithUTF8String:message ?: ""]
+         addUrl:[NSString stringWithUTF8String:url ?: ""]
+        imgPath:[NSString stringWithUTF8String:imagePath ?: ""]
+        callback:callback];
     }
-    void _SaveFileDialog(const char* content, const char* fileName)
+    void _SaveFileDialog(const char* content, const char* fileName, FileSavedCallback callback)
     {
-        [NativeShare SaveFileDialog:[NSString stringWithUTF8String:content ?: ""] fileName:[NSString stringWithUTF8String:fileName ?: ""]];
+        [NativeShare SaveFileDialog:[NSString stringWithUTF8String:content ?: ""] fileName:[NSString stringWithUTF8String:fileName ?: ""]
+        callback:callback];
+
     }
-    void _SelectFileDialog(const char* ext)
+    void _SelectFileDialog(const char* ext, FileSelectCallback callback)
     {
-        [NativeShare SelectFileDialog:[NSString stringWithUTF8String:ext ?: ""]];
+        [NativeShare SelectFileDialog:[NSString stringWithUTF8String:ext ?: ""]
+        callback:callback];
     }
     
     

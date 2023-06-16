@@ -8,10 +8,13 @@ static void LOG(NSString* log){
         NSLog(@"[iOS Native] %@", log);
     }
 }
-static void SendCallback(const char* method, const char* msg){
-    UnitySendMessage("iOSCallbackHelper", method, msg);
-}
 
+
+typedef void (*ShareCloseCallback)();
+
+typedef void (*FileSavedCallback)(bool);
+
+typedef void (*FileSelectCallback)(bool, const char*);
 
 
 @interface iOSNative : NSObject
@@ -22,9 +25,9 @@ static void SendCallback(const char* method, const char* msg){
 
 
 @interface NativeShare : NSObject
-+(void)shareMsg:(NSString *)message addUrl:(NSString *)url imgPath:(NSString *)filePath;
-+(void)SaveFileDialog:(NSString *)content fileName:(NSString *)fileName;
-+(void)SelectFileDialog:(NSString *)ext;
++(void)shareMsg:(NSString *)message addUrl:(NSString *)url imgPath:(NSString *)filePath callback:(ShareCloseCallback)callback;
++(void)SaveFileDialog:(NSString *)content fileName:(NSString *)fileName callback:(FileSavedCallback)callback;
++(void)SelectFileDialog:(NSString *)ext  callback:(FileSelectCallback)callback;
 @end
 
 
@@ -71,4 +74,5 @@ static void SendCallback(const char* method, const char* msg){
 +(void)SetStatusBarStyle:(NSInteger)style animated:(BOOL)animated;
 +(void)ShowTempAlert:(NSString *)alertString duration:(NSInteger)duration;
 +(void)ShowTempAlert:(NSString *)alertString;
++(void)ShowDialog:(NSString *) title message:(NSString *)message yesButton:(NSString *)yes noButton:(NSString *)no;
 @end

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using AOT;
 
 namespace iOSNativePlugin
 {
@@ -360,11 +361,11 @@ namespace iOSNativePlugin
         public static class NativeShare
         {
             [DllImport("__Internal")]
-            private static extern void _Share(string message, string url, string imagePath);
+            private static extern void _Share(string message, string url, string imagePath, ShareCloseCallback callback);
             [DllImport("__Internal")]
-            private static extern void _SaveFileDialog(string content, string fileName);
+            private static extern void _SaveFileDialog(string content, string fileName, FileSavedCallback callback);
             [DllImport("__Internal")]
-            private static extern void _SelectFileDialog(string ext);
+            private static extern void _SelectFileDialog(string ext, FileSelectCallback callback);
             
             /// <summary>
             ///  调用系统分享功能
@@ -375,8 +376,16 @@ namespace iOSNativePlugin
             /// <param name="closeCallback">用户关闭分享面板的回调</param>
             public static void Share(string message, string url = "", string imagePath = "", Action closeCallback = null)
             {
-                _Share(message, url, imagePath);
-                iOSCallbackHelper.Instance.SetShareCloseCallback(closeCallback);
+                _Share(message, url, imagePath, OnShareCloseCallback);
+                OnShareClose = closeCallback;
+            }
+            static event Action OnShareClose;
+            delegate void ShareCloseCallback();
+            [MonoPInvokeCallback(typeof(ShareCloseCallback))]
+            static void OnShareCloseCallback()
+            {
+                OnShareClose?.Invoke();
+                OnShareClose = null;
             }
             
             /// <summary>
@@ -388,9 +397,21 @@ namespace iOSNativePlugin
             /// <returns>保存成功</returns>
             public static bool SaveFileDialog(string content, string fileName, Action callback = null)
             {
-                _SaveFileDialog(content, fileName);
-                iOSCallbackHelper.Instance.SetSaveFileCallback(callback);
+                _SaveFileDialog(content, fileName, OnFileSavedCallback);
+                OnFileSaved = callback;
                 return true; 
+            }
+            
+            static event Action OnFileSaved;
+            delegate void FileSavedCallback(bool saved);
+            [MonoPInvokeCallback(typeof(FileSavedCallback))]
+            static void OnFileSavedCallback(bool saved)
+            {
+                if (saved)
+                {
+                    OnFileSaved?.Invoke();
+                }
+                OnFileSaved = null;
             }
             
             /// <summary>
@@ -401,9 +422,27 @@ namespace iOSNativePlugin
             /// <param name="failedCallback">文件读取失败的回调（文件类型无效）</param>
             public static void SelectFileDialog(string ext, Action<string> callback = null, Action failedCallback = null)
             {
-                iOSCallbackHelper.Instance.SetFileSelectedCallback(callback);
-                iOSCallbackHelper.Instance.SetFileSelectedFailedCallback(failedCallback);
-                _SelectFileDialog(ext); 
+                OnFiledSelected = callback;
+                OnFileSelectFailed = failedCallback;
+                _SelectFileDialog(ext, OnFileSelectedCallback); 
+            }
+            
+            static event Action<string> OnFiledSelected;
+            static event Action OnFileSelectFailed;
+            delegate void FileSelectCallback(bool selected, string content);
+            [MonoPInvokeCallback(typeof(FileSelectCallback))]
+            static void OnFileSelectedCallback(bool selected, string content)
+            {
+                if (selected)
+                {
+                    OnFiledSelected?.Invoke(content);
+                }
+                else
+                {
+                    OnFileSelectFailed?.Invoke();
+                }
+                OnFileSaved = null;
+                OnFileSelectFailed = null;
             }
        }
     }
