@@ -384,7 +384,9 @@ namespace iOSNativePlugin
             [MonoPInvokeCallback(typeof(ShareCloseCallback))]
             static void OnShareCloseCallback()
             {
-                OnShareClose?.Invoke();
+                if(OnShareClose != null)
+                    OnShareClose.Invoke();
+                
                 OnShareClose = null;
             }
             
@@ -407,9 +409,9 @@ namespace iOSNativePlugin
             [MonoPInvokeCallback(typeof(FileSavedCallback))]
             static void OnFileSavedCallback(bool saved)
             {
-                if (saved)
+                if (saved && OnFileSaved != null)
                 {
-                    OnFileSaved?.Invoke();
+                    OnFileSaved.Invoke();
                 }
                 OnFileSaved = null;
             }
@@ -435,11 +437,13 @@ namespace iOSNativePlugin
             {
                 if (selected)
                 {
-                    OnFiledSelected?.Invoke(content);
+                    if(OnFiledSelected != null)
+                        OnFiledSelected.Invoke(content);
                 }
                 else
                 {
-                    OnFileSelectFailed?.Invoke();
+                    if(OnFileSelectFailed != null)
+                        OnFileSelectFailed.Invoke();
                 }
                 OnFileSaved = null;
                 OnFileSelectFailed = null;
