@@ -44,8 +44,8 @@ extern "C"
         [NativeUI SetStatusBarStyle:style animated:animated];
     }
 
-    void _ShowTempAlert(const char* alertString, int duration = 5){
-        [NativeUI ShowTempAlert:[NSString stringWithUTF8String:alertString ?: ""] duration:duration];
+    void _ShowTempMessage(const char* alertString, int duration = 5){
+        [NativeUI ShowTempMessage:[NSString stringWithUTF8String:alertString ?: ""] duration:duration];
     }
     void _ShowDialog(const char* title, const char* message, const char** actions, int count, int style, DialogSelectionCallback callback)
     {
@@ -67,6 +67,9 @@ extern "C"
     }
     
     
+    bool IsMacCatalyst(){
+        return [Device IsMacCatalyst];
+    }
     bool _IsSuperuser(){
         return [Device IsSuperuser];
     }

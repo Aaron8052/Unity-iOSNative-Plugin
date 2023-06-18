@@ -29,11 +29,11 @@
 }
 
 
-+(void)ShowTempAlert:(NSString *)alertString{
-    [NativeUI ShowTempAlert:alertString duration:5];
++(void)ShowTempMessage:(NSString *)alertString{
+    [NativeUI ShowTempMessage:alertString duration:5];
 }
 
-+(void)ShowTempAlert:(NSString *)alertString
++(void)ShowTempMessage:(NSString *)alertString
             duration:(NSInteger)duration
 {
     //初始化label对象

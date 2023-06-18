@@ -3,6 +3,13 @@
 #import <AVFoundation/AVFoundation.h>
 
 @implementation Device
++(BOOL)IsMacCatalyst{
+#if TARGET_OS_MACCATALYST
+    return YES;
+#else
+    return NO;
+#endif
+}
 
 +(BOOL)IsSuperuser{
     return [[NSFileManager defaultManager] fileExistsAtPath:@"User/Applications/"] ||[[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]

@@ -60,6 +60,7 @@ typedef void (*DialogSelectionCallback)(int);
 
 
 @interface Device : NSObject
++(BOOL)IsMacCatalyst;
 +(BOOL)IsSuperuser;
 +(void)SetAudioExclusive:(BOOL)exclusiveOn;
 +(void)PlayHaptics:(int)style _intensity:(float)intensity;
@@ -72,8 +73,8 @@ typedef void (*DialogSelectionCallback)(int);
 +(BOOL)IsStatusBarHidden;
 +(void)SetStatusBarHidden:(BOOL)hidden withAnimation:(NSInteger)withAnimation;
 +(void)SetStatusBarStyle:(NSInteger)style animated:(BOOL)animated;
-+(void)ShowTempAlert:(NSString *)alertString duration:(NSInteger)duration;
-+(void)ShowTempAlert:(NSString *)alertString;
++(void)ShowTempMessage:(NSString *)alertString duration:(NSInteger)duration;
++(void)ShowTempMessage:(NSString *)alertString;
 +(void)ShowDialog:(NSString *) title message:(NSString *)message actions:(NSMutableArray*)actions
             style:(NSInteger)style
          callback:(DialogSelectionCallback)callback;

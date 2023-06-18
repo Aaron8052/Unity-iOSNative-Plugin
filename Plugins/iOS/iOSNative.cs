@@ -228,7 +228,7 @@ namespace iOSNativePlugin
             static extern bool _IsStatusBarHidden();
                 
             [DllImport("__Internal")]
-            private static extern void _ShowTempAlert(string alertString, int duration = 5);
+            private static extern void _ShowTempMessage(string alertString, int duration = 5);
 
             [DllImport("__Internal")]
             static extern void _SetStatusBarHidden(bool hidden, int withAnimation);
@@ -296,7 +296,7 @@ namespace iOSNativePlugin
             /// <param name="duration">时长 default - 5</param>
             public static void ShowTempMessage(string alertString, int duration = 5)
             {
-                _ShowTempAlert(alertString, duration);
+                _ShowTempMessage(alertString, duration);
             }
 
 
@@ -403,6 +403,9 @@ namespace iOSNativePlugin
         public static class Device
         {
             [DllImport("__Internal")]
+            static extern bool _IsMacCatalyst();
+            
+            [DllImport("__Internal")]
             static extern bool _IsSuperuser();
             
             [DllImport("__Internal")]
@@ -413,7 +416,15 @@ namespace iOSNativePlugin
                 
             [DllImport("__Internal")]
             static extern string _GetCountryCode();
-            
+
+            /// <summary>
+            /// 判断当前app是否运行在Mac Catalyst环境下
+            /// </summary>
+            /// <returns></returns>
+            public static bool IsMacCatalyst()
+            {
+                return _IsMacCatalyst();
+            }
             
             /// <summary>
             /// 判断当前设备是否越狱
