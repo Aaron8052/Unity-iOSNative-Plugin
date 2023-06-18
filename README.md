@@ -26,7 +26,7 @@
 - 选择 `Add package from git URL`
 - 输入链接 `https://github.com/Aaron8052/Unity-iOSNative-Plugin.git#BranchName`
 
-> 请将上方链接中的的 `BranchName` 更换为你选择版本分支的名称
+> 请将上方链接中的的 `BranchName` 更换为你选择的版本分支的名称
 
 #### 如果显示导入失败
 - **将本仓库完整地Clone到你的电脑中**
