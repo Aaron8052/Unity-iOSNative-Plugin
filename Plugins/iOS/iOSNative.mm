@@ -67,7 +67,7 @@ extern "C"
     }
     
     
-    bool IsMacCatalyst(){
+    bool _IsMacCatalyst(){
         return [Device IsMacCatalyst];
     }
     bool _IsSuperuser(){
