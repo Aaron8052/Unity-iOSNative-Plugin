@@ -299,10 +299,17 @@ namespace iOSNativePlugin
                 _ShowTempAlert(alertString, duration);
             }
 
-            delegate void DialogSelectionCallback(int selection);
 
-            private static Action<bool> ShowDialogCallback;
-            public static void ShowDialog(string title, string message, Action<bool> callback, UIAlertControllerStyle style, params UIAlertAction[] actions)
+            
+            /// <summary>
+            /// 显示一个对话框，允许用户进行回应
+            /// </summary>
+            /// <param name="title">对话框标题</param>
+            /// <param name="message">对话框内容</param>
+            /// <param name="callback">回调（参数int，依据用户的选择，回调对应action的index）</param>
+            /// <param name="style">对话框样式（UIAlertControllerStyle）</param>
+            /// <param name="actions">对话框选项（params数组）</param>
+            public static void ShowDialog(string title, string message, Action<int> callback, UIAlertControllerStyle style, params UIAlertAction[] actions)
             {
                 if(actions == null || actions.Length <= 0)
                     return;
@@ -319,12 +326,15 @@ namespace iOSNativePlugin
                 _ShowDialog(title, message, actionsArray, actions.Length, (int)style, OnDialogSelectionCallback);
                 ShowDialogCallback = callback;
             }
+            delegate void DialogSelectionCallback(int selection);
 
+            private static Action<int> ShowDialogCallback;
+            
             [MonoPInvokeCallback(typeof(DialogSelectionCallback))]
             static void OnDialogSelectionCallback(int selection)
             {
                 if (ShowDialogCallback != null)
-                    ShowDialogCallback(selection == 0);
+                    ShowDialogCallback(selection);
 
                 ShowDialogCallback = null;
             }
