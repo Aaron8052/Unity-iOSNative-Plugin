@@ -308,7 +308,7 @@ namespace iOSNativePlugin
             /// <param name="message">对话框内容</param>
             /// <param name="callback">回调（参数int，依据用户的选择，回调对应action的index）</param>
             /// <param name="style">对话框样式（UIAlertControllerStyle）</param>
-            /// <param name="actions">对话框选项（params数组）</param>
+            /// <param name="actions">（params数组）对话框选项（action）</param>
             public static void ShowDialog(string title, string message, Action<int> callback, UIAlertControllerStyle style, params UIAlertAction[] actions)
             {
                 if(actions == null || actions.Length <= 0)
@@ -340,22 +340,52 @@ namespace iOSNativePlugin
             }
 
             /// <summary>
-            /// ActionSheet - 位于屏幕底部的Action对话框
-            /// <para>Alert - 位于屏幕中间的对话框</para>
+            /// 对话框样式
             /// </summary>
             public enum UIAlertControllerStyle
             {
+                /// <summary>
+                /// 位于屏幕底部的Action对话框
+                /// </summary>
                 ActionSheet = 0,
+                
+                /// <summary>
+                /// 位于屏幕中间的对话框
+                /// </summary>
                 Alert
             }
+            
+            /// <summary>
+            /// 对话框选项的样式
+            /// </summary>
             public enum UIAlertActionStyle
             {
+                /// <summary>
+                /// 默认蓝色按钮
+                /// </summary>
                 Default = 0,
+                
+                /// <summary>
+                /// 蓝色加粗按钮
+                /// </summary>
                 Cancel,
+                
+                /// <summary>
+                /// 红色按钮
+                /// </summary>
                 Destructive
             }
+            
+            /// <summary>
+            /// 指定对话框按钮的内容、样式
+            /// </summary>
             public struct UIAlertAction
             {
+                /// <summary>
+                /// 指定对话框按钮的内容、样式
+                /// </summary>
+                /// <param name="actionWithTitle">按钮内容</param>
+                /// <param name="style">按钮文字样式</param>
                 public UIAlertAction(string actionWithTitle, UIAlertActionStyle style = UIAlertActionStyle.Default)
                 {
                     _title = actionWithTitle;
