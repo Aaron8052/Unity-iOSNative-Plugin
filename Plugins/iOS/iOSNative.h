@@ -74,5 +74,7 @@ typedef void (*DialogSelectionCallback)(int);
 +(void)SetStatusBarStyle:(NSInteger)style animated:(BOOL)animated;
 +(void)ShowTempAlert:(NSString *)alertString duration:(NSInteger)duration;
 +(void)ShowTempAlert:(NSString *)alertString;
-+(void)ShowDialog:(NSString *) title message:(NSString *)message yesButton:(NSString *)yes noButton:(NSString *)no callback:(DialogSelectionCallback)callback;
++(void)ShowDialog:(NSString *) title message:(NSString *)message actions:(NSMutableArray*)actions
+            style:(NSInteger)style
+         callback:(DialogSelectionCallback)callback;
 @end

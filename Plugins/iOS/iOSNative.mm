@@ -47,12 +47,22 @@ extern "C"
     void _ShowTempAlert(const char* alertString, int duration = 5){
         [NativeUI ShowTempAlert:[NSString stringWithUTF8String:alertString ?: ""] duration:duration];
     }
-    void _ShowDialog(const char* title, const char* message, const char* yesButtonText, const char* noButtonText, DialogSelectionCallback callback)
-{
+    void _ShowDialog(const char* title, const char* message, const char** actions, int count, int style, DialogSelectionCallback callback)
+    {
+        if(count <= 0)
+            return;
+        
+        NSMutableArray *actionsArray = [NSMutableArray array];
+        
+        for(int i = 0; i< count; i++){
+            NSString *str = [NSString stringWithUTF8String:actions[i]];
+            [actionsArray addObject:str];
+        }
+        
         [NativeUI ShowDialog:[NSString stringWithUTF8String:title ?: ""]
                      message:[NSString stringWithUTF8String:message ?: ""]
-                   yesButton:[NSString stringWithUTF8String:yesButtonText ?: ""]
-                    noButton:[NSString stringWithUTF8String:noButtonText ?: ""]
+                  actions:actionsArray
+                       style:style
                     callback:callback];
     }
     

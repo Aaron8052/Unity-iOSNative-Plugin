@@ -119,26 +119,31 @@
     
 }
 
-+(void)ShowDialog:(NSString *) title message:(NSString *)message yesButton:(NSString *)yes noButton:(NSString *)no callback:(DialogSelectionCallback)callback
++(void)ShowDialog:(NSString *) title message:(NSString *)message            actions:(NSMutableArray*)actions
+            style:(NSInteger)style
+         callback:(DialogSelectionCallback)callback
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:(UIAlertControllerStyle)style];
     
-    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:yes style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *action;
+    
+    for(int i = 0; i < actions.count; i++){
+        NSString *actionStr = actions[i];
         
-        if(callback != nil)
-            callback(0);
-    }];
-    
-    
-    UIAlertAction *noAction = [UIAlertAction actionWithTitle:no style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSString *firstChar = [actionStr substringToIndex:1];
+        NSInteger style = [firstChar intValue];
         
-        if(callback != nil)
-            callback(1);
-    }];
-    
-    [alertController addAction:yesAction];
-    [alertController addAction:noAction];
-    
+        action = [UIAlertAction actionWithTitle:actionStr
+                    style:(UIAlertActionStyle)style
+                    handler:^(UIAlertAction * _Nonnull action) {
+            
+            if(callback != nil)
+                callback(i);
+        }];
+        
+        [alertController addAction:action];
+        
+    }
     
     [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:alertController animated:YES completion:nil];
 }

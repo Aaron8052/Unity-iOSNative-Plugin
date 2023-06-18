@@ -237,7 +237,7 @@ namespace iOSNativePlugin
             static extern void _SetStatusBarStyle(int style, bool animated);
             
             [DllImport("__Internal")]
-            static extern void _ShowDialog(string title, string message, string yesButtonText, string noButtonText, DialogSelectionCallback callback);
+            static extern void _ShowDialog(string title, string message, string[] actions, int count, int style, DialogSelectionCallback callback);
 
             /// <summary>
             /// 判断当前系统状态栏是否被隐藏
@@ -294,7 +294,7 @@ namespace iOSNativePlugin
             /// </summary>
             /// <param name="alertString">内容</param>
             /// <param name="duration">时长 default - 5</param>
-            public static void ShowTempAlert(string alertString, int duration = 5)
+            public static void ShowTempMessage(string alertString, int duration = 5)
             {
                 _ShowTempAlert(alertString, duration);
             }
@@ -302,10 +302,21 @@ namespace iOSNativePlugin
             delegate void DialogSelectionCallback(int selection);
 
             private static Action<bool> ShowDialogCallback;
-            public static void ShowDialog(string title, string message, string yesButtonText, string noButtonText,
-                Action<bool> callback)
+            public static void ShowDialog(string title, string message, Action<bool> callback, UIAlertControllerStyle style, params UIAlertAction[] actions)
             {
-                _ShowDialog(title, message, yesButtonText, noButtonText, OnDialogSelectionCallback);
+                if(actions == null || actions.Length <= 0)
+                    return;
+
+                string[] actionsArray = new string[actions.Length];
+                
+                for (int i = 0; i < actions.Length; i++)
+                {
+                    actionsArray[i] = actions[i];
+                }
+
+             
+                
+                _ShowDialog(title, message, actionsArray, actions.Length, (int)style, OnDialogSelectionCallback);
                 ShowDialogCallback = callback;
             }
 
@@ -316,6 +327,37 @@ namespace iOSNativePlugin
                     ShowDialogCallback(selection == 0);
 
                 ShowDialogCallback = null;
+            }
+
+            /// <summary>
+            /// ActionSheet - 位于屏幕底部的Action对话框
+            /// <para>Alert - 位于屏幕中间的对话框</para>
+            /// </summary>
+            public enum UIAlertControllerStyle
+            {
+                ActionSheet = 0,
+                Alert
+            }
+            public enum UIAlertActionStyle
+            {
+                Default = 0,
+                Cancel,
+                Destructive
+            }
+            public struct UIAlertAction
+            {
+                public UIAlertAction(string actionWithTitle, UIAlertActionStyle style = UIAlertActionStyle.Default)
+                {
+                    _title = actionWithTitle;
+                    _style = (int)style;
+                }
+
+                readonly string _title;
+                readonly int _style;
+                public static implicit operator string(UIAlertAction action)
+                {
+                    return action._style + action._title;
+                }
             }
         }
         public static class Device
