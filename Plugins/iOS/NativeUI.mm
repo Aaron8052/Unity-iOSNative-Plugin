@@ -133,7 +133,7 @@
         NSString *firstChar = [actionStr substringToIndex:1];
         NSInteger style = [firstChar intValue];
         
-        action = [UIAlertAction actionWithTitle:actionStr
+        action = [UIAlertAction actionWithTitle:[actionStr substringFromIndex:1]
                     style:(UIAlertActionStyle)style
                     handler:^(UIAlertAction * _Nonnull action) {
             
