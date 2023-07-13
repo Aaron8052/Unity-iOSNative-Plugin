@@ -248,15 +248,7 @@ namespace iOSNativePlugin
                 return _IsStatusBarHidden();
             }
 
-            /// <summary>
-            /// 状态栏显示隐藏时的动画类型
-            /// </summary>
-            public enum UIStatusBarAnimation
-            {
-                None,
-                Fade,
-                Slide,
-            }
+           
             
             /// <summary>
             /// 设置状态栏的隐藏状态
@@ -267,17 +259,7 @@ namespace iOSNativePlugin
             {
                 _SetStatusBarHidden(hidden, (int)withAnimation);
             }
-
-            public enum UIStatusBarStyle
-            {
-                Default = 0, // Automatically chooses light or dark content based on the user interface style
-                LightContent = 1, // Light content, for use on dark backgrounds
-                DarkContent = 3, // Dark content, for use on light backgrounds
-                [Obsolete("Use UIStatusBarStyle.LightContent instead.", true)]
-                BlackTranslucent = 1,
-                [Obsolete("Use UIStatusBarStyle.LightContent instead.", true)]
-                BlackOpaque  = 2,
-            }
+            
             
             /// <summary>
             /// 设置状态栏的样式
@@ -321,8 +303,6 @@ namespace iOSNativePlugin
                     actionsArray[i] = actions[i];
                 }
 
-             
-                
                 _ShowDialog(title, message, actionsArray, actions.Length, (int)style, OnDialogSelectionCallback);
                 ShowDialogCallback = callback;
             }
@@ -338,70 +318,12 @@ namespace iOSNativePlugin
 
                 ShowDialogCallback = null;
             }
-
-            /// <summary>
-            /// 对话框样式
-            /// </summary>
-            public enum UIAlertControllerStyle
-            {
-                /// <summary>
-                /// 位于屏幕底部的Action对话框
-                /// </summary>
-                ActionSheet = 0,
-                
-                /// <summary>
-                /// 位于屏幕中间的对话框
-                /// </summary>
-                Alert
-            }
-            
-            /// <summary>
-            /// 对话框选项的样式
-            /// </summary>
-            public enum UIAlertActionStyle
-            {
-                /// <summary>
-                /// 默认蓝色按钮
-                /// </summary>
-                Default = 0,
-                
-                /// <summary>
-                /// 蓝色加粗按钮
-                /// </summary>
-                Cancel,
-                
-                /// <summary>
-                /// 红色按钮
-                /// </summary>
-                Destructive
-            }
-            
-            /// <summary>
-            /// 指定对话框按钮的内容、样式
-            /// </summary>
-            public struct UIAlertAction
-            {
-                /// <summary>
-                /// 指定对话框按钮的内容、样式
-                /// </summary>
-                /// <param name="actionWithTitle">按钮内容</param>
-                /// <param name="style">按钮文字样式</param>
-                public UIAlertAction(string actionWithTitle, UIAlertActionStyle style = UIAlertActionStyle.Default)
-                {
-                    _title = actionWithTitle;
-                    _style = (int)style;
-                }
-
-                readonly string _title;
-                readonly int _style;
-                public static implicit operator string(UIAlertAction action)
-                {
-                    return action._style + action._title;
-                }
-            }
         }
         public static class Device
         {
+            [DllImport("__Internal")]
+            static extern bool _IsBluetoothHeadphonesConnected();
+            
             [DllImport("__Internal")]
             static extern bool _IsMacCatalyst();
             
@@ -417,6 +339,15 @@ namespace iOSNativePlugin
             [DllImport("__Internal")]
             static extern string _GetCountryCode();
 
+            /// <summary>
+            /// 判断玩家当前是否连接了蓝牙耳机
+            /// </summary>
+            /// <returns></returns>
+            public static bool IsBluetoothHeadphonesConnected()
+            {
+                return _IsBluetoothHeadphonesConnected();
+            }
+            
             /// <summary>
             /// 判断当前app是否运行在Mac Catalyst环境下
             /// </summary>
@@ -445,14 +376,7 @@ namespace iOSNativePlugin
             }
             
             
-            public enum UIImpactFeedbackStyle
-            {
-                Light,
-                Medium,
-                Heavy,
-                Soft,
-                Rigid
-            }
+           
             /// <summary>
             /// 播放短震动
             /// <para><b>> 此方法可用性未经测试</b></para>
