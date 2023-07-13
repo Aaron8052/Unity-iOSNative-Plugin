@@ -60,6 +60,7 @@ typedef void (*DialogSelectionCallback)(int);
 
 
 @interface Device : NSObject
++(BOOL)IsBluetoothHeadphonesConnected;
 +(BOOL)IsMacCatalyst;
 +(BOOL)IsSuperuser;
 +(void)SetAudioExclusive:(BOOL)exclusiveOn;

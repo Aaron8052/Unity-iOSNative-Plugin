@@ -66,7 +66,9 @@ extern "C"
                     callback:callback];
     }
     
-    
+    bool _IsBluetoothHeadphonesConnected(){
+        return [Device IsBluetoothHeadphonesConnected];
+    }
     bool _IsMacCatalyst(){
         return [Device IsMacCatalyst];
     }

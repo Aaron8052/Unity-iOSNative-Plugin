@@ -3,6 +3,19 @@
 #import <AVFoundation/AVFoundation.h>
 
 @implementation Device
+
++(BOOL)IsBluetoothHeadphonesConnected{
+    AVAudioSession* audioSession = [AVAudioSession sharedInstance];
+    AVAudioSessionPortDescription *firstOutput = [[[audioSession currentRoute]outputs]firstObject];
+    
+    if([firstOutput portType] == AVAudioSessionPortBluetoothA2DP ||
+       [firstOutput portType] == AVAudioSessionPortBluetoothHFP )
+    {
+        return true;
+    }
+    return false;
+}
+
 +(BOOL)IsMacCatalyst{
 #if TARGET_OS_MACCATALYST
     return YES;
