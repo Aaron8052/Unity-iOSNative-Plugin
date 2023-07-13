@@ -45,6 +45,7 @@
 | 模块名                      | 功能                                     |
 |--------------------------|----------------------------------------|
 | `iOSNative.cs`           | 插件与UnityC#项目的接口，调用里面的方法可以实现与iOS的OC代码交互 |
+| `Utils.cs`               | cs辅助文件，包含了enum、struct等对象的声明 |
 | `iOSCallbackHelper.cs`   | 用于接收从OC代码中的回调                          |
 | `iOSNative.h`            | 头文件，本Native插件的所有类的声明以及公开方法都在这里面        |
 | `iOSNative.mm`           | 负责将插件的方法暴露给UnityC#端以进行交互               |
@@ -102,10 +103,12 @@
 
 ### 子类 - iOSNative.Device
 
-| 方法                      | 功能                                |
+| 方法                      | 功能                             |
 |-------------------------|-----------------------------------|
+| * `IsBluetoothHeadphonesConnected()` | 判断玩家当前是否连接了蓝牙耳机  |
+| `IsMacCatalyst()`       | 判断当前app是否运行在Mac Catalyst环境下     |
 | `IsSuperuser()`         | 判断当前设备是否越狱                        |
-| `SetAudioExclusive()`   | 调用此方法可静音/暂停设备后台正在播放的音频            |
+| `SetAudioExclusive()`   | 调用此方法可静音/暂停设备后台正在播放的音频    |
 | * `PlayHaptics()`       | 震动                                |
 | `GetCountryCode()`      | 获取当前设备的ISO地区码（ISO 3166-1 alpha-2） |
 
