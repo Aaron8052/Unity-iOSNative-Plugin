@@ -5,6 +5,13 @@ using UnityEngine;
 
 namespace iOSNativePlugin
 {
+    delegate void DialogSelectionCallback(int selection);
+    delegate void ShareCloseCallback();
+    delegate void FileSelectCallback(bool selected, string content);
+    delegate void FileSavedCallback(bool saved);
+    delegate void OrientationChangeCallback(int orientation);
+    
+    
     /// <summary>
     /// 当前的UI朝向
     /// </summary>

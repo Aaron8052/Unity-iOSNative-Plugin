@@ -1,7 +1,59 @@
 #import "iOSNative.h"
 #import <UIKit/UIView.h>
 
+
+
 @implementation NativeUI
+//获取单例
++ (instancetype)instance {
+    static NativeUI *instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[NativeUI alloc] init];
+    });
+    return instance;
+}
+
+
+static OrientationChangeCallback StatusBarOrientationChangeCallback;
+
+
+//负责接收UI朝向改变事件
+-(void)OnStatusBarOrientationChange{
+    if(StatusBarOrientationChangeCallback == nil)
+        return;
+    
+    StatusBarOrientationChangeCallback((int)[NativeUI GetStatusBarOrientation]);
+}
+
+BOOL StatusBarOrientationChangeCallbackRegistered;
+
+//注册UI朝向改变事件
++(void)RegisterStatusBarOrientationChangeCallback:(OrientationChangeCallback)callback
+{
+    
+    if(StatusBarOrientationChangeCallbackRegistered)
+        return;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:[self instance] selector:@selector(OnStatusBarOrientationChange) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
+    
+    StatusBarOrientationChangeCallback = callback;
+    StatusBarOrientationChangeCallbackRegistered = YES;
+}
+
+//取消注册UI朝向改变事件
++(void)UnregisterStatusBarOrientationChangeCallback
+{
+    if(!StatusBarOrientationChangeCallbackRegistered)
+        return;
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:[self instance]];
+    
+    StatusBarOrientationChangeCallback = nil;
+    StatusBarOrientationChangeCallbackRegistered = NO;
+}
+
 +(NSInteger)GetStatusBarOrientation{
     return [UIApplication sharedApplication].statusBarOrientation;
 }

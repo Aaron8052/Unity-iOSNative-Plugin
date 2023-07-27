@@ -225,7 +225,14 @@ namespace iOSNativePlugin
         public static class NativeUI
         {
             [DllImport("__Internal")]
+            static extern void _RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback);
+            
+            [DllImport("__Internal")]
+            static extern void _UnregisterStatusBarOrientationChangeCallback();
+            
+            [DllImport("__Internal")]
             static extern int _GetStatusBarOrientation();
+            
             [DllImport("__Internal")]
             static extern void _SetStatusBarOrientation(int orientation);
             
@@ -244,7 +251,31 @@ namespace iOSNativePlugin
             [DllImport("__Internal")]
             static extern void _ShowDialog(string title, string message, string[] actions, int count, int style, DialogSelectionCallback callback);
 
-
+            static Action<UIInterfaceOrientation> _onStatusBarOrientationChanged;
+            public static event Action<UIInterfaceOrientation> OnStatusBarOrientationChanged
+            {
+                add
+                {
+                    _onStatusBarOrientationChanged += value;
+                    _RegisterStatusBarOrientationChangeCallback(OnStatusBarOrientationChangeCallback);
+                }
+                remove
+                {
+                    _onStatusBarOrientationChanged -= value;
+                    
+                    if(_onStatusBarOrientationChanged == null)
+                        _UnregisterStatusBarOrientationChangeCallback();
+                }
+            }
+            
+            
+            [MonoPInvokeCallback(typeof(OrientationChangeCallback))]
+            static void OnStatusBarOrientationChangeCallback(int orientation)
+            {
+                if (_onStatusBarOrientationChanged != null)
+                    _onStatusBarOrientationChanged((UIInterfaceOrientation)orientation);
+            }
+            
             /// <summary>
             /// 当前UI的朝向
             /// </summary>
@@ -327,7 +358,7 @@ namespace iOSNativePlugin
                 _ShowDialog(title, message, actionsArray, actions.Length, (int)style, OnDialogSelectionCallback);
                 ShowDialogCallback = callback;
             }
-            delegate void DialogSelectionCallback(int selection);
+            
 
             private static Action<int> ShowDialogCallback;
             
@@ -452,7 +483,7 @@ namespace iOSNativePlugin
                 OnShareClose = closeCallback;
             }
             static event Action OnShareClose;
-            delegate void ShareCloseCallback();
+            
             
             [MonoPInvokeCallback(typeof(ShareCloseCallback))]
             static void OnShareCloseCallback()
@@ -478,7 +509,6 @@ namespace iOSNativePlugin
             }
             
             static event Action OnFileSaved;
-            delegate void FileSavedCallback(bool saved);
             
             [MonoPInvokeCallback(typeof(FileSavedCallback))]
             static void OnFileSavedCallback(bool saved)
@@ -505,7 +535,7 @@ namespace iOSNativePlugin
             
             static event Action<string> OnFiledSelected;
             static event Action OnFileSelectFailed;
-            delegate void FileSelectCallback(bool selected, string content);
+            
             
             [MonoPInvokeCallback(typeof(FileSelectCallback))]
             static void OnFileSelectedCallback(bool selected, string content)

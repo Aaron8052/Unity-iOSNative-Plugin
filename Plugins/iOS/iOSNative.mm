@@ -12,16 +12,7 @@
 
 @end
 
-char* StringCopy(const char* string)
-{
-    if (string == NULL)
-        return NULL;
-    
-    char* newString = (char*)malloc(strlen(string) + 1);
-    strcpy(newString, string);
 
-    return newString;
-}
 
 extern "C"
 {
@@ -33,7 +24,15 @@ extern "C"
         return StringCopy([[iOSNative GetBundleIdentifier] UTF8String]);
     }
     
-    
+
+
+    void _RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback)
+    {
+        [NativeUI RegisterStatusBarOrientationChangeCallback:callback];
+    }
+    void _UnregisterStatusBarOrientationChangeCallback(){
+        [NativeUI UnregisterStatusBarOrientationChangeCallback];
+    }
     int _GetStatusBarOrientation(){
         return (int)[NativeUI GetStatusBarOrientation];
     }

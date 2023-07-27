@@ -1,20 +1,9 @@
 #import <Foundation/Foundation.h>
 #import "UnityAppController.h"
+#import "Utils.mm"
 
 extern UIViewController *UnityGetGLViewController();
 
-static void LOG(NSString* log){
-    @autoreleasepool {
-        NSLog(@"[iOS Native] %@", log);
-    }
-}
-
-
-typedef void (*ShareCloseCallback)();
-typedef void (*FileSavedCallback)(bool);
-typedef void (*FileSelectCallback)(bool, const char*);
-
-typedef void (*DialogSelectionCallback)(int);
 
 
 @interface iOSNative : NSObject
@@ -72,6 +61,8 @@ typedef void (*DialogSelectionCallback)(int);
 
 
 @interface NativeUI : NSObject
++(void)RegisterStatusBarOrientationChangeCallback:(OrientationChangeCallback)callback;
++(void)UnregisterStatusBarOrientationChangeCallback;
 +(NSInteger)GetStatusBarOrientation;
 +(void)SetStatusBarOrientation:(NSInteger)orientation;
 +(BOOL)IsStatusBarHidden;
