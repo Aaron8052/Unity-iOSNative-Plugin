@@ -96,6 +96,7 @@
 
 | 方法                     | 功能                                      |
 |------------------------|-----------------------------------------|
+| `StatusBarOrientation` | 当前UI的朝向 |
 | `IsStatusBarHidden()`  | 判断当前系统状态栏是否被隐藏                          |
 | `SetStatusBarHidden()` | 设置状态栏的隐藏状态                              |
 | `SetStatusBarStyle()`  | 设置状态栏的样式（白色、黑色、自动）                      |
@@ -105,6 +106,7 @@
 
 | 方法                      | 功能                             |
 |-------------------------|-----------------------------------|
+| `GetDeviceOrientation()` | 获取当前设备的物理朝向 |
 | * `IsBluetoothHeadphonesConnected()` | 判断玩家当前是否连接了蓝牙耳机  |
 | `IsMacCatalyst()`       | 判断当前app是否运行在Mac Catalyst环境下     |
 | `IsSuperuser()`         | 判断当前设备是否越狱                        |
