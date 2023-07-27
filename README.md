@@ -65,13 +65,13 @@
 
 | 方法                      | 功能                       |
 |-------------------------|--------------------------|
-| `Initialize()`          | 初始化整个iOSNative插件         |
 | `GetBundleIdentifier()` | 获取当前应用的Bundle Identifier |
 
 ### 子类 - iOSNative.iCloudKeyValueStore
 
 | 方法                        | 功能                                     |
 |---------------------------|----------------------------------------|
+| `Initialize()`          | 初始化iCloud         |
 | `IsICloudAvailable()`     | 判断当前设备iCloud是否可用                       |
 | `Synchronize()`           | 强制同步iCloud云存档至Apple服务器（Bool返回值：是否同步成功） |
 | * `ClearICloudSave()`     | 清空iCloud存档                             |
@@ -88,6 +88,7 @@
 
 | 方法                                | 功能                    |
 |-----------------------------------|-----------------------|
+| `Initialize()`          | 初始化通知系统         |
 | `PushNotification()`              | 推送本地定时通知              |
 | `RemovePendingNotifications()`    | 移除某个待定通知（对于已经推送的通知无效） |
 | `RemoveAllPendingNotifications()` | 移除所有待定通知              |
