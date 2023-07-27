@@ -7,18 +7,8 @@ namespace iOSNativePlugin
     public static class iOSNative
     {
         [DllImport("__Internal")]
-        private static extern void _initialize();
-        
-        [DllImport("__Internal")]
         static extern string _GetBundleIdentifier();
         
-        
-        /// <summary>
-        /// 初始化整个iOSNative插件
-        /// </summary>
-        public static void Initialize(){
-            _initialize();
-        }
         
         /// <summary>
         /// 获取当前应用的Bundle Identifier

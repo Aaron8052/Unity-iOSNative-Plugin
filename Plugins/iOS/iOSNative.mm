@@ -1,11 +1,6 @@
 #import "iOSNative.h"
 
 @implementation iOSNative
-+(void)init{
-    [Notification init];
-    [iCloudKeyValueStore init];
-}
-
 +(NSString *)GetBundleIdentifier{
     return [[NSBundle mainBundle] bundleIdentifier];
 }
@@ -16,9 +11,6 @@
 
 extern "C"
 {
-    void _initialize(){
-        [iOSNative init];
-    }
     const char* _GetBundleIdentifier()
     {
         return StringCopy([[iOSNative GetBundleIdentifier] UTF8String]);
@@ -115,7 +107,9 @@ extern "C"
         callback:callback];
     }
     
-    
+    void _InitializeNotification(){
+        [Notification init];
+    }
     void _PushNotification(const char *msg, const char *title, const char *identifier, int delay){
         [Notification PushNotification:[NSString stringWithUTF8String:msg ?: ""]
                               title:[NSString stringWithUTF8String:title ?: ""]
@@ -130,6 +124,9 @@ extern "C"
     }
     
     
+    void _InitializeICloud(){
+        [iCloudKeyValueStore init];
+    }
     
     bool _IsICloudAvailable(){
         return [iCloudKeyValueStore IsICloudAvailable];

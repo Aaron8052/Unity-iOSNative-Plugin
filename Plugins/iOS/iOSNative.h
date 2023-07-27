@@ -7,7 +7,6 @@ extern UIViewController *UnityGetGLViewController();
 
 
 @interface iOSNative : NSObject
-+(void)init;
 +(NSString *)GetBundleIdentifier;
 @end
 
