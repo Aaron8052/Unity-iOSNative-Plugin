@@ -45,7 +45,6 @@
 | 模块名                      | 功能                                     |
 |--------------------------|----------------------------------------|
 | `iOSNative.cs`           | 插件与UnityC#项目的接口，调用里面的方法可以实现与iOS的OC代码交互 |
-| `Utils.cs`               | cs辅助文件，包含了enum、struct等对象的声明 |
 | `iOSCallbackHelper.cs`   | 用于接收从OC代码中的回调                          |
 | `iOSNative.h`            | 头文件，本Native插件的所有类的声明以及公开方法都在这里面        |
 | `iOSNative.mm`           | 负责将插件的方法暴露给UnityC#端以进行交互               |
@@ -54,6 +53,8 @@
 | `Notification.mm`        | 负责 iOS 本地通知推送的实现                       |
 | `NativeShare.mm`         | 负责 iOS 自带的分享功能的实现                      |
 | `NativeUI.mm`            | 包含部分 iOS Native UI的功能（比如应用内显示/隐藏状态栏）   |
+| `Utils.cs`               | cs辅助文件，包含了enum、struct以及delegate等声明 |
+| `Utils.mm`               | OC辅助文件，包含了typedef、静态函数等声明 |
 
 ## 子类/功能介绍
 
