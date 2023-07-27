@@ -2,7 +2,12 @@
 #import <UIKit/UIView.h>
 
 @implementation NativeUI
-
++(NSInteger)GetStatusBarOrientation{
+    return [UIApplication sharedApplication].statusBarOrientation;
+}
++(void)SetStatusBarOrientation:(NSInteger)orientation{
+    [UIApplication sharedApplication].statusBarOrientation = (UIInterfaceOrientation)orientation;
+}
 +(BOOL)IsStatusBarHidden {
     return [UIApplication sharedApplication].isStatusBarHidden;
 }

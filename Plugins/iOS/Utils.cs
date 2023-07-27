@@ -6,6 +6,30 @@ using UnityEngine;
 namespace iOSNativePlugin
 {
     /// <summary>
+    /// 当前的UI朝向
+    /// </summary>
+    public enum UIInterfaceOrientation
+    {
+        Unknown,
+        Portrait,
+        PortraitUpsideDown,
+        LandscapeLeft,
+        LandscapeRight,
+    }
+    /// <summary>
+    /// 设备的物理朝向
+    /// </summary>
+    public enum UIDeviceOrientation
+    {
+        Unknown,
+        Portrait,
+        PortraitUpsideDown,
+        LandscapeLeft,
+        LandscapeRight,
+        FaceUp,
+        FaceDown,
+    }
+    /// <summary>
     /// 状态栏显示隐藏时的动画类型
     /// </summary>
     public enum UIStatusBarAnimation

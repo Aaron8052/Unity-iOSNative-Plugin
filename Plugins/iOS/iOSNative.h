@@ -60,6 +60,7 @@ typedef void (*DialogSelectionCallback)(int);
 
 
 @interface Device : NSObject
++(NSInteger)GetDeviceOrientation;
 +(BOOL)IsBluetoothHeadphonesConnected;
 +(BOOL)IsMacCatalyst;
 +(BOOL)IsSuperuser;
@@ -71,6 +72,8 @@ typedef void (*DialogSelectionCallback)(int);
 
 
 @interface NativeUI : NSObject
++(NSInteger)GetStatusBarOrientation;
++(void)SetStatusBarOrientation:(NSInteger)orientation;
 +(BOOL)IsStatusBarHidden;
 +(void)SetStatusBarHidden:(BOOL)hidden withAnimation:(NSInteger)withAnimation;
 +(void)SetStatusBarStyle:(NSInteger)style animated:(BOOL)animated;

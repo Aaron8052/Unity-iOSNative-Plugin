@@ -3,6 +3,9 @@
 #import <AVFoundation/AVFoundation.h>
 
 @implementation Device
++(NSInteger)GetDeviceOrientation{
+    return [[UIDevice currentDevice]orientation];
+}
 
 +(BOOL)IsBluetoothHeadphonesConnected{
     AVAudioSession* audioSession = [AVAudioSession sharedInstance];

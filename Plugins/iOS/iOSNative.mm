@@ -34,6 +34,12 @@ extern "C"
     }
     
     
+    int _GetStatusBarOrientation(){
+        return (int)[NativeUI GetStatusBarOrientation];
+    }
+    void _SetStatusBarOrientation(int orientation){
+        [NativeUI SetStatusBarOrientation:orientation];
+    }
     bool _IsStatusBarHidden(){
         return [NativeUI IsStatusBarHidden];
     }
@@ -66,6 +72,10 @@ extern "C"
                     callback:callback];
     }
     
+
+    int _GetDeviceOrientation(){
+        return (int)[Device GetDeviceOrientation];
+    }
     bool _IsBluetoothHeadphonesConnected(){
         return [Device IsBluetoothHeadphonesConnected];
     }

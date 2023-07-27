@@ -225,6 +225,11 @@ namespace iOSNativePlugin
         public static class NativeUI
         {
             [DllImport("__Internal")]
+            static extern int _GetStatusBarOrientation();
+            [DllImport("__Internal")]
+            static extern void _SetStatusBarOrientation(int orientation);
+            
+            [DllImport("__Internal")]
             static extern bool _IsStatusBarHidden();
                 
             [DllImport("__Internal")]
@@ -239,6 +244,22 @@ namespace iOSNativePlugin
             [DllImport("__Internal")]
             static extern void _ShowDialog(string title, string message, string[] actions, int count, int style, DialogSelectionCallback callback);
 
+
+            /// <summary>
+            /// 当前UI的朝向
+            /// </summary>
+            public static UIInterfaceOrientation StatusBarOrientation
+            {
+                get
+                {
+                    return (UIInterfaceOrientation)_GetStatusBarOrientation();
+                }
+                set
+                {
+                    _SetStatusBarOrientation((int)value);
+                }
+            }
+            
             /// <summary>
             /// 判断当前系统状态栏是否被隐藏
             /// </summary>
@@ -322,6 +343,9 @@ namespace iOSNativePlugin
         public static class Device
         {
             [DllImport("__Internal")]
+            static extern int _GetDeviceOrientation();
+            
+            [DllImport("__Internal")]
             static extern bool _IsBluetoothHeadphonesConnected();
             
             [DllImport("__Internal")]
@@ -339,6 +363,15 @@ namespace iOSNativePlugin
             [DllImport("__Internal")]
             static extern string _GetCountryCode();
 
+            /// <summary>
+            /// 获取当前设备的物理朝向
+            /// </summary>
+            /// <returns></returns>
+            public static UIDeviceOrientation GetDeviceOrientation()
+            {
+                return (UIDeviceOrientation)_GetDeviceOrientation();
+            }
+            
             /// <summary>
             /// 判断玩家当前是否连接了蓝牙耳机
             /// </summary>
