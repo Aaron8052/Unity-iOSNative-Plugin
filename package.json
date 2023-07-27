@@ -1,6 +1,6 @@
 {
   "name": "com.fengyan.ios-native-plugin",
-  "version": "2.1.1",
+  "version": "2.2.1",
   "displayName": "iOS Native Plugin",
   "description": "iOS Native Plugin for Unity",
   "unity": "2017.4",
