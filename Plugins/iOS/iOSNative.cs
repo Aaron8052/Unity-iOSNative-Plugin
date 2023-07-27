@@ -23,6 +23,9 @@ namespace iOSNativePlugin
         public static class iCloudKeyValueStore
         {
             [DllImport("__Internal")]
+            private static extern void _InitializeICloud();
+            
+            [DllImport("__Internal")]
             private static extern bool _Synchronize();
 
             [DllImport("__Internal")]
@@ -54,6 +57,14 @@ namespace iOSNativePlugin
 
             [DllImport("__Internal")]
             private static extern bool _iCloudSaveBool(string key, bool value);
+
+            /// <summary>
+            /// 初始化iCloud
+            /// </summary>
+            public static void Initialize()
+            {
+                _InitializeICloud();
+            }
             
             /// <summary>
             /// 判断当前设备iCloud是否可用
@@ -174,6 +185,9 @@ namespace iOSNativePlugin
         public static class Notification
         {
             [DllImport("__Internal")]
+            private static extern void _InitializeNotification();
+            
+            [DllImport("__Internal")]
             private static extern void _PushNotification(string msg, string title, string identifier, int delay);
 
             [DllImport("__Internal")]
@@ -181,6 +195,14 @@ namespace iOSNativePlugin
 
             [DllImport("__Internal")]
             private static extern void _RemoveAllPendingNotifications();
+            
+            /// <summary>
+            /// 初始化通知系统
+            /// </summary>
+            public static void Initialize()
+            {
+                _InitializeNotification();
+            }
             
             /// <summary>
             /// 推送本地定时通知
