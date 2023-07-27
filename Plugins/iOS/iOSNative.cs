@@ -252,6 +252,10 @@ namespace iOSNativePlugin
             static extern void _ShowDialog(string title, string message, string[] actions, int count, int style, DialogSelectionCallback callback);
 
             static Action<UIInterfaceOrientation> _onStatusBarOrientationChanged;
+            
+            /// <summary>
+            /// UI朝向变更事件
+            /// </summary>
             public static event Action<UIInterfaceOrientation> OnStatusBarOrientationChanged
             {
                 add
