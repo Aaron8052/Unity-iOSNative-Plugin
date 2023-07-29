@@ -5,7 +5,6 @@ static NSUbiquitousKeyValueStore *keyValueStore;
 static NSDictionary *cloudDictionary;
 static BOOL iCloudInited;
 static BOOL availability;
-static BOOL noCloudAlertShown;
 static NSInteger availabilityAttemptsCount;
 
 @implementation iCloudKeyValueStore
@@ -60,15 +59,7 @@ static NSInteger availabilityAttemptsCount;
 }
 +(BOOL)IsICloudAvailable
 {
-    BOOL available = [iCloudKeyValueStore checkForAvailability];
-    
-    if(!available && !noCloudAlertShown){
-        [Notification PushNotification:@"iCloud save is not available at this point!" title:nil identifier:@"iCloudUnavailable" delay:1];
-        
-        noCloudAlertShown = YES;
-    }
-    
-    return available;
+    return [iCloudKeyValueStore checkForAvailability];
 }
 
 +(BOOL)KeyExists:(NSString *)key
