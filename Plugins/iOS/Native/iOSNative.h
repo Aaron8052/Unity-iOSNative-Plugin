@@ -6,7 +6,7 @@ extern UIViewController *UnityGetGLViewController();
 
 
 
-@interface iOSNative : NSObject
+@interface iOSApplication : NSObject
 +(NSString *)GetBundleIdentifier;
 @end
 

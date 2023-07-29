@@ -1,23 +1,15 @@
 #import "iOSNative.h"
 
-@implementation iOSNative
-+(NSString *)GetBundleIdentifier{
-    return [[NSBundle mainBundle] bundleIdentifier];
-}
-
-@end
-
-
-
 extern "C"
 {
+    //iOSApplication
     const char* _GetBundleIdentifier()
     {
-        return StringCopy([[iOSNative GetBundleIdentifier] UTF8String]);
+        return StringCopy([[iOSApplication GetBundleIdentifier] UTF8String]);
     }
     
 
-
+    //NativeUI
     void _RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback)
     {
         [NativeUI RegisterStatusBarOrientationChangeCallback:callback];
@@ -64,6 +56,7 @@ extern "C"
     }
     
 
+    //Device
     int _GetDeviceOrientation(){
         return (int)[Device GetDeviceOrientation];
     }
@@ -88,6 +81,7 @@ extern "C"
     }
 
 
+    //NativeShare
     void _Share(const char* message, const char* url, const char* imagePath, ShareCloseCallback callback)
     {
         [NativeShare shareMsg:[NSString stringWithUTF8String:message ?: ""]
@@ -107,6 +101,8 @@ extern "C"
         callback:callback];
     }
     
+    
+    //Notification
     void _InitializeNotification(){
         [Notification init];
     }
@@ -124,6 +120,7 @@ extern "C"
     }
     
     
+    //iCloudKeyValueStore
     void _InitializeICloud(){
         [iCloudKeyValueStore init];
     }
@@ -144,11 +141,11 @@ extern "C"
     bool _iCloudSaveString(const char *key, const char *value)
     {
         return [iCloudKeyValueStore iCloudSaveString:[NSString stringWithUTF8String:key] setValue:[NSString stringWithUTF8String:value]];
-    }   
+    }
     int _iCloudGetInt(const char *key, int defaultValue)
     {
         return [iCloudKeyValueStore iCloudGetInt:[NSString stringWithUTF8String:key] defaultValue:defaultValue];
-    }   
+    }
     bool _iCloudSaveInt(const char *key, int value)
     {
         return [iCloudKeyValueStore iCloudSaveInt:[NSString stringWithUTF8String:key] setValue:value];
@@ -156,7 +153,7 @@ extern "C"
     float _iCloudGetFloat(const char *key, float defaultValue)
     {
         return [iCloudKeyValueStore iCloudGetFloat:[NSString stringWithUTF8String:key] defaultValue:defaultValue];
-    }  
+    }
     bool _iCloudSaveFloat(const char *key, float value)
     {
         return [iCloudKeyValueStore iCloudSaveFloat:[NSString stringWithUTF8String:key] setValue:value];
