@@ -40,35 +40,37 @@
 - 然后调用 `iOSNative` 类中的[方法或其子类中的方法](#子类功能介绍)即可
 
 
-## 模块介绍
+## 原生代码介绍
 
 | 模块名                      | 功能                                     |
 |--------------------------|----------------------------------------|
-| `iOSNative.cs`           | 插件与UnityC#项目的接口，调用里面的方法可以实现与iOS的OC代码交互 |
-| `iOSCallbackHelper.cs`   | 用于接收从OC代码中的回调                          |
-| `iOSNative.h`            | 头文件，本Native插件的所有类的声明以及公开方法都在这里面        |
-| `iOSNative.mm`           | 负责将插件的方法暴露给UnityC#端以进行交互               |
-| `iCloudKeyValueStore.mm` | 负责iCloud相关功能的实现                        |
-| `Device.mm`              | 负责 iPhone 设备相关功能的实现                    |
-| `Notification.mm`        | 负责 iOS 本地通知推送的实现                       |
-| `NativeShare.mm`         | 负责 iOS 自带的分享功能的实现                      |
-| `NativeUI.mm`            | 包含部分 iOS Native UI的功能（比如应用内显示/隐藏状态栏）   |
-| `Utils.cs`               | cs辅助文件，包含了enum、struct以及delegate等声明 |
+| `iOSNative.h`            | 头文件      |
+| `iOSApplication.mm`      | iOS应用相关             |
+| `iCloudKeyValueStore.mm` | iCloud相关功能                       |
+| `Device.mm`              | iPhone 设备相关                    |
+| `Notification.mm`        | iOS 本地通知推送                       |
+| `NativeShare.mm`         | iOS 自带的分享文件功能                      |
+| `NativeUI.mm`            | 原生UI相关   |
 | `Utils.mm`               | OC辅助文件，包含了typedef、静态函数等声明 |
+| `ExternC.mm`             | 负责将插件的方法暴露给UnityC#端以进行交互               |
 
-## 子类/功能介绍
+## C#类/功能介绍
 
 > 方法名前标有星号 “*” 表示该方法尚未经测试，可用性未知
 
 > 在调用插件方法之前先调用 `Initialize` 方法进行插件初始化
 
-### 父类 - iOSNative
+### iOSApplication
+
+> iOS应用相关功能
 
 | 方法                      | 功能                       |
 |-------------------------|--------------------------|
 | `GetBundleIdentifier()` | 获取当前应用的Bundle Identifier |
 
-### 子类 - iOSNative.iCloudKeyValueStore
+### iCloudKeyValueStore
+
+> iCloud相关功能
 
 | 方法                        | 功能                                     |
 |---------------------------|----------------------------------------|
@@ -85,7 +87,9 @@
 | `iCloudSaveFloatValue()`  | 保存Float值到iCloud                        |
 | `iCloudSaveBoolValue()`   | 保存Bool值到iCloud                         |
 
-### 子类 - iOSNative.Notification
+### Notification
+
+> iOS 本地通知推送
 
 | 方法                                | 功能                    |
 |-----------------------------------|-----------------------|
@@ -94,7 +98,10 @@
 | `RemovePendingNotifications()`    | 移除某个待定通知（对于已经推送的通知无效） |
 | `RemoveAllPendingNotifications()` | 移除所有待定通知              |
 
-### 子类 - iOSNative.NativeUI
+### NativeUI
+
+> 原生UI相关
+
 | 事件                   | 功能                                      |
 |------------------------|-----------------------------------------|
 | `OnStatusBarOrientationChanged` | UI朝向变更事件 |
@@ -111,7 +118,9 @@
 | `SetStatusBarStyle()`  | 设置状态栏的样式（白色、黑色、自动）                      |
 | `ShowTempAlert()`      | 在应用内顶部展示一个内容为alertString，时长duration秒的横幅 |
 
-### 子类 - iOSNative.Device
+### Device
+
+> iPhone 设备相关
 
 | 方法                      | 功能                             |
 |-------------------------|-----------------------------------|
@@ -123,7 +132,9 @@
 | * `PlayHaptics()`       | 震动                                |
 | `GetCountryCode()`      | 获取当前设备的ISO地区码（ISO 3166-1 alpha-2） |
 
-### 子类 - iOSNative.NativeShare
+### NativeShare
+
+> iOS 分享文件功能
 
 | 方法                   | 功能                        |
 |----------------------|---------------------------|
