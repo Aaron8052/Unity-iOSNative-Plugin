@@ -136,34 +136,34 @@ extern "C"
     }
     const char* _iCloudGetString(const char *key, const char *defaultValue)
     {
-        return StringCopy([[iCloudKeyValueStore iCloudGetString:[NSString stringWithUTF8String:key] defaultValue:[NSString stringWithUTF8String:defaultValue]] UTF8String]);
+        return StringCopy([[iCloudKeyValueStore GetString:[NSString stringWithUTF8String:key] defaultValue:[NSString stringWithUTF8String:defaultValue]] UTF8String]);
     }
     bool _iCloudSaveString(const char *key, const char *value)
     {
-        return [iCloudKeyValueStore iCloudSaveString:[NSString stringWithUTF8String:key] setValue:[NSString stringWithUTF8String:value]];
+        return [iCloudKeyValueStore SetString:[NSString stringWithUTF8String:key] setValue:[NSString stringWithUTF8String:value]];
     }
     int _iCloudGetInt(const char *key, int defaultValue)
     {
-        return [iCloudKeyValueStore iCloudGetInt:[NSString stringWithUTF8String:key] defaultValue:defaultValue];
+        return [iCloudKeyValueStore GetInt:[NSString stringWithUTF8String:key] defaultValue:defaultValue];
     }
     bool _iCloudSaveInt(const char *key, int value)
     {
-        return [iCloudKeyValueStore iCloudSaveInt:[NSString stringWithUTF8String:key] setValue:value];
+        return [iCloudKeyValueStore SetInt:[NSString stringWithUTF8String:key] setValue:value];
     }
     float _iCloudGetFloat(const char *key, float defaultValue)
     {
-        return [iCloudKeyValueStore iCloudGetFloat:[NSString stringWithUTF8String:key] defaultValue:defaultValue];
+        return [iCloudKeyValueStore GetFloat:[NSString stringWithUTF8String:key] defaultValue:defaultValue];
     }
     bool _iCloudSaveFloat(const char *key, float value)
     {
-        return [iCloudKeyValueStore iCloudSaveFloat:[NSString stringWithUTF8String:key] setValue:value];
+        return [iCloudKeyValueStore SetFloat:[NSString stringWithUTF8String:key] setValue:value];
     }
     bool _iCloudGetBool(const char *key, bool defaultValue)
     {
-        return [iCloudKeyValueStore iCloudGetBool:[NSString stringWithUTF8String:key] defaultValue:defaultValue];
+        return [iCloudKeyValueStore GetBool:[NSString stringWithUTF8String:key] defaultValue:defaultValue];
     }
     bool _iCloudSaveBool(const char *key, bool value)
     {
-        return [iCloudKeyValueStore iCloudSaveBool:[NSString stringWithUTF8String:key] setValue:value];
+        return [iCloudKeyValueStore SetBool:[NSString stringWithUTF8String:key] setValue:value];
     }
 }

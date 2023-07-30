@@ -34,14 +34,14 @@ extern UIViewController *UnityGetGLViewController();
 +(BOOL)IsICloudAvailable;
 +(BOOL)KeyExists:(NSString *)key;
 +(BOOL)ClearICloudSave;
-+(double)iCloudGetFloat:(NSString *)key defaultValue:(double)defaultValue;
-+(BOOL)iCloudSaveFloat:(NSString *)key setValue:(double)value;
-+(int)iCloudGetInt:(NSString *)key defaultValue:(int)defaultValue;
-+(BOOL)iCloudSaveInt:(NSString *)key setValue:(long)value;
-+(BOOL)iCloudGetBool:(NSString *)key defaultValue:(BOOL)defaultValue;
-+(BOOL)iCloudSaveBool:(NSString *)key setValue:(BOOL)value;
-+(NSString *)iCloudGetString:(NSString *)key defaultValue:(NSString *)defaultValue;
-+(BOOL)iCloudSaveString:(NSString *)key setValue:(NSString *)value;
++(double)GetFloat:(NSString *)key defaultValue:(double)defaultValue;
++(BOOL)SetFloat:(NSString *)key setValue:(double)value;
++(int)GetInt:(NSString *)key defaultValue:(int)defaultValue;
++(BOOL)SetInt:(NSString *)key setValue:(long)value;
++(BOOL)GetBool:(NSString *)key defaultValue:(BOOL)defaultValue;
++(BOOL)SetBool:(NSString *)key setValue:(BOOL)value;
++(NSString *)GetString:(NSString *)key defaultValue:(NSString *)defaultValue;
++(BOOL)SetString:(NSString *)key setValue:(NSString *)value;
 +(BOOL)Synchronize;
 @end
 
