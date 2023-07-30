@@ -82,7 +82,7 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="defaultValue">默认值</param>
         /// <returns></returns>
-        public static string iCloudGetStringValue(string key, string defaultValue)
+        public static string GetString(string key, string defaultValue)
         {
             return _iCloudGetString(key, defaultValue);
         }
@@ -93,7 +93,7 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="value">值</param>
         /// <returns></returns>
-        public static bool iCloudSaveStringValue(string key, string value)
+        public static bool SetString(string key, string value)
         {
             return _iCloudSaveString(key, value);
         }
@@ -104,7 +104,7 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="defaultValue">默认值</param>
         /// <returns></returns>
-        public static int iCloudGetIntValue(string key, int defaultValue)
+        public static int GetInt(string key, int defaultValue)
         {
             return _iCloudGetInt(key, defaultValue);
         }
@@ -115,7 +115,7 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="value">值</param>
         /// <returns></returns>
-        public static bool iCloudSaveIntValue(string key, int value)
+        public static bool SstInt(string key, int value)
         {
             return _iCloudSaveInt(key, value);
         }
@@ -126,7 +126,7 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="defaultValue">默认值</param>
         /// <returns></returns>
-        public static float iCloudGetFloatValue(string key, float defaultValue)
+        public static float GetFloat(string key, float defaultValue)
         {
             return _iCloudGetFloat(key, defaultValue);
         }
@@ -137,7 +137,7 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="value">值</param>
         /// <returns></returns>
-        public static bool iCloudSaveFloatValue(string key, float value)
+        public static bool SetFloat(string key, float value)
         {
             return _iCloudSaveFloat(key, value);
         }
@@ -148,7 +148,7 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="defaultValue">默认值</param>
         /// <returns></returns>
-        public static bool iCloudGetBoolValue(string key, bool defaultValue)
+        public static bool GetBool(string key, bool defaultValue)
         {
             return _iCloudGetBool(key, defaultValue);
         }
@@ -159,7 +159,7 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="value">值</param>
         /// <returns></returns>
-        public static bool iCloudSaveBoolValue(string key, bool value)
+        public static bool SetBool(string key, bool value)
         {
             return _iCloudSaveBool(key, value);
         }
