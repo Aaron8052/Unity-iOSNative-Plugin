@@ -131,7 +131,7 @@ namespace iOSNativePlugin
         /// <param name="message">对话框内容</param>
         /// <param name="callback">回调（参数int，依据用户的选择，回调对应action的index）</param>
         /// <param name="style">对话框样式（UIAlertControllerStyle）</param>
-        /// <param name="actions">（params数组）对话框选项（action）</param>
+        /// <param name="actions">（params数组）对话框选项（action）<para><b>注 - UIAlertActionStyle会影响最终呈现在玩家屏幕上的选项顺序，但不会影响回调中的index顺序</b></para></param>
         public static void ShowDialog(string title, string message, Action<int> callback, UIAlertControllerStyle style, params UIAlertAction[] actions)
         {
             if(actions == null || actions.Length <= 0)
