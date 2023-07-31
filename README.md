@@ -76,16 +76,17 @@
 |---------------------------|----------------------------------------|
 | `Initialize()`          | 初始化iCloud         |
 | `IsICloudAvailable()`     | 判断当前设备iCloud是否可用                       |
+| `ContainsKey()` | 判断当前iCloud是否包含键 |
 | `Synchronize()`           | 强制同步iCloud云存档至Apple服务器（Bool返回值：是否同步成功） |
 | * `ClearICloudSave()`     | 清空iCloud存档                             |
-| `iCloudGetStringValue()`  | 从iCloud读取String值                       |
-| `iCloudGetIntValue()`     | 从iCloud读取Int值                          |
-| `iCloudGetFloatValue()`   | 从iCloud读取Float值                        |
-| `iCloudGetBoolValue()`    | 从iCloud读取Bool值                         |
-| `iCloudSaveStringValue()` | 保存String值到iCloud                       |
-| `iCloudSaveIntValue()`    | 保存Int值到iCloud                          |
-| `iCloudSaveFloatValue()`  | 保存Float值到iCloud                        |
-| `iCloudSaveBoolValue()`   | 保存Bool值到iCloud                         |
+| `GetString()`  | 从iCloud读取String值                       |
+| `GetInt()`     | 从iCloud读取Int值                          |
+| `GetFloat()`   | 从iCloud读取Float值                        |
+| `GetBool()`    | 从iCloud读取Bool值                         |
+| `SetString()` | 保存String值到iCloud                       |
+| `SetInt()`    | 保存Int值到iCloud                          |
+| `SetFloat()`  | 保存Float值到iCloud                        |
+| `SetBool()`   | 保存Bool值到iCloud                         |
 
 ### Notification
 
