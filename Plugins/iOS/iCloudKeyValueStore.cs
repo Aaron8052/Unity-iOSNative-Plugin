@@ -59,7 +59,11 @@ namespace iOSNativePlugin
         {
             return _IsICloudAvailable();
         }
-
+        /// <summary>
+        /// 判断当前iCloud是否包含键
+        /// </summary>
+        /// <param name="key">要判断的key</param>
+        /// <returns>iCloud云存储包含该key</returns>
         public static bool ContainsKey(string key)
         {
             return _ICloudKeyExists(key);
