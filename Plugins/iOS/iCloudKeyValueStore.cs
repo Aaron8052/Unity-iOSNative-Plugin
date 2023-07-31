@@ -14,6 +14,9 @@ namespace iOSNativePlugin
         private static extern bool _IsICloudAvailable();
 
         [DllImport("__Internal")]
+        static extern bool _ICloudKeyExists(string key);
+        
+        [DllImport("__Internal")]
         private static extern bool _ClearICloudSave();
 
         [DllImport("__Internal")]
@@ -56,7 +59,11 @@ namespace iOSNativePlugin
         {
             return _IsICloudAvailable();
         }
-            
+
+        public static bool ContainsKey(string key)
+        {
+            return _ICloudKeyExists(key);
+        } 
         /// <summary>
         /// 判断当前设备iCloud是否可用
         /// </summary>
