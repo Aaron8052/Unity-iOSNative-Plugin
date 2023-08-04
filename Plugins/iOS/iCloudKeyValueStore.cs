@@ -126,7 +126,7 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="value">值</param>
         /// <returns></returns>
-        public static bool SstInt(string key, int value)
+        public static bool SetInt(string key, int value)
         {
             return _iCloudSaveInt(key, value);
         }
