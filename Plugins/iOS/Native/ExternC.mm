@@ -7,7 +7,14 @@ extern "C"
     {
         return StringCopy([[iOSApplication GetBundleIdentifier] UTF8String]);
     }
-    
+    const char* _GetVersion()
+    {
+        return StringCopy([[iOSApplication GetVersion] UTF8String]);
+    }
+    const char* _GetBundleVersion()
+    {
+        return StringCopy([[iOSApplication GetBundleVersion] UTF8String]);
+    }
 
     //NativeUI
     void _RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback)

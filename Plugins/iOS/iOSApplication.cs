@@ -10,6 +10,12 @@ namespace iOSNativePlugin
         [DllImport("__Internal")]
         static extern string _GetBundleIdentifier();
         
+        [DllImport("__Internal")]
+        static extern string _GetVersion();
+        
+        [DllImport("__Internal")]
+        static extern string _GetBundleVersion();
+        
         
         /// <summary>
         /// 获取当前应用的Bundle Identifier
@@ -18,6 +24,24 @@ namespace iOSNativePlugin
         public static string GetBundleIdentifier()
         {
             return _GetBundleIdentifier();
+        }
+        
+        /// <summary>
+        /// 获取应用版本号
+        /// </summary>
+        /// <returns></returns>
+        public static string GetVersion()
+        {
+            return _GetVersion();
+        }
+        
+        /// <summary>
+        /// 获取应用构建号
+        /// </summary>
+        /// <returns></returns>
+        public static string GetBundleVersion()
+        {
+            return _GetBundleVersion();
         }
     }
 }

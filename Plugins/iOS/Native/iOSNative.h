@@ -8,6 +8,8 @@ extern UIViewController *UnityGetGLViewController();
 
 @interface iOSApplication : NSObject
 +(NSString *)GetBundleIdentifier;
++(NSString *)GetVersion;
++(NSString *)GetBundleVersion;
 @end
 
 
