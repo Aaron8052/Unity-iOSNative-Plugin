@@ -5,10 +5,10 @@
     return [[NSBundle mainBundle] bundleIdentifier];
 }
 +(NSString *)GetVersion{
-    return [[NSBundle mainBundle] valueForKey:@"CFBundleShortVersionString"];
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 }
 +(NSString *)GetBundleVersion{
-    return [[NSBundle mainBundle] valueForKey:(NSString *)kCFBundleVersionKey];
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
 }
 @end
 
