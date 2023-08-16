@@ -1,6 +1,6 @@
 #import "iOSNative.h"
 #import <UIKit/UIView.h>
-
+#import <SafariServices/SafariServices.h>
 
 
 @implementation NativeUI
@@ -12,6 +12,24 @@
         instance = [[NativeUI alloc] init];
     });
     return instance;
+}
+
+
++(void)SafariViewFromUrl:(NSString *)url onCompletionCallback:(Callback)callback
+{
+    if(url == nil || url.length <= 0){
+        return;
+    }
+    
+    NSURL * nsUrl = [NSURL URLWithString:url];
+    
+    SFSafariViewController * safariView = [[SFSafariViewController alloc] initWithURL:nsUrl];
+    
+    [UnityGetGLViewController() presentViewController:safariView animated:YES completion:^{
+        if(callback != nil)
+            callback();
+    }];
+
 }
 
 
@@ -48,7 +66,7 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
     if(!StatusBarOrientationChangeCallbackRegistered)
         return;
     
-    [[NSNotificationCenter defaultCenter]removeObserver:[self instance]];
+    [[NSNotificationCenter defaultCenter]removeObserver:[self instance] name:UIDeviceOrientationDidChangeNotification object:nil];
     
     StatusBarOrientationChangeCallback = nil;
     StatusBarOrientationChangeCallbackRegistered = NO;

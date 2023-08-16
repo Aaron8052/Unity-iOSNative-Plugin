@@ -17,6 +17,15 @@ extern "C"
     }
 
     //NativeUI
+    void _SafariViewFromUrl(const char* url, Callback onCompletionCallback)
+    {
+        if(url == NULL)
+            return;
+        
+        [NativeUI SafariViewFromUrl:[NSString stringWithUTF8String:url]
+               onCompletionCallback:onCompletionCallback];
+    }
+    
     void _RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback)
     {
         [NativeUI RegisterStatusBarOrientationChangeCallback:callback];
@@ -91,10 +100,24 @@ extern "C"
     //NativeShare
     void _Share(const char* message, const char* url, const char* imagePath, ShareCloseCallback callback)
     {
-        [NativeShare shareMsg:[NSString stringWithUTF8String:message ?: ""]
+        [NativeShare ShareMessage:[NSString stringWithUTF8String:message ?: ""]
          addUrl:[NSString stringWithUTF8String:url ?: ""]
         imgPath:[NSString stringWithUTF8String:imagePath ?: ""]
         callback:callback];
+    }
+    void _ShareObjects(const char** objects, int count, ShareCloseCallback callback)
+    {
+        if(count <= 0)
+            return;
+        
+        NSMutableArray<NSString*> *objectsArray = [NSMutableArray array];
+        
+        for(int i = 0; i< count; i++){
+            NSString *str = [NSString stringWithUTF8String:objects[i]];
+            [objectsArray addObject:str];
+        }
+        
+        [NativeShare ShareObject:objectsArray callback:callback];
     }
     void _SaveFileDialog(const char* content, const char* fileName, FileSavedCallback callback)
     {

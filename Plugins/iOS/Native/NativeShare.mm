@@ -6,15 +6,59 @@
 
 @implementation NativeShare
 
-+(void)shareMsg:(NSString *)message addUrl:(NSString *)url imgPath:(NSString *)filePath  callback:(ShareCloseCallback)callback
++(void)ShareMessage:(NSString *)message addUrl:(NSString *)url imgPath:(NSString *)imgPath  callback:(ShareCloseCallback)callback
 {
+    NSMutableArray<NSString*>* array = [NSMutableArray new];
+    
+    if(message != nil)
+        [array addObject:[NSString stringWithFormat:@"0%@", message]];
+    
+    if(url != nil)
+        [array addObject:[NSString stringWithFormat:@"1%@", url]];
+    
+    if(imgPath != nil)
+        [array addObject:[NSString stringWithFormat:@"2%@", imgPath]];
+    
+    
+    [NativeShare ShareObject:array callback:callback];
+    
+}
++(void)ShareObject:(NSMutableArray<NSString*>*)objects callback:(ShareCloseCallback)callback
+{
+    if(objects == nil || objects == nil)
+        return;
+    
+    
     NSMutableArray *items = [NSMutableArray new];//创建分享内容List
-    [items addObject:message ?: @""];//添加message到List
-    [items addObject:[NSURL URLWithString:url ?: @""]];//添加URL到List
-
-    UIImage *image = [UIImage imageWithContentsOfFile:filePath ?: @""];//从filePath获取Image
-    if(image != nil)//判断是否存在image
-        [items addObject:image];//添加image到list
+    
+    for (int i = 0; i < objects.count; i++) {
+        NSString *objectStr = objects[i];
+        
+        NSString *firstChar = [objectStr substringToIndex:1];
+        NSString *str = [objectStr substringFromIndex:1];
+        NSInteger objectType = [firstChar intValue];
+        
+        switch (objectType) {
+            case 0://string
+                [items addObject:str ?: @""];
+                break;
+                
+            case 1: //url
+                [items addObject:[NSURL URLWithString:str ?: @""]];
+                break;
+                
+            case 2://image
+            {
+                UIImage *image = [UIImage imageWithContentsOfFile:str ?: @""];//从filePath获取Image
+                if(image != nil)//判断是否存在image
+                    [items addObject:image];//添加image到list
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }
     
     
     //初始化UI控制器

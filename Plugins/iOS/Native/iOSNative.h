@@ -15,7 +15,8 @@ extern UIViewController *UnityGetGLViewController();
 
 
 @interface NativeShare : NSObject
-+(void)shareMsg:(NSString *)message addUrl:(NSString *)url imgPath:(NSString *)filePath callback:(ShareCloseCallback)callback;
++(void)ShareMessage:(NSString *)message addUrl:(NSString *)url imgPath:(NSString *)imgPath  callback:(ShareCloseCallback)callback;
++(void)ShareObject:(NSMutableArray<NSString*>*)objects callback:(ShareCloseCallback)callback;
 +(void)SaveFileDialog:(NSString *)content fileName:(NSString *)fileName callback:(FileSavedCallback)callback;
 +(void)SelectFileDialog:(NSString *)ext  callback:(FileSelectCallback)callback;
 @end
@@ -62,6 +63,7 @@ extern UIViewController *UnityGetGLViewController();
 
 
 @interface NativeUI : NSObject
++(void)SafariViewFromUrl:(NSString *)url                onCompletionCallback:(Callback)callback;
 +(void)RegisterStatusBarOrientationChangeCallback:(OrientationChangeCallback)callback;
 +(void)UnregisterStatusBarOrientationChangeCallback;
 +(NSInteger)GetStatusBarOrientation;

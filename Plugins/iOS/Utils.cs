@@ -8,7 +8,44 @@ namespace iOSNativePlugin
     delegate void FileSavedCallback(bool saved);
     delegate void OrientationChangeCallback(int orientation);
     
-    
+    /// <summary>
+    /// 指定原生分享的内容、类型
+    /// </summary>
+    public struct ShareObject
+    {
+        /// <summary>
+        /// 指定对话框按钮的内容、样式
+        /// </summary>
+        /// <param name="actionWithTitle">按钮内容</param>
+        /// <param name="style">按钮文字样式</param>
+        public ShareObject(string content, ShareObjectType type = ShareObjectType.NSString)
+        {
+            _content = content;
+            _type = (int)type;
+        }
+
+        readonly string _content;
+        readonly int _type;
+                
+        public override string ToString()
+        {
+            return _type + _content;
+        }
+
+        public static implicit operator string(ShareObject obj)
+        {
+            return obj.ToString();
+        }
+    }
+
+	public enum ShareObjectType
+	{
+		NSString = 0,//string
+		URL = 1,//Link
+		ImagePath = 2,//图片本地路径
+	}
+
+
     /// <summary>
     /// 当前的UI朝向
     /// </summary>

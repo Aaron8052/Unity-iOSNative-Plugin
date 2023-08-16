@@ -8,6 +8,8 @@ namespace iOSNativePlugin
     {
         [DllImport("__Internal")]
         private static extern void _Share(string message, string url, string imagePath, ShareCloseCallback callback);
+		[DllImport("__Internal")]
+		private static extern void _ShareObjects(string[] objects, int count, ShareCloseCallback callback);
         [DllImport("__Internal")]
         private static extern void _SaveFileDialog(string content, string fileName, FileSavedCallback callback);
         [DllImport("__Internal")]
@@ -23,6 +25,26 @@ namespace iOSNativePlugin
         public static void Share(string message, string url = "", string imagePath = "", Action closeCallback = null)
         {
             _Share(message, url, imagePath, OnShareCloseCallback);
+            OnShareClose = closeCallback;
+        }
+        /// <summary>
+        /// 调用系统分享功能
+        /// </summary>
+        /// <param name="closeCallback">用户关闭分享面板的回调</param>
+        /// <param name="shareObjects">分享内容</param>
+		public static void ShareObjects(Action closeCallback = null, params ShareObject[] shareObjects)
+        {
+            if(shareObjects == null || shareObjects.Length <= 0)
+                return;
+
+            string[] objectsArray = new string[shareObjects.Length];
+                
+            for (int i = 0; i < shareObjects.Length; i++)
+            {
+                objectsArray[i] = shareObjects[i];
+            }
+
+            _ShareObjects(objectsArray, objectsArray.Length, OnShareCloseCallback);
             OnShareClose = closeCallback;
         }
         static event Action OnShareClose;

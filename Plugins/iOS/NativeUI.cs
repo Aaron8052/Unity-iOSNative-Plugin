@@ -10,6 +10,9 @@ namespace iOSNativePlugin
     public static class NativeUI
     {
         [DllImport("__Internal")]
+        static extern void _SafariViewFromUrl(string url, Action onCompletionCallback);
+            
+        [DllImport("__Internal")]
         static extern void _RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback);
             
         [DllImport("__Internal")]
@@ -35,6 +38,30 @@ namespace iOSNativePlugin
             
         [DllImport("__Internal")]
         static extern void _ShowDialog(string title, string message, string[] actions, int count, int style, DialogSelectionCallback callback);
+
+        /// <summary>
+        /// 调用游戏内Safari窗口打开url
+        /// </summary>
+        /// <param name="url">URL</param>
+        /// <param name="onCompletionCallback">用户关闭窗口回调</param>
+        public static void SafariViewFromUrl(string url, Action onCompletionCallback = null)
+        {
+            _SafariViewFromUrl(url, OnSafariViewCompletionCallback);
+            OnSafariViewComplete = onCompletionCallback;
+        }
+
+        private static Action OnSafariViewComplete;
+        
+        [MonoPInvokeCallback(typeof(Action))]
+        static void OnSafariViewCompletionCallback()
+        {
+            if (OnSafariViewComplete != null)
+                OnSafariViewComplete();
+
+            OnSafariViewComplete = null;
+        }
+        
+        
 
         static Action<UIInterfaceOrientation> _onStatusBarOrientationChanged;
             
