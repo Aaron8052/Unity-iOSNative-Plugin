@@ -10,7 +10,7 @@ namespace iOSNativePlugin
     public static class NativeUI
     {
         [DllImport("__Internal")]
-        static extern void _SafariViewFromUrl(string url, Action onCompletionCallback);
+        static extern void _SafariViewFromUrl(string url, CompletionCallback onCompletionCallback);
             
         [DllImport("__Internal")]
         static extern void _RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback);
@@ -47,18 +47,18 @@ namespace iOSNativePlugin
         public static void SafariViewFromUrl(string url, Action onCompletionCallback = null)
         {
             _SafariViewFromUrl(url, OnSafariViewCompletionCallback);
-            OnSafariViewComplete = onCompletionCallback;
+            _onSafariViewComplete = onCompletionCallback;
         }
 
-        private static Action OnSafariViewComplete;
+        private static Action _onSafariViewComplete;
         
-        [MonoPInvokeCallback(typeof(Action))]
+        [MonoPInvokeCallback(typeof(CompletionCallback))]
         static void OnSafariViewCompletionCallback()
         {
-            if (OnSafariViewComplete != null)
-                OnSafariViewComplete();
+            if (_onSafariViewComplete != null)
+                _onSafariViewComplete();
 
-            OnSafariViewComplete = null;
+            _onSafariViewComplete = null;
         }
         
         

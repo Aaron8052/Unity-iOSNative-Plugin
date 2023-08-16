@@ -17,7 +17,7 @@ extern "C"
     }
 
     //NativeUI
-    void _SafariViewFromUrl(const char* url, Callback onCompletionCallback)
+    void _SafariViewFromUrl(const char* url, CompletionCallback onCompletionCallback)
     {
         if(url == NULL)
             return;

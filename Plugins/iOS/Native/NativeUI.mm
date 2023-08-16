@@ -15,7 +15,7 @@
 }
 
 
-+(void)SafariViewFromUrl:(NSString *)url onCompletionCallback:(Callback)callback
++(void)SafariViewFromUrl:(NSString *)url onCompletionCallback:(CompletionCallback)callback
 {
     if(url == nil || url.length <= 0){
         return;
@@ -24,7 +24,7 @@
     NSURL * nsUrl = [NSURL URLWithString:url];
     
     SFSafariViewController * safariView = [[SFSafariViewController alloc] initWithURL:nsUrl];
-    
+
     [UnityGetGLViewController() presentViewController:safariView animated:YES completion:^{
         if(callback != nil)
             callback();

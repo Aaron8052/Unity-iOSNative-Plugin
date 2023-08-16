@@ -20,5 +20,5 @@ typedef void (*FileSavedCallback)(bool);
 typedef void (*FileSelectCallback)(bool, const char*);
 typedef void (*DialogSelectionCallback)(int);
 typedef void (*OrientationChangeCallback)(int);
-typedef void (*Callback)();
+typedef void (*CompletionCallback)();
 

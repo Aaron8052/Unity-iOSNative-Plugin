@@ -63,7 +63,7 @@ extern UIViewController *UnityGetGLViewController();
 
 
 @interface NativeUI : NSObject
-+(void)SafariViewFromUrl:(NSString *)url                onCompletionCallback:(Callback)callback;
++(void)SafariViewFromUrl:(NSString *)url onCompletionCallback:(CompletionCallback)callback;
 +(void)RegisterStatusBarOrientationChangeCallback:(OrientationChangeCallback)callback;
 +(void)UnregisterStatusBarOrientationChangeCallback;
 +(NSInteger)GetStatusBarOrientation;
