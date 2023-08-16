@@ -23,13 +23,21 @@
     
     NSURL * nsUrl = [NSURL URLWithString:url];
     
-    SFSafariViewController * safariView = [[SFSafariViewController alloc] initWithURL:nsUrl];
+    SFSafariViewController* safariView = [[SFSafariViewController alloc] initWithURL:nsUrl];
+    safariView.delegate = [NativeUI instance];
+    
+    SafariViewCompleteCallback = callback;
+    
+    [UnityGetGLViewController() presentViewController:safariView animated:YES completion:nil];
 
-    [UnityGetGLViewController() presentViewController:safariView animated:YES completion:^{
-        if(callback != nil)
-            callback();
-    }];
+}
+static CompletionCallback SafariViewCompleteCallback;
 
+-(void)safariViewControllerDidFinish:(SFSafariViewController *)controller{
+    if(SafariViewCompleteCallback != nil)
+        SafariViewCompleteCallback();
+    
+    SafariViewCompleteCallback = nil;
 }
 
 
