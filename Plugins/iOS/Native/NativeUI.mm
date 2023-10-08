@@ -23,6 +23,11 @@
     
     NSURL * nsUrl = [NSURL URLWithString:url];
     
+    if(nsUrl == nil)
+    {
+        return;
+    }
+
     SFSafariViewController* safariView = [[SFSafariViewController alloc] initWithURL:nsUrl];
     safariView.delegate = [NativeUI instance];
     
