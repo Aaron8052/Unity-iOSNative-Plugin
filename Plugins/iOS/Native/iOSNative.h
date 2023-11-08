@@ -10,6 +10,11 @@ extern UIViewController *UnityGetGLViewController();
 +(NSString *)GetBundleIdentifier;
 +(NSString *)GetVersion;
 +(NSString *)GetBundleVersion;
+
++(BOOL)GetUserSettingsBool:(NSString *) identifier;
++(NSString *)GetUserSettingsString:(NSString *) identifier;
++(float)GetUserSettingsFloat:(NSString *) identifier;
++(NSInteger)GetUserSettingsInt:(NSString *) identifier;
 @end
 
 

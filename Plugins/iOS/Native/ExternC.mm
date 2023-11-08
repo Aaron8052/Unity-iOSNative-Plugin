@@ -15,6 +15,36 @@ extern "C"
     {
         return StringCopy([[iOSApplication GetBundleVersion] UTF8String]);
     }
+    
+    bool _GetUserSettingsBool(const char* identifier)
+    {
+        if(identifier == nil)
+            return NO;
+        
+        return [iOSApplication GetUserSettingsBool: [NSString stringWithUTF8String:identifier]];
+    }
+    const char* _GetUserSettingsString(const char* identifier)
+    {
+        if(identifier == nil)
+            return nil;
+        
+        return StringCopy([[iOSApplication GetUserSettingsString: [NSString stringWithUTF8String:identifier]] UTF8String]);
+    }
+    float _GetUserSettingsFloat(const char* identifier)
+    {
+        if(identifier == nil)
+            return 0;
+        
+        return [iOSApplication GetUserSettingsFloat: [NSString stringWithUTF8String:identifier]];
+    }
+    long _GetUserSettingsInt(const char* identifier)
+    {
+        if(identifier == nil)
+            return 0;
+        
+        return [iOSApplication GetUserSettingsInt: [NSString stringWithUTF8String:identifier]];
+    }
+
 
     //NativeUI
     void _SafariViewFromUrl(const char* url, CompletionCallback onCompletionCallback)
