@@ -17,6 +17,10 @@ namespace iOSNativePlugin
         static extern string _GetBundleVersion();
         
         [DllImport("__Internal")]
+        static extern void _OpenAppSettings();
+        
+        
+        [DllImport("__Internal")]
         static extern bool _GetUserSettingsBool(string identifier);
         
         [DllImport("__Internal")]
@@ -54,6 +58,13 @@ namespace iOSNativePlugin
             return _GetBundleVersion();
         }
 
+        /// <summary>
+        /// 打开本App的系统设置界面
+        /// </summary>
+        public static void OpenAppSettings()
+        {
+            _OpenAppSettings();
+        }
         /// <summary>
         /// 获取iOS settings bundle的Toggle Switch值
         /// </summary>

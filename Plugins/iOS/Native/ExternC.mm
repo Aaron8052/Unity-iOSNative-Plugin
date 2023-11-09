@@ -16,6 +16,9 @@ extern "C"
         return StringCopy([[iOSApplication GetBundleVersion] UTF8String]);
     }
     
+    void _OpenAppSettings(){
+        [iOSApplication OpenAppSettings];
+    }
     bool _GetUserSettingsBool(const char* identifier)
     {
         if(identifier == nil)

@@ -1,6 +1,19 @@
 #import "iOSNative.h"
 
 @implementation iOSApplication
++(void)OpenAppSettings
+{
+    NSURL* url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+    [[UIApplication sharedApplication]openURL:url options:@{} completionHandler:^(BOOL success)
+     {
+        if(success)
+            LOG(@"Open App Settings Success");
+            
+        else
+            LOG(@"Open App Settings Failed");
+        
+    }];
+}
 +(NSString *)GetBundleIdentifier
 {
     return [[NSBundle mainBundle] bundleIdentifier];
