@@ -3,6 +3,29 @@
 #import <AVFoundation/AVFoundation.h>
 
 @implementation Device
++(NSInteger)GetDeviceOrientation{
+    return [[UIDevice currentDevice]orientation];
+}
+
++(BOOL)IsBluetoothHeadphonesConnected{
+    AVAudioSession* audioSession = [AVAudioSession sharedInstance];
+    AVAudioSessionPortDescription *firstOutput = [[[audioSession currentRoute]outputs]firstObject];
+    
+    if([firstOutput portType] == AVAudioSessionPortBluetoothA2DP ||
+       [firstOutput portType] == AVAudioSessionPortBluetoothHFP )
+    {
+        return true;
+    }
+    return false;
+}
+
++(BOOL)IsMacCatalyst{
+#if TARGET_OS_MACCATALYST
+    return YES;
+#else
+    return NO;
+#endif
+}
 
 +(BOOL)IsSuperuser{
     return [[NSFileManager defaultManager] fileExistsAtPath:@"User/Applications/"] ||[[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]

@@ -5,7 +5,6 @@ static NSUbiquitousKeyValueStore *keyValueStore;
 static NSDictionary *cloudDictionary;
 static BOOL iCloudInited;
 static BOOL availability;
-static BOOL noCloudAlertShown;
 static NSInteger availabilityAttemptsCount;
 
 @implementation iCloudKeyValueStore
@@ -60,15 +59,7 @@ static NSInteger availabilityAttemptsCount;
 }
 +(BOOL)IsICloudAvailable
 {
-    BOOL available = [iCloudKeyValueStore checkForAvailability];
-    
-    if(!available && !noCloudAlertShown){
-        [Notification PushNotification:@"iCloud save is not available at this point!" title:nil identifier:@"iCloudUnavailable" delay:1];
-        
-        noCloudAlertShown = YES;
-    }
-    
-    return available;
+    return [iCloudKeyValueStore checkForAvailability];
 }
 
 +(BOOL)KeyExists:(NSString *)key
@@ -101,7 +92,7 @@ static NSInteger availabilityAttemptsCount;
 }
 
 //static double 读取Float
-+(double)iCloudGetFloat:(NSString *)key defaultValue:(double)defaultValue
++(double)GetFloat:(NSString *)key defaultValue:(double)defaultValue
 {
     if([iCloudKeyValueStore IsICloudAvailable]){
 
@@ -116,7 +107,7 @@ static NSInteger availabilityAttemptsCount;
 }
 
 //static BOOL 存储Float
-+(BOOL)iCloudSaveFloat:(NSString *)key setValue:(double)value
++(BOOL)SetFloat:(NSString *)key setValue:(double)value
 {
     if([iCloudKeyValueStore IsICloudAvailable]){
 
@@ -128,7 +119,7 @@ static NSInteger availabilityAttemptsCount;
 }
 
 //static int 读取Int
-+(int)iCloudGetInt:(NSString *)key defaultValue:(int)defaultValue
++(int)GetInt:(NSString *)key defaultValue:(int)defaultValue
 {
     if([iCloudKeyValueStore IsICloudAvailable]){
   
@@ -142,7 +133,7 @@ static NSInteger availabilityAttemptsCount;
 }
 
 //static BOOL 存储Int
-+(BOOL)iCloudSaveInt:(NSString *)key setValue:(long)value
++(BOOL)SetInt:(NSString *)key setValue:(long)value
 {
     if([iCloudKeyValueStore IsICloudAvailable]){
  
@@ -154,7 +145,7 @@ static NSInteger availabilityAttemptsCount;
 }
 
 //static BOOL 读取Bool
-+(BOOL)iCloudGetBool:(NSString *)key defaultValue:(BOOL)defaultValue
++(BOOL)GetBool:(NSString *)key defaultValue:(BOOL)defaultValue
 {
     if([iCloudKeyValueStore IsICloudAvailable]){
 
@@ -168,7 +159,7 @@ static NSInteger availabilityAttemptsCount;
 }
 
 //static BOOL 存储Bool
-+(BOOL)iCloudSaveBool:(NSString *)key setValue:(BOOL)value
++(BOOL)SetBool:(NSString *)key setValue:(BOOL)value
 {
     if([iCloudKeyValueStore IsICloudAvailable]){
 
@@ -180,7 +171,7 @@ static NSInteger availabilityAttemptsCount;
 }
 
 //static NSString 读取String
-+(NSString *)iCloudGetString:(NSString *)key defaultValue:(NSString *)defaultValue
++(NSString *)GetString:(NSString *)key defaultValue:(NSString *)defaultValue
 {
     if([iCloudKeyValueStore IsICloudAvailable]){
 
@@ -195,7 +186,7 @@ static NSInteger availabilityAttemptsCount;
 }
 
 //static BOOL 存储String
-+(BOOL)iCloudSaveString:(NSString *)key setValue:(NSString *)value
++(BOOL)SetString:(NSString *)key setValue:(NSString *)value
 {
     if([iCloudKeyValueStore IsICloudAvailable]){
 
