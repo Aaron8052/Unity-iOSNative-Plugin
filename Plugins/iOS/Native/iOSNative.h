@@ -21,6 +21,7 @@ extern UIViewController *UnityGetGLViewController();
 
 
 @interface NativeShare : NSObject
++(void)SaveImageToAlbum:(NSString *)imagePath callback:(SaveImageToAlbumCallback)callback;
 +(void)ShareMessage:(NSString *)message addUrl:(NSString *)url imgPath:(NSString *)imgPath  callback:(ShareCloseCallback)callback;
 +(void)ShareObject:(NSMutableArray<NSString*>*)objects callback:(ShareCloseCallback)callback;
 +(void)SaveFileDialog:(NSString *)content fileName:(NSString *)fileName callback:(FileSavedCallback)callback;

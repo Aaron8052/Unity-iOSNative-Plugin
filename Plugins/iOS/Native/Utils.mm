@@ -15,6 +15,7 @@ static char* StringCopy(const char* string)
     return newString;
 }
 
+typedef void (*SaveImageToAlbumCallback)(bool);
 typedef void (*ShareCloseCallback)();
 typedef void (*FileSavedCallback)(bool);
 typedef void (*FileSelectCallback)(bool, const char*);

@@ -14,7 +14,29 @@ namespace iOSNativePlugin
         private static extern void _SaveFileDialog(string content, string fileName, FileSavedCallback callback);
         [DllImport("__Internal")]
         private static extern void _SelectFileDialog(string ext, FileSelectCallback callback);
-            
+        [DllImport("__Internal")]
+        private static extern void _SaveImageToAlbum(string imagePath, SaveImageToAlbumCallback callback);
+        
+        
+        
+        [MonoPInvokeCallback(typeof(SaveImageToAlbumCallback))]
+        static void OnShareCloseCallback(bool saved)
+        {
+            if(OnSaveImageToAlbumCallback != null)
+                OnSaveImageToAlbumCallback.Invoke(saved);
+                
+            OnSaveImageToAlbumCallback = null;
+        }
+
+        static event Action<bool> OnSaveImageToAlbumCallback;
+        public static void SaveImageToAlbum(string imagePath, Action<bool> callback)
+        {
+            _SaveImageToAlbum(imagePath, OnShareCloseCallback);
+            OnSaveImageToAlbumCallback = callback;
+        }
+        
+        
+        
         /// <summary>
         ///  调用系统分享功能
         /// </summary>

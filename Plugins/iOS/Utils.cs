@@ -2,6 +2,7 @@ using System;
 
 namespace iOSNativePlugin
 {
+    delegate void SaveImageToAlbumCallback(bool saved);
     delegate void DialogSelectionCallback(int selection);
     delegate void ShareCloseCallback();
     delegate void FileSelectCallback(bool selected, string content);

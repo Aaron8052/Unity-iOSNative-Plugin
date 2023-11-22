@@ -1,10 +1,43 @@
 #import "iOSNative.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <UIKit/UIKit.h>
+#import <Photos/Photos.h>
 
 
 
 @implementation NativeShare
++(void)SaveImageToAlbum:(NSString *)imagePath callback:(SaveImageToAlbumCallback)callback
+{
+    if(imagePath == nil){
+        
+        if(callback != nil)
+        {
+            callback(NO);
+        }
+        return;
+    }
+    
+    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    
+    if(!image)
+    {
+        if(callback != nil)
+        {
+            callback(NO);
+        }
+        return;
+    }
+    
+    [PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+    } completionHandler:^(BOOL success, NSError * _Nullable error) {
+        if(callback != nil)
+        {
+            callback(success);
+        }
+    }
+}
+
 
 +(void)ShareMessage:(NSString *)message addUrl:(NSString *)url imgPath:(NSString *)imgPath  callback:(ShareCloseCallback)callback
 {
@@ -25,8 +58,13 @@
 }
 +(void)ShareObject:(NSMutableArray<NSString*>*)objects callback:(ShareCloseCallback)callback
 {
-    if(objects == nil || objects == nil)
+    if(objects == nil || objects == nil){
+        if(callback != nil){
+            callback();
+        }
         return;
+    }
+        
     
     
     NSMutableArray *items = [NSMutableArray new];//创建分享内容List
@@ -66,6 +104,11 @@
  
     //为iPad初始化分享界面
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if (@available(iOS 13.0, *)) {
+            activity.modalPresentationStyle = UIModalPresentationAutomatic;
+        } else {
+            // Fallback on earlier versions
+        }
         activity.popoverPresentationController.sourceView = activity.view;//设置目标弹窗
         //设置弹窗位置以及大小
         activity.popoverPresentationController.sourceRect = CGRectMake( UnityGetGLViewController().view.frame.size.width / 2, UnityGetGLViewController().view.frame.size.height / 2, 1, 1 );

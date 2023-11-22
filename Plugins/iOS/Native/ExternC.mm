@@ -131,6 +131,9 @@ extern "C"
 
 
     //NativeShare
+    void _SaveImageToAlbum(const char* imagePath, SaveImageToAlbumCallback callback){
+        [NativeShare SaveImageToAlbum:[NSString stringWithUTF8String:imagePath ?: ""] callback:callback];
+    }
     void _Share(const char* message, const char* url, const char* imagePath, ShareCloseCallback callback)
     {
         [NativeShare ShareMessage:[NSString stringWithUTF8String:message ?: ""]
