@@ -29,7 +29,7 @@ namespace iOSNativePlugin
         }
 
         static event Action<bool> OnSaveImageToAlbumCallback;
-        public static void SaveImageToAlbum(string imagePath, Action<bool> callback)
+        public static void SaveImageToAlbum(string imagePath, Action<bool> callback = null)
         {
             _SaveImageToAlbum(imagePath, OnShareCloseCallback);
             OnSaveImageToAlbumCallback = callback;
