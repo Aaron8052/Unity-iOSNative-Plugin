@@ -28,14 +28,14 @@
         return;
     }
     
-    [PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-        [PHAssetChangeRequest creationRequestForAssetFromImage:image];
-    } completionHandler:^(BOOL success, NSError * _Nullable error) {
-        if(callback != nil)
-        {
-            callback(success);
-        }
-    }
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+            if(callback != nil)
+            {
+                callback(success);
+            }
+        }];
 }
 
 
