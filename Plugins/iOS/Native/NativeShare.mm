@@ -7,14 +7,15 @@
 
 @implementation NativeShare
 
-static NativeShare* instance = nil;
 //获取单例
 +(instancetype)Instance {
     
-    if(instance == nil)
-    {
+    static NativeShare *instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+    
         instance = [[NativeShare alloc] init];
-    }
+    });
     return instance;
 }
 

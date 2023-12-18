@@ -118,7 +118,7 @@ namespace iOSNativePlugin
         static Action _onUserSettingsChanged;
             
         /// <summary>
-        /// UI朝向变更事件
+        /// !!该事件目前会导致游戏崩溃，不要调用
         /// </summary>
         public static event Action OnUserSettingsChanged
         {

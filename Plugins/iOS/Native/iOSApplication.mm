@@ -2,14 +2,15 @@
 
 @implementation iOSApplication
 
-static iOSApplication* instance = nil;
+//static iOSApplication* instance = nil;
 //获取单例
-+(instancetype)Instance {
++ (instancetype)Instance {
+    static iOSApplication *instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
     
-    if(instance == nil)
-    {
         instance = [[iOSApplication alloc] init];
-    }
+    });
     return instance;
 }
 
@@ -57,19 +58,25 @@ static iOSApplication* instance = nil;
     return [[NSUserDefaults standardUserDefaults] integerForKey:identifier];
 }
 
-static BOOL IsUserSettingChangeCallbackRegistered = NO;
+static BOOL IsUserSettingChangeCallbackRegistered;
 
 +(void)RegisterUserSettingsChangeCallback:(UserSettingsChangeCallback) callback
 {
     if(IsUserSettingChangeCallbackRegistered)
         return;
     
-    [[NSNotificationCenter defaultCenter] addObserver:[self Instance] selector:@selector(OnUserSettingsChanged) name:NSUserDefaultsDidChangeNotification object:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] addObserver:[self Instance] selector:@selector(OnUserSettingsChanged) name:NSUserDefaultsDidChangeNotification object:nil];
+    });
+    
     
     USerSettingsChangedCallback = callback;
     IsUserSettingChangeCallbackRegistered = YES;
 }
-
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 +(void)UnregisterUserSettingsChangeCallback
 {
     if(!IsUserSettingChangeCallbackRegistered)
