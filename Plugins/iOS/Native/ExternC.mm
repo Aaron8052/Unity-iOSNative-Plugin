@@ -47,7 +47,15 @@ extern "C"
         
         return [iOSApplication GetUserSettingsInt: [NSString stringWithUTF8String:identifier]];
     }
-
+    void _RegisterUserSettingsChangeCallback(UserSettingsChangeCallback callback)
+    {
+        [iOSApplication RegisterUserSettingsChangeCallback:callback];
+    }
+    void _UnregisterUserSettingsChangeCallback()
+    {
+        [iOSApplication UnregisterUserSettingsChangeCallback];
+    }
+    
 
     //NativeUI
     void _SafariViewFromUrl(const char* url, CompletionCallback onCompletionCallback)

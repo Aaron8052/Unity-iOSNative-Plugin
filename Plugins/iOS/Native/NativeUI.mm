@@ -4,15 +4,18 @@
 
 
 @implementation NativeUI
+
+static NativeUI* instance = nil;
 //获取单例
-+ (instancetype)instance {
-    static NativeUI *instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
++(instancetype)Instance {
+    
+    if(instance == nil)
+    {
         instance = [[NativeUI alloc] init];
-    });
+    }
     return instance;
 }
+
 
 
 +(void)SafariViewFromUrl:(NSString *)url onCompletionCallback:(CompletionCallback)callback
@@ -29,7 +32,7 @@
     }
 
     SFSafariViewController* safariView = [[SFSafariViewController alloc] initWithURL:nsUrl];
-    safariView.delegate = [NativeUI instance];
+    safariView.delegate = [NativeUI Instance];
     
     SafariViewCompleteCallback = callback;
     
@@ -66,7 +69,7 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
     if(StatusBarOrientationChangeCallbackRegistered)
         return;
     
-    [[NSNotificationCenter defaultCenter] addObserver:[self instance] selector:@selector(OnStatusBarOrientationChange) name:UIDeviceOrientationDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:[self Instance] selector:@selector(OnStatusBarOrientationChange) name:UIDeviceOrientationDidChangeNotification object:nil];
     
     
     StatusBarOrientationChangeCallback = callback;
@@ -79,7 +82,7 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
     if(!StatusBarOrientationChangeCallbackRegistered)
         return;
     
-    [[NSNotificationCenter defaultCenter]removeObserver:[self instance] name:UIDeviceOrientationDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:[self Instance] name:UIDeviceOrientationDidChangeNotification object:nil];
     
     StatusBarOrientationChangeCallback = nil;
     StatusBarOrientationChangeCallbackRegistered = NO;

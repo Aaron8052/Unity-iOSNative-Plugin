@@ -6,6 +6,19 @@
 
 
 @implementation NativeShare
+
+static NativeShare* instance = nil;
+//获取单例
++(instancetype)Instance {
+    
+    if(instance == nil)
+    {
+        instance = [[NativeShare alloc] init];
+    }
+    return instance;
+}
+
+
 +(void)SaveImageToAlbum:(NSString *)imagePath callback:(SaveImageToAlbumCallback)callback
 {
     if(imagePath == nil){
@@ -138,7 +151,7 @@
     [fileData writeToURL:fileUrl atomically:YES];
     
     UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithURL:fileUrl inMode:UIDocumentPickerModeExportToService];
-    documentPicker.delegate = [self instance];
+    documentPicker.delegate = [self Instance];
     tempFileName = fileName;
     tempFileUrl = fileUrl;
     tempContent = content;
@@ -160,19 +173,13 @@
     targetExt = ext;
     OnFileSelectedCallback = callback;
      UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[@"public.data"] inMode:UIDocumentPickerModeImport];
-    documentPicker.delegate = [self instance];
+    documentPicker.delegate = [self Instance];
     [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:documentPicker animated:YES completion:nil];
 }
 
 
-+ (instancetype)instance {
-    static NativeShare *instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        instance = [[NativeShare alloc] init];
-    });
-    return instance;
-}
+
+
 static NSString* tempFileName;
 static NSURL* tempFileUrl;
 static NSString* tempContent;

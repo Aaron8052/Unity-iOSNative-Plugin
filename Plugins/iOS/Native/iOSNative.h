@@ -16,6 +16,9 @@ extern UIViewController *UnityGetGLViewController();
 +(NSString *)GetUserSettingsString:(NSString *) identifier;
 +(float)GetUserSettingsFloat:(NSString *) identifier;
 +(NSInteger)GetUserSettingsInt:(NSString *) identifier;
+
++(void)RegisterUserSettingsChangeCallback:(UserSettingsChangeCallback) callback;
++(void)UnregisterUserSettingsChangeCallback;
 @end
 
 
