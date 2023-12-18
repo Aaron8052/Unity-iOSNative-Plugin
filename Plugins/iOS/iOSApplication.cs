@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using AOT;
 using UnityEngine;
 
 namespace iOSNativePlugin
@@ -31,6 +33,14 @@ namespace iOSNativePlugin
         
         [DllImport("__Internal")]
         static extern long _GetUserSettingsInt(string identifier);
+
+        [DllImport("__Internal")]
+        static extern void _RegisterUserSettingsChangeCallback(UserSettingsChangeCallback callback);
+        
+        [DllImport("__Internal")]
+        static extern void _UnregisterUserSettingsChangeCallback();
+        
+        
         /// <summary>
         /// 获取当前应用的Bundle Identifier
         /// </summary>
@@ -103,6 +113,34 @@ namespace iOSNativePlugin
         public static long GetUserSettingsInt(string identifier)
         {
             return _GetUserSettingsInt(identifier);
+        }
+        
+        static Action _onUserSettingsChanged;
+            
+        /// <summary>
+        /// UI朝向变更事件
+        /// </summary>
+        public static event Action OnUserSettingsChanged
+        {
+            add
+            {
+                _onUserSettingsChanged += value;
+                _RegisterUserSettingsChangeCallback(OnStatusBarOrientationChangeCallback);
+            }
+            remove
+            {
+                _onUserSettingsChanged -= value;
+                    
+                if(_onUserSettingsChanged == null)
+                    _UnregisterUserSettingsChangeCallback();
+            }
+        }
+        
+        [MonoPInvokeCallback(typeof(UserSettingsChangeCallback))]
+        static void OnStatusBarOrientationChangeCallback()
+        {
+            if (_onUserSettingsChanged != null)
+                _onUserSettingsChanged();
         }
     }
 }

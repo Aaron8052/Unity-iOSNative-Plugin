@@ -9,6 +9,9 @@ namespace iOSNativePlugin
     delegate void FileSavedCallback(bool saved);
     delegate void OrientationChangeCallback(int orientation);
     delegate void CompletionCallback();
+    delegate void UserSettingsChangeCallback();
+    
+    
     /// <summary>
     /// 指定原生分享的内容、类型
     /// </summary>
