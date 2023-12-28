@@ -67,6 +67,13 @@
 | 方法                      | 功能                       |
 |-------------------------|--------------------------|
 | `GetBundleIdentifier()` | 获取当前应用的Bundle Identifier |
+| `GetVersion()` | 获取应用版本号 |
+| `GetBundleVersion()` | 获取应用构建号 |
+| `OpenAppSettings()` | 打开本App的系统设置界面 |
+| `GetUserSettingsBool()` | 获取iOS settings bundle的Toggle Switch值 |
+| `GetUserSettingsString()` | 获取iOS settings bundle的TextArea值 |
+| `GetUserSettingsFloat()` | 获取iOS settings bundle的Slider Float值 |
+| `GetUserSettingsInt()` | 获取iOS settings bundle的Slider Long值 |
 
 ### iCloudKeyValueStore
 
@@ -110,6 +117,7 @@
 | 属性                    | 功能                                      |
 |------------------------|-----------------------------------------|
 | `StatusBarOrientation` | 当前UI的朝向 |
+| `HideHomeIndicator` | 显示/隐藏Home指示条 |
 
 | 方法                     | 功能                                      |
 |------------------------|-----------------------------------------|
@@ -144,3 +152,4 @@
 | *`ShareObjects()`     | 调用系统分享功能（与上一个方法功能一致，但允许自定义分享内容类型） |
 | `SaveFileDialog()`   | 调用系统保存文件对话框，允许玩家选择保存文件的路径 |
 | `SelectFileDialog()` | 调用系统选择文件对话框，允许玩家选择文件      |
+| `SaveImageToAlbum()` | 保存图片（本地路径）到相册（需申请相册权限） |

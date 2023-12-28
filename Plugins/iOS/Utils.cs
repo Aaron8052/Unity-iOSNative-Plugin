@@ -2,12 +2,16 @@ using System;
 
 namespace iOSNativePlugin
 {
+    delegate void SaveImageToAlbumCallback(bool saved);
     delegate void DialogSelectionCallback(int selection);
     delegate void ShareCloseCallback();
     delegate void FileSelectCallback(bool selected, string content);
     delegate void FileSavedCallback(bool saved);
     delegate void OrientationChangeCallback(int orientation);
     delegate void CompletionCallback();
+    delegate void UserSettingsChangeCallback();
+    
+    
     /// <summary>
     /// 指定原生分享的内容、类型
     /// </summary>

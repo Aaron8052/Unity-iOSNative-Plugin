@@ -7,14 +7,24 @@ extern UIViewController *UnityGetGLViewController();
 
 
 @interface iOSApplication : NSObject
++(void)OpenAppSettings;
 +(NSString *)GetBundleIdentifier;
 +(NSString *)GetVersion;
 +(NSString *)GetBundleVersion;
+
++(BOOL)GetUserSettingsBool:(NSString *) identifier;
++(NSString *)GetUserSettingsString:(NSString *) identifier;
++(float)GetUserSettingsFloat:(NSString *) identifier;
++(NSInteger)GetUserSettingsInt:(NSString *) identifier;
+
++(void)RegisterUserSettingsChangeCallback:(UserSettingsChangeCallback) callback;
++(void)UnregisterUserSettingsChangeCallback;
 @end
 
 
 
 @interface NativeShare : NSObject
++(void)SaveImageToAlbum:(NSString *)imagePath callback:(SaveImageToAlbumCallback)callback;
 +(void)ShareMessage:(NSString *)message addUrl:(NSString *)url imgPath:(NSString *)imgPath  callback:(ShareCloseCallback)callback;
 +(void)ShareObject:(NSMutableArray<NSString*>*)objects callback:(ShareCloseCallback)callback;
 +(void)SaveFileDialog:(NSString *)content fileName:(NSString *)fileName callback:(FileSavedCallback)callback;

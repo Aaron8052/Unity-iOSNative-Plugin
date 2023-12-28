@@ -39,6 +39,26 @@ namespace iOSNativePlugin
         [DllImport("__Internal")]
         static extern void _ShowDialog(string title, string message, string[] actions, int count, int style, DialogSelectionCallback callback);
 
+        public static bool HideHomeIndicator
+        {
+            get
+            {
+#if UNITY_IOS //&& UNITY_2017_2_OR_NEWER
+                return UnityEngine.iOS.Device.hideHomeButton;
+#else
+                return false;
+#endif
+            }
+            set
+            {
+#if UNITY_IOS //&& UNITY_2017_2_OR_NEWER
+                UnityEngine.iOS.Device.hideHomeButton = value;
+#endif
+            }
+        }
+        
+        
+        
         /// <summary>
         /// 调用游戏内Safari窗口打开url
         /// </summary>

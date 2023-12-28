@@ -15,6 +15,47 @@ extern "C"
     {
         return StringCopy([[iOSApplication GetBundleVersion] UTF8String]);
     }
+    
+    void _OpenAppSettings(){
+        [iOSApplication OpenAppSettings];
+    }
+    bool _GetUserSettingsBool(const char* identifier)
+    {
+        if(identifier == nil)
+            return NO;
+        
+        return [iOSApplication GetUserSettingsBool: [NSString stringWithUTF8String:identifier]];
+    }
+    const char* _GetUserSettingsString(const char* identifier)
+    {
+        if(identifier == nil)
+            return nil;
+        
+        return StringCopy([[iOSApplication GetUserSettingsString: [NSString stringWithUTF8String:identifier]] UTF8String]);
+    }
+    float _GetUserSettingsFloat(const char* identifier)
+    {
+        if(identifier == nil)
+            return 0;
+        
+        return [iOSApplication GetUserSettingsFloat: [NSString stringWithUTF8String:identifier]];
+    }
+    long _GetUserSettingsInt(const char* identifier)
+    {
+        if(identifier == nil)
+            return 0;
+        
+        return [iOSApplication GetUserSettingsInt: [NSString stringWithUTF8String:identifier]];
+    }
+    void _RegisterUserSettingsChangeCallback(UserSettingsChangeCallback callback)
+    {
+        [iOSApplication RegisterUserSettingsChangeCallback:callback];
+    }
+    void _UnregisterUserSettingsChangeCallback()
+    {
+        [iOSApplication UnregisterUserSettingsChangeCallback];
+    }
+    
 
     //NativeUI
     void _SafariViewFromUrl(const char* url, CompletionCallback onCompletionCallback)
@@ -98,6 +139,9 @@ extern "C"
 
 
     //NativeShare
+    void _SaveImageToAlbum(const char* imagePath, SaveImageToAlbumCallback callback){
+        [NativeShare SaveImageToAlbum:[NSString stringWithUTF8String:imagePath ?: ""] callback:callback];
+    }
     void _Share(const char* message, const char* url, const char* imagePath, ShareCloseCallback callback)
     {
         [NativeShare ShareMessage:[NSString stringWithUTF8String:message ?: ""]
