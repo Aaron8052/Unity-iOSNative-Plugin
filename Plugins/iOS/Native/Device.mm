@@ -30,24 +30,24 @@
 +(BOOL)IsSuperuser
 {
     if([[NSFileManager defaultManager] fileExistsAtPath:@"User/Applications/"])
-        return true;
+        return YES;
     
     if([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"])
-        return true;
+        return YES;
     
     if([[NSFileManager defaultManager] fileExistsAtPath:@"/private/var/lib/apt"])
-        return true;
+        return YES;
     
     if([[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg"])
-        return true;
+        return YES;
     
     if([[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/trollstore"])
-        return true;
+        return YES;
     
     if([[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/serotonin"])
-        return true;
+        return YES;
     
-    return false;
+    return NO;
 }
 
 +(void)SetAudioExclusive:(BOOL)exclusiveOn{
