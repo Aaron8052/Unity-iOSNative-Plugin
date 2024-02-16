@@ -4,6 +4,8 @@
   "displayName": "iOS Native Plugin",
   "description": "iOS Native Plugin for Unity",
   "documentationUrl": "https://github.com/Aaron8052/Unity-iOSNative-Plugin/tree/main?tab=readme-ov-file#unity-iosnative-plugin",
+  "changelogUrl": "https://github.com/Aaron8052/Unity-iOSNative-Plugin/releases",
+  "licensesUrl": "https://github.com/Aaron8052/Unity-iOSNative-Plugin?tab=MIT-1-ov-file#readme",
   "unity": "2017.4",
   "license": "MIT",
   "repository": {
