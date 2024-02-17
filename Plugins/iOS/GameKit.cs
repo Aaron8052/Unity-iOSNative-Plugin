@@ -12,11 +12,12 @@ namespace iOSNativePlugin
         [DllImport("__Internal")]
         private static extern void _LoadScore(string leaderboardID, LongCallback callback);
 
-
+        //计时Recurring排行榜在iOS14以下不支持，会返回-1
         public static void LoadScore(string leaderboardID, Action<long> callback)
         {
-            _onScoreCallback = callback;
             _LoadScore(leaderboardID, OnScoreCallback);
+            _onScoreCallback = callback;
+            
         }
         
         private static Action<long> _onScoreCallback;
