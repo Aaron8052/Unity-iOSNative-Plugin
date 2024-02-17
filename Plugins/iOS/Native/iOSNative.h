@@ -4,7 +4,9 @@
 
 extern UIViewController *UnityGetGLViewController();
 
-
+@interface iOSGameKit : NSObject
++(void)LoadScore:(NSString *)leaderboardID callback:(LongCallback)callback;
+@end
 
 @interface iOSApplication : NSObject
 +(void)OpenAppSettings;

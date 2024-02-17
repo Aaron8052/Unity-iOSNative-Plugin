@@ -2,6 +2,13 @@
 
 extern "C"
 {
+    //GameKit
+    void _LoadScore(const char* leaderboardID, LongCallback callback)
+    {
+        [iOSGameKit LoadScore:[NSString stringWithUTF8String:leaderboardID] callback:callback];
+    }
+
+
     //iOSApplication
     const char* _GetBundleIdentifier()
     {

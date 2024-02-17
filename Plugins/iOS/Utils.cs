@@ -10,7 +10,7 @@ namespace iOSNativePlugin
     delegate void OrientationChangeCallback(int orientation);
     delegate void CompletionCallback();
     delegate void UserSettingsChangeCallback();
-    
+    delegate void LongCallback(long score);
     
     /// <summary>
     /// 指定原生分享的内容、类型
