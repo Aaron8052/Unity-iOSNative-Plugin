@@ -2,7 +2,7 @@
 适用于Unity引擎的iOS端Native插件
 
 ### 兼容性
-- iOS11及以上
+- iOS12 及以上
 - Unity2017.4及以上（更早版本未测试）
 
 # 项目分支（Branch）
