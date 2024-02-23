@@ -58,7 +58,15 @@
 
 > 方法名前标有星号 “*” 表示该方法尚未经测试，可用性未知
 
-> 在调用插件方法之前先调用 `Initialize` 方法进行插件初始化
+
+
+### NativeShare
+
+> 游戏相关功能实现，用于补全Unity自带Game Center的功能缺陷
+
+| 方法                      | 功能                       |
+|-------------------------|--------------------------|
+| `LoadScore()` | 用于获取GameCenter中指定的玩家排行榜分数（支持获取循环排行榜分数） |
 
 ### iOSApplication
 
@@ -79,6 +87,8 @@
 
 > iCloud相关功能
 
+> 在调用插件方法之前先调用 `Initialize` 方法进行插件初始化
+
 | 方法                        | 功能                                     |
 |---------------------------|----------------------------------------|
 | `Initialize()`          | 初始化iCloud         |
@@ -98,6 +108,8 @@
 ### Notification
 
 > iOS 本地通知推送
+
+> 在调用插件方法之前先调用 `Initialize` 方法进行插件初始化
 
 | 方法                                | 功能                    |
 |-----------------------------------|-----------------------|
@@ -136,7 +148,8 @@
 |-------------------------|-----------------------------------|
 | `GetDeviceOrientation()` | 获取当前设备的物理朝向 |
 | * `IsBluetoothHeadphonesConnected()` | 判断玩家当前是否连接了蓝牙耳机  |
-| `IsMacCatalyst()`       | 判断当前app是否运行在Mac Catalyst环境下     |
+| ~~`IsMacCatalyst()`~~     | 判断当前app是否运行在Mac Catalyst环境下 (该方法已过时，改用IsRunningOnMac)     |
+| `IsRunningOnMac()`       | 判断当前app是否运行在Mac环境下   |
 | `IsSuperuser()`         | 判断当前设备是否越狱                        |
 | `SetAudioExclusive()`   | 调用此方法可静音/暂停设备后台正在播放的音频    |
 | * `PlayHaptics()`       | 震动                                |
