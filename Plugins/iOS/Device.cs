@@ -1,6 +1,8 @@
 
+using System;
 using System.Runtime.InteropServices;
 using AOT;
+using UnityEngine;
 
 namespace iOSNativePlugin
 {
@@ -49,11 +51,20 @@ namespace iOSNativePlugin
         /// 判断当前app是否运行在Mac Catalyst环境下
         /// </summary>
         /// <returns></returns>
+        [Obsolete("This method is obsolete. Use IsRunningOnMac instead. (UnityUpgradable) -> IsRunningOnMac")]
         public static bool IsMacCatalyst()
         {
             return _IsMacCatalyst();
         }
-            
+
+        /// <summary>
+        /// 判断当前app是否运行在Mac环境下
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsRunningOnMac()
+        {
+            return _IsMacCatalyst() || UnityEngine.iOS.Device.iosAppOnMac;
+        }
         /// <summary>
         /// 判断当前设备是否越狱
         /// </summary>
