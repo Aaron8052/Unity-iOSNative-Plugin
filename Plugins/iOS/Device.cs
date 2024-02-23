@@ -51,7 +51,7 @@ namespace iOSNativePlugin
         /// 判断当前app是否运行在Mac Catalyst环境下
         /// </summary>
         /// <returns></returns>
-        [Obsolete("This method is obsolete. Use IsRunningOnMac instead. (UnityUpgradable) -> IsRunningOnMac")]
+        [Obsolete("Use IsRunningOnMac instead. (UnityUpgradable) -> IsRunningOnMac", true)]
         public static bool IsMacCatalyst()
         {
             return _IsMacCatalyst();
