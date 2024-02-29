@@ -1,6 +1,6 @@
 #import "iOSNative.h"
 #import <UIKit/UIView.h>
-#import <SafariServices/SafariServices.h>
+
 
 
 @implementation NativeUI
@@ -42,7 +42,8 @@
 }
 static CompletionCallback SafariViewCompleteCallback;
 
--(void)safariViewControllerDidFinish:(SFSafariViewController *)controller{
+-(void)safariViewControllerDidFinish:(SFSafariViewController *)controller
+{
     if(SafariViewCompleteCallback != nil)
         SafariViewCompleteCallback();
     

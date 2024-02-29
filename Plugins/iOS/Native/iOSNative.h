@@ -1,10 +1,15 @@
 #import <Foundation/Foundation.h>
 #import "UnityAppController.h"
 #import "Utils.mm"
+#import <GameKit/GameKit.h>
+#import <SafariServices/SafariServices.h>
 
 extern UIViewController *UnityGetGLViewController();
 
-@interface iOSGameKit : NSObject
+
+//GKGameCenterControllerDelegate 实现GameCenterView回调协议
+@interface iOSGameKit : NSObject <GKGameCenterControllerDelegate>
++(void)ShowGameCenterView:(CompletionCallback)callback;
 +(void)LoadScore:(NSString *)leaderboardID callback:(LongCallback)callback;
 @end
 
@@ -73,8 +78,8 @@ extern UIViewController *UnityGetGLViewController();
 @end
 
 
-
-@interface NativeUI : NSObject
+//SFSafariViewControllerDelegate 实现SafariView回调协议
+@interface NativeUI : NSObject <SFSafariViewControllerDelegate>
 +(void)SafariViewFromUrl:(NSString *)url onCompletionCallback:(CompletionCallback)callback;
 +(void)RegisterStatusBarOrientationChangeCallback:(OrientationChangeCallback)callback;
 +(void)UnregisterStatusBarOrientationChangeCallback;

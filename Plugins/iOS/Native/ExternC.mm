@@ -3,6 +3,10 @@
 extern "C"
 {
     //GameKit
+    void _ShowGameCenterView(CompletionCallback callback)
+    {
+        [iOSGameKit ShowGameCenterView:callback];
+    }
     void _LoadScore(const char* leaderboardID, LongCallback callback)
     {
         [iOSGameKit LoadScore:[NSString stringWithUTF8String:leaderboardID] callback:callback];
