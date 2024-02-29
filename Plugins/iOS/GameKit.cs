@@ -23,7 +23,7 @@ namespace iOSNativePlugin
         /// 显示Game Center界面
         /// </summary>
         /// <param name="gameCenterViewControllerDidFinish">用户关闭GC以及GC调用失败时的回调</param>
-        public static void ShowGameCenterView(Action gameCenterViewControllerDidFinish)
+        public static void ShowGameCenterView(Action gameCenterViewControllerDidFinish = null)
         {
             _ShowGameCenterView(OnScoreCallback);
         }

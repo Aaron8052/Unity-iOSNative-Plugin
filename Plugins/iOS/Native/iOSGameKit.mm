@@ -43,6 +43,8 @@ static CompletionCallback GameCenterViewControllerDidFinishCallback;
 
 -(void)gameCenterViewControllerDidFinish:(nonnull GKGameCenterViewController *)gameCenterViewController
 {
+    [gameCenterViewController dismissViewControllerAnimated:YES completion:nil];
+    
     if(GameCenterViewControllerDidFinishCallback)
     {
         GameCenterViewControllerDidFinishCallback();

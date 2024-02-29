@@ -44,6 +44,8 @@ static CompletionCallback SafariViewCompleteCallback;
 
 -(void)safariViewControllerDidFinish:(SFSafariViewController *)controller
 {
+    [controller dismissViewControllerAnimated:YES completion:nil];
+    
     if(SafariViewCompleteCallback != nil)
         SafariViewCompleteCallback();
     
