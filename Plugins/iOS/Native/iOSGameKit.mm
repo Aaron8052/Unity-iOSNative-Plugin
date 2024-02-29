@@ -22,6 +22,11 @@
     if(![GKLocalPlayer localPlayer].isAuthenticated)
     {
         LOG(@"Cannot show Game Center view, user didn't logged in");
+        if(callback)
+        {
+            callback();
+        }
+        callback = nil;
         return;
     }
     
@@ -63,6 +68,7 @@ static CompletionCallback GameCenterViewControllerDidFinishCallback;
         
     
     //设置排行榜对象以及要拉取的玩家
+    //iOS14及以上系统
     if (@available(iOS 14.0, *))
     {
         [GKLeaderboard loadLeaderboardsWithIDs:@[leaderboardID] completionHandler:^(NSArray<GKLeaderboard *> * _Nullable leaderboards,
