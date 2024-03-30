@@ -60,7 +60,7 @@
 
 
 
-### NativeShare
+### GameKit
 
 > 游戏相关功能实现，用于补全Unity自带Game Center的功能缺陷
 
