@@ -7,7 +7,7 @@
   "changelogUrl": "https://github.com/Aaron8052/Unity-iOSNative-Plugin/releases",
   "licensesUrl": "https://github.com/Aaron8052/Unity-iOSNative-Plugin?tab=MIT-1-ov-file#readme",
   "unity": "2017.4",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Aaron8052/Unity-iOSNative-Plugin.git"
