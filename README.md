@@ -1,7 +1,7 @@
 # Unity-iOSNative-Plugin
 适用于Unity引擎的iOS端Native插件
 ## IDE
-### C# 端
+### C#
 - JetBrains Rider
 ### Objetive-C++
 - Xcode
