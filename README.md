@@ -2,9 +2,9 @@
 适用于Unity引擎的iOS端Native插件
 ## IDE
 ### C#
-- JetBrains Rider
+- [JetBrains Rider](https://www.jetbrains.com/rider/)
 ### Objetive-C++
-- Xcode
+- [Xcode](https://developer.apple.com/xcode/)
 
 ## 兼容性
 - iOS12 及以上
