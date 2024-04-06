@@ -2,7 +2,7 @@
 适用于Unity引擎的iOS端Native插件
 ## IDE
 ### C# 端
-- Jetbrains Rider
+- JetBrains Rider
 ### Objetive-C++
 - Xcode
 
