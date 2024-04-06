@@ -1,11 +1,16 @@
 # Unity-iOSNative-Plugin
 适用于Unity引擎的iOS端Native插件
+## IDE
+### C# 端
+- Jetbrains Rider
+### Objetive-C++
+- Xcode
 
-### 兼容性
+## 兼容性
 - iOS12 及以上
 - Unity2017.4及以上（更早版本未测试）
 
-# 项目分支（Branch）
+## 项目分支（Branch）
 
 - main：开发分支，此分支中的**代码不保证完全稳定且可用**
 - release/latest：最新发布分支，此分支**包含最新并稳定的代码**，适合想要**不断接收插件更新**的用户
