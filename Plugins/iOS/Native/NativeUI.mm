@@ -217,10 +217,18 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
     
 }
 
-+(void)ShowDialog:(NSString *) title message:(NSString *)message            actions:(NSMutableArray*)actions
++(void)ShowDialog:(NSString *) title
+          message:(NSString *)message
+          actions:(NSMutableArray*)actions
             style:(NSInteger)style
          callback:(DialogSelectionCallback)callback
 {
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        style = UIAlertControllerStyleAlert;
+    }
+    
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:(UIAlertControllerStyle)style];
     
     UIAlertAction *action;
@@ -242,6 +250,7 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
         [alertController addAction:action];
         
     }
+    
     
     [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:alertController animated:YES completion:nil];
 }
