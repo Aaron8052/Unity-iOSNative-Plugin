@@ -20,8 +20,8 @@ namespace iOSNativePlugin
         /// <summary>
         /// 指定对话框按钮的内容、样式
         /// </summary>
-        /// <param name="actionWithTitle">按钮内容</param>
-        /// <param name="style">按钮文字样式</param>
+        /// <param name="content"></param>
+        /// <param name="type"></param>
         public ShareObject(string content, ShareObjectType type = ShareObjectType.NSString)
         {
             _content = content;
