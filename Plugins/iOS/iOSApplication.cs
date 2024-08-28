@@ -21,15 +21,26 @@ namespace iOSNativePlugin
         [DllImport("__Internal")]
         static extern void _OpenAppSettings();
         
+        [DllImport("__Internal")]
+        static extern void _SetUserSettingsBool(string identifier, bool value);
         
         [DllImport("__Internal")]
         static extern bool _GetUserSettingsBool(string identifier);
         
         [DllImport("__Internal")]
+        static extern void _SetUserSettingsString(string identifier, string value);
+        
+        [DllImport("__Internal")]
         static extern string _GetUserSettingsString(string identifier);
         
         [DllImport("__Internal")]
+        static extern void _SetUserSettingsFloat(string identifier, float value);
+        
+        [DllImport("__Internal")]
         static extern float _GetUserSettingsFloat(string identifier);
+        
+        [DllImport("__Internal")]
+        static extern void _SetUserSettingsInt(string identifier, long value);
         
         [DllImport("__Internal")]
         static extern long _GetUserSettingsInt(string identifier);
@@ -75,6 +86,11 @@ namespace iOSNativePlugin
         {
             _OpenAppSettings();
         }
+
+        public static void SetUserSettingsBool(string identifier, bool value)
+        {
+            _SetUserSettingsBool(identifier, value);
+        }
         /// <summary>
         /// 获取iOS settings bundle的Toggle Switch值
         /// </summary>
@@ -83,6 +99,11 @@ namespace iOSNativePlugin
         public static bool GetUserSettingsBool(string identifier)
         {
             return _GetUserSettingsBool(identifier);
+        }
+        
+        public static void SetUserSettingsString(string identifier, string value)
+        {
+            _SetUserSettingsString(identifier, value);
         }
         
         /// <summary>
@@ -95,6 +116,11 @@ namespace iOSNativePlugin
             return _GetUserSettingsString(identifier);
         }
         
+        public static void SetUserSettingsFloat(string identifier, float value)
+        {
+            _SetUserSettingsFloat(identifier, value);
+        }
+        
         /// <summary>
         /// 获取iOS settings bundle的Slider Float值
         /// </summary>
@@ -103,6 +129,11 @@ namespace iOSNativePlugin
         public static float GetUserSettingsFloat(string identifier)
         {
             return _GetUserSettingsFloat(identifier);
+        }
+        
+        public static void SetUserSettingsInt(string identifier, long value)
+        {
+            _SetUserSettingsInt(identifier, value);
         }
         
         /// <summary>
