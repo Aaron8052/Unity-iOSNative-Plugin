@@ -44,7 +44,7 @@
 // Bool
 +(void)SetUserSettingsBool:(NSString *) identifier value:(bool) value
 {
-    [[NSUserDefaults standardUserDefaults]setObject:value forKey:identifier];
+    [[NSUserDefaults standardUserDefaults]setBool:value forKey:identifier];
 }
 +(BOOL)GetUserSettingsBool:(NSString *) identifier
 {
@@ -64,7 +64,7 @@
 // Float
 +(void)SetUserSettingsFloat:(NSString *) identifier value:(float) value
 {
-    [[NSUserDefaults standardUserDefaults]setObject:value forKey:identifier];
+    [[NSUserDefaults standardUserDefaults]setFloat:value forKey:identifier];
 }
 +(float)GetUserSettingsFloat:(NSString *) identifier
 {
@@ -74,7 +74,7 @@
 // Int
 +(void)SetUserSettingsInt:(NSString *) identifier value:(NSInteger) value
 {
-    [[NSUserDefaults standardUserDefaults]setObject:value forKey:identifier];
+    [[NSUserDefaults standardUserDefaults]setInteger:value forKey:identifier];
 }
 +(NSInteger)GetUserSettingsInt:(NSString *) identifier
 {
