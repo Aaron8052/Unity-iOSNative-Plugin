@@ -84,9 +84,13 @@
 | `GetBundleVersion()` | 获取应用构建号 |
 | `OpenAppSettings()` | 打开本App的系统设置界面 |
 | `GetUserSettingsBool()` | 获取iOS settings bundle的Toggle Switch值 |
+| `SetUserSettingsBool()` | 修改iOS settings bundle的Toggle Switch值 |
 | `GetUserSettingsString()` | 获取iOS settings bundle的TextArea值 |
+| `SetUserSettingsString()` | 修改iOS settings bundle的TextArea值 |
 | `GetUserSettingsFloat()` | 获取iOS settings bundle的Slider Float值 |
+| `SetUserSettingsFloat()` | 修改iOS settings bundle的Slider Float值 |
 | `GetUserSettingsInt()` | 获取iOS settings bundle的Slider Long值 |
+| `SetUserSettingsInt()` | 修改iOS settings bundle的Slider Long值 |
 
 ### iCloudKeyValueStore
 
