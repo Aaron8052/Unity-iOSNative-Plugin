@@ -227,7 +227,7 @@ extern "C"
     
     //iCloudKeyValueStore
     void _InitializeICloud(){
-        [iCloudKeyValueStore init];
+        [iCloudKeyValueStore InitICloud];
     }
     
     bool _IsICloudAvailable(){

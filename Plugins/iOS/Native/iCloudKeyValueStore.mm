@@ -1,38 +1,38 @@
 #import "iOSNative.h"
 
 
-static NSUbiquitousKeyValueStore *keyValueStore;
-static NSDictionary *cloudDictionary;
-static BOOL iCloudInited;
-static BOOL availability;
-static NSInteger availabilityAttemptsCount;
+
 
 @implementation iCloudKeyValueStore
-+(BOOL)userLoggedIn{
+
+static NSUbiquitousKeyValueStore *keyValueStore;
+static NSDictionary *cloudDictionary;
+static BOOL inited;
+
++(BOOL)IsUserLoggedIn
+{
     return [[NSFileManager defaultManager] ubiquityIdentityToken] != nil;
 }
-+(void) init{
-    if(!iCloudInited && [iCloudKeyValueStore userLoggedIn]){
-        @autoreleasepool{
-            NSLog(@"init iCloud!");
-        }
+
++(void) InitICloud
+{
+    if(!inited && [iCloudKeyValueStore IsUserLoggedIn])
+    {
         keyValueStore = [NSUbiquitousKeyValueStore defaultStore];
-        
         cloudDictionary = [keyValueStore dictionaryRepresentation];
-        availabilityAttemptsCount = 0;
-        iCloudInited = YES;
+        inited = YES;
     }
 }
 
-+(BOOL)checkForAvailability{
-    if(availabilityAttemptsCount > 20){
-        return availability;
-    }
+static BOOL canWrite;
++(BOOL)IsICloudAvailable
+{
+    [iCloudKeyValueStore InitICloud];
+    if(![iCloudKeyValueStore IsUserLoggedIn])
+        return NO;
     
-    if(![iCloudKeyValueStore userLoggedIn] || !iCloudInited || !keyValueStore){
-        availability = NO;
-    }
-    else if(iCloudInited && !availability && availabilityAttemptsCount < 20){
+    if(!canWrite)
+    {
         NSDate *nowDate = [NSDate date];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -42,24 +42,15 @@ static NSInteger availabilityAttemptsCount;
         
         NSString *keyString = @"initKey";
         [keyValueStore setString:valueString forKey:keyString];
-        
-        if([[keyValueStore objectForKey:keyString] isEqualToString:valueString])
-        {
-            availability = [keyValueStore synchronize];
-        }
-        else{
-            availability = NO;
-        }
-
+        canWrite = [[keyValueStore objectForKey:keyString] isEqualToString:valueString] && [keyValueStore synchronize];
     }
-    LOG([NSString stringWithFormat: @"iCloud availability: %@", availability ? @"YES": @"NO"]);
-    availabilityAttemptsCount ++;
-    return availability;
     
+    return canWrite;
 }
-+(BOOL)IsICloudAvailable
+
++(BOOL) Synchronize
 {
-    return [iCloudKeyValueStore checkForAvailability];
+    return [keyValueStore synchronize];
 }
 
 +(BOOL)KeyExists:(NSString *)key
@@ -197,9 +188,7 @@ static NSInteger availabilityAttemptsCount;
     return NO;
 }
 
-+(BOOL) Synchronize{
-    return [keyValueStore synchronize];
-}
+
 @end
 
 
