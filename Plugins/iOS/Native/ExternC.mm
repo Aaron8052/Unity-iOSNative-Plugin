@@ -234,7 +234,7 @@ extern "C"
         return [iCloudKeyValueStore IsICloudAvailable];
     }
     bool _ICloudKeyExists(const char *key){
-        return [iCloudKeyValueStore KeyExists:[NSString stringWithUTF8String:key ?: ""]];
+        return [iCloudKeyValueStore IsKeyExists:[NSString stringWithUTF8String:key ?: ""]];
     }
     bool _ClearICloudSave(){
         return [iCloudKeyValueStore ClearICloudSave];

@@ -6,7 +6,6 @@
 @implementation iCloudKeyValueStore
 
 static NSUbiquitousKeyValueStore *keyValueStore;
-static NSDictionary *cloudDictionary;
 static BOOL inited;
 
 +(BOOL)IsUserLoggedIn
@@ -19,7 +18,6 @@ static BOOL inited;
     if(!inited && [iCloudKeyValueStore IsUserLoggedIn])
     {
         keyValueStore = [NSUbiquitousKeyValueStore defaultStore];
-        cloudDictionary = [keyValueStore dictionaryRepresentation];
         inited = YES;
     }
 }
@@ -53,26 +51,24 @@ static BOOL canWrite;
     return [keyValueStore synchronize];
 }
 
-+(BOOL)KeyExists:(NSString *)key
++(BOOL)IsKeyExists:(NSString *)key
 {
     if([iCloudKeyValueStore IsICloudAvailable]){
 
-        return [cloudDictionary objectForKey:key] != nil ;
+        return [[keyValueStore dictionaryRepresentation] objectForKey:key] != nil ;
     }
     return NO;
 }
 
 +(BOOL)ClearICloudSave{
-    if([iCloudKeyValueStore IsICloudAvailable]){
-        @autoreleasepool {
-            NSLog(@"Clearing iCloud Saves");
-        }
-        NSArray *keyArray = [cloudDictionary allKeys];
+    if([iCloudKeyValueStore IsICloudAvailable])
+    {
+        NSArray *keyArray = [[keyValueStore dictionaryRepresentation] allKeys];
 
         for(int i = 0; i < keyArray.count; i++){
             @autoreleasepool {
                 NSString *key = [keyArray objectAtIndex:i];
-                if(key != NULL){
+                if(key != nil){
                     [keyValueStore removeObjectForKey:key];
                 }
             }
@@ -87,7 +83,7 @@ static BOOL canWrite;
 {
     if([iCloudKeyValueStore IsICloudAvailable]){
 
-        if ([iCloudKeyValueStore KeyExists:key]){
+        if ([iCloudKeyValueStore IsKeyExists:key]){
             return [keyValueStore doubleForKey:key];
         }
         //[iCloudKeyValueStore iCloudSaveFloat:key setValue:defaultValue];
@@ -114,7 +110,7 @@ static BOOL canWrite;
 {
     if([iCloudKeyValueStore IsICloudAvailable]){
   
-        if ([iCloudKeyValueStore KeyExists:key]){
+        if ([iCloudKeyValueStore IsKeyExists:key]){
             return [[keyValueStore objectForKey:key] intValue];
         }
         //[iCloudKeyValueStore iCloudSaveInt:key setValue:defaultValue];
@@ -140,7 +136,7 @@ static BOOL canWrite;
 {
     if([iCloudKeyValueStore IsICloudAvailable]){
 
-        if ([iCloudKeyValueStore KeyExists:key]){
+        if ([iCloudKeyValueStore IsKeyExists:key]){
             return [keyValueStore boolForKey:key];
         }
         //[iCloudKeyValueStore iCloudSaveBool:key setValue:defaultValue];
@@ -166,7 +162,7 @@ static BOOL canWrite;
 {
     if([iCloudKeyValueStore IsICloudAvailable]){
 
-        if ([iCloudKeyValueStore KeyExists:key]){
+        if ([iCloudKeyValueStore IsKeyExists:key]){
             return [keyValueStore stringForKey:key];
         }
         //[iCloudKeyValueStore iCloudSaveString:key setValue:defaultValue];

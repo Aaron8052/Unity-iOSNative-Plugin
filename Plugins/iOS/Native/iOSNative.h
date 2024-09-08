@@ -6,7 +6,6 @@
 
 extern UIViewController *UnityGetGLViewController();
 
-
 //GKGameCenterControllerDelegate 实现GameCenterView回调协议
 @interface iOSGameKit : NSObject <GKGameCenterControllerDelegate>
 +(void)ShowGameCenterView:(CompletionCallback)callback;
@@ -56,7 +55,7 @@ extern UIViewController *UnityGetGLViewController();
 @interface iCloudKeyValueStore : NSObject
 +(void)InitICloud;
 +(BOOL)IsICloudAvailable;
-+(BOOL)KeyExists:(NSString *)key;
++(BOOL)IsKeyExists:(NSString *)key;
 +(BOOL)ClearICloudSave;
 +(double)GetFloat:(NSString *)key defaultValue:(double)defaultValue;
 +(BOOL)SetFloat:(NSString *)key setValue:(double)value;
