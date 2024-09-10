@@ -56,7 +56,7 @@ namespace iOSNativePlugin
         }
         
         /// <summary>
-        /// 判断当前设备iCloud是否可用
+        /// 强制同步iCloud云存档至Apple服务器
         /// </summary>
         /// <returns>是否同步成功</returns>
         public static bool Synchronize()
