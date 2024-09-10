@@ -101,7 +101,7 @@
 | `Initialize()`        | 初始化iCloud                              |
 | `IsICloudAvailable()` | 判断当前设备iCloud是否可用                       |
 | `ContainsKey()`       | 判断当前iCloud是否包含键                        |
-| `DeleteKey()`         | 判断当前iCloud是否包含键                        |
+| `DeleteKey()`         | 删除Key                        |
 | `Synchronize()`       | 强制同步iCloud云存档至Apple服务器（Bool返回值：是否同步成功） |
 | `ClearICloudSave()`   | 清空iCloud存档                             |
 | `GetString()`         | 从iCloud读取String值                       |
