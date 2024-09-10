@@ -53,6 +53,7 @@ extern UIViewController *UnityGetGLViewController();
 
 
 @interface iCloudKeyValueStore : NSObject
++(BOOL)DeleteKey:(NSString*)key;
 +(void)InitICloud;
 +(BOOL)IsICloudAvailable;
 +(BOOL)IsKeyExists:(NSString *)key;

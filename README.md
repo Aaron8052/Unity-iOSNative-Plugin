@@ -47,17 +47,17 @@
 
 ## 原生代码介绍
 
-| 模块名                      | 功能                                     |
-|--------------------------|----------------------------------------|
-| `iOSNative.h`            | 头文件      |
-| `iOSApplication.mm`      | iOS应用相关             |
-| `iCloudKeyValueStore.mm` | iCloud相关功能                       |
-| `Device.mm`              | iPhone 设备相关                    |
-| `Notification.mm`        | iOS 本地通知推送                       |
-| `NativeShare.mm`         | iOS 自带的分享文件功能                      |
-| `NativeUI.mm`            | 原生UI相关   |
+| 模块名                      | 功能                        |
+|--------------------------|---------------------------|
+| `iOSNative.h`            | 头文件                       |
+| `iOSApplication.mm`      | iOS应用相关                   |
+| `iCloudKeyValueStore.mm` | iCloud相关功能                |
+| `Device.mm`              | iPhone 设备相关               |
+| `Notification.mm`        | iOS 本地通知推送                |
+| `NativeShare.mm`         | iOS 自带的分享文件功能             |
+| `NativeUI.mm`            | 原生UI相关                    |
 | `Utils.mm`               | OC辅助文件，包含了typedef、静态函数等声明 |
-| `ExternC.mm`             | 负责将插件的方法暴露给UnityC#端以进行交互               |
+| `ExternC.mm`             | 负责将插件的方法暴露给UnityC#端以进行交互  |
 
 ## C#类/功能介绍
 
@@ -75,20 +75,20 @@
 
 > iOS应用相关功能
 
-| 方法                      | 功能                       |
-|-------------------------|--------------------------|
-| `GetBundleIdentifier()` | 获取当前应用的Bundle Identifier |
-| `GetVersion()` | 获取应用版本号 |
-| `GetBundleVersion()` | 获取应用构建号 |
-| `OpenAppSettings()` | 打开本App的系统设置界面 |
-| `GetUserSettingsBool()` | 获取iOS settings bundle的Toggle Switch值 |
-| `SetUserSettingsBool()` | 修改iOS settings bundle的Toggle Switch值 |
-| `GetUserSettingsString()` | 获取iOS settings bundle的TextArea值 |
-| `SetUserSettingsString()` | 修改iOS settings bundle的TextArea值 |
-| `GetUserSettingsFloat()` | 获取iOS settings bundle的Slider Float值 |
-| `SetUserSettingsFloat()` | 修改iOS settings bundle的Slider Float值 |
-| `GetUserSettingsInt()` | 获取iOS settings bundle的Slider Long值 |
-| `SetUserSettingsInt()` | 修改iOS settings bundle的Slider Long值 |
+| 方法                        | 功能                                   |
+|---------------------------|--------------------------------------|
+| `GetBundleIdentifier()`   | 获取当前应用的Bundle Identifier             |
+| `GetVersion()`            | 获取应用版本号                              |
+| `GetBundleVersion()`      | 获取应用构建号                              |
+| `OpenAppSettings()`       | 打开本App的系统设置界面                        |
+| `GetUserSettingsBool()`   | 获取iOS settings bundle的Toggle Switch值 |
+| `SetUserSettingsBool()`   | 修改iOS settings bundle的Toggle Switch值 |
+| `GetUserSettingsString()` | 获取iOS settings bundle的TextArea值      |
+| `SetUserSettingsString()` | 修改iOS settings bundle的TextArea值      |
+| `GetUserSettingsFloat()`  | 获取iOS settings bundle的Slider Float值  |
+| `SetUserSettingsFloat()`  | 修改iOS settings bundle的Slider Float值  |
+| `GetUserSettingsInt()`    | 获取iOS settings bundle的Slider Long值   |
+| `SetUserSettingsInt()`    | 修改iOS settings bundle的Slider Long值   |
 
 ### iCloudKeyValueStore
 
@@ -96,21 +96,22 @@
 
 > 无需调用 `Initialize` 方法，插件会自动初始化
 
-| 方法                        | 功能                                     |
-|---------------------------|----------------------------------------|
-| `Initialize()`          | 初始化iCloud         |
-| `IsICloudAvailable()`     | 判断当前设备iCloud是否可用                       |
-| `ContainsKey()` | 判断当前iCloud是否包含键 |
-| `Synchronize()`           | 强制同步iCloud云存档至Apple服务器（Bool返回值：是否同步成功） |
-| `ClearICloudSave()`     | 清空iCloud存档                             |
-| `GetString()`  | 从iCloud读取String值                       |
-| `GetInt()`     | 从iCloud读取Int值                          |
-| `GetFloat()`   | 从iCloud读取Float值                        |
-| `GetBool()`    | 从iCloud读取Bool值                         |
-| `SetString()` | 保存String值到iCloud                       |
-| `SetInt()`    | 保存Int值到iCloud                          |
-| `SetFloat()`  | 保存Float值到iCloud                        |
-| `SetBool()`   | 保存Bool值到iCloud                         |
+| 方法                    | 功能                                     |
+|-----------------------|----------------------------------------|
+| `Initialize()`        | 初始化iCloud                              |
+| `IsICloudAvailable()` | 判断当前设备iCloud是否可用                       |
+| `ContainsKey()`       | 判断当前iCloud是否包含键                        |
+| `DeleteKey()`         | 判断当前iCloud是否包含键                        |
+| `Synchronize()`       | 强制同步iCloud云存档至Apple服务器（Bool返回值：是否同步成功） |
+| `ClearICloudSave()`   | 清空iCloud存档                             |
+| `GetString()`         | 从iCloud读取String值                       |
+| `GetInt()`            | 从iCloud读取Int值                          |
+| `GetFloat()`          | 从iCloud读取Float值                        |
+| `GetBool()`           | 从iCloud读取Bool值                         |
+| `SetString()`         | 保存String值到iCloud                       |
+| `SetInt()`            | 保存Int值到iCloud                          |
+| `SetFloat()`          | 保存Float值到iCloud                        |
+| `SetBool()`           | 保存Bool值到iCloud                         |
 
 ### Notification
 
@@ -120,7 +121,7 @@
 
 | 方法                                | 功能                    |
 |-----------------------------------|-----------------------|
-| `Initialize()`          | 初始化通知系统         |
+| `Initialize()`                    | 初始化通知系统               |
 | `PushNotification()`              | 推送本地定时通知              |
 | `RemovePendingNotifications()`    | 移除某个待定通知（对于已经推送的通知无效） |
 | `RemoveAllPendingNotifications()` | 移除所有待定通知              |
@@ -129,19 +130,19 @@
 
 > 原生UI相关
 
-| 事件                   | 功能                                      |
-|------------------------|-----------------------------------------|
+| 事件                              | 功能       |
+|---------------------------------|----------|
 | `OnStatusBarOrientationChanged` | UI朝向变更事件 |
 
-| 属性                    | 功能                                      |
-|------------------------|-----------------------------------------|
-| `StatusBarOrientation` | 当前UI的朝向 |
-| `HideHomeIndicator` | 显示/隐藏Home指示条 |
+| 属性                     | 功能           |
+|------------------------|--------------|
+| `StatusBarOrientation` | 当前UI的朝向      |
+| `HideHomeIndicator`    | 显示/隐藏Home指示条 |
 
 | 方法                     | 功能                                      |
 |------------------------|-----------------------------------------|
-| `SafariViewFromUrl()` | 调用游戏内Safari窗口打开url |
-| `StatusBarOrientation` | 当前UI的朝向 |
+| `SafariViewFromUrl()`  | 调用游戏内Safari窗口打开url                      |
+| `StatusBarOrientation` | 当前UI的朝向                                 |
 | `IsStatusBarHidden()`  | 判断当前系统状态栏是否被隐藏                          |
 | `SetStatusBarHidden()` | 设置状态栏的隐藏状态                              |
 | `SetStatusBarStyle()`  | 设置状态栏的样式（白色、黑色、自动）                      |
@@ -151,25 +152,25 @@
 
 > iPhone 设备相关
 
-| 方法                      | 功能                             |
-|-------------------------|-----------------------------------|
-| `GetDeviceOrientation()` | 获取当前设备的物理朝向 |
-| * `IsBluetoothHeadphonesConnected()` | 判断玩家当前是否连接了蓝牙耳机  |
-| ~~`IsMacCatalyst()`~~     | 判断当前app是否运行在Mac Catalyst环境下 (该方法已过时，改用IsRunningOnMac)     |
-| `IsRunningOnMac()`       | 判断当前app是否运行在Mac环境下   |
-| `IsSuperuser()`         | 判断当前设备是否越狱                        |
-| `SetAudioExclusive()`   | 调用此方法可静音/暂停设备后台正在播放的音频    |
-| * `PlayHaptics()`       | 震动                                |
-| `GetCountryCode()`      | 获取当前设备的ISO地区码（ISO 3166-1 alpha-2） |
+| 方法                                   | 功能                                                    |
+|--------------------------------------|-------------------------------------------------------|
+| `GetDeviceOrientation()`             | 获取当前设备的物理朝向                                           |
+| * `IsBluetoothHeadphonesConnected()` | 判断玩家当前是否连接了蓝牙耳机                                       |
+| ~~`IsMacCatalyst()`~~                | 判断当前app是否运行在Mac Catalyst环境下 (该方法已过时，改用IsRunningOnMac) |
+| `IsRunningOnMac()`                   | 判断当前app是否运行在Mac环境下                                    |
+| `IsSuperuser()`                      | 判断当前设备是否越狱                                            |
+| `SetAudioExclusive()`                | 调用此方法可静音/暂停设备后台正在播放的音频                                |
+| * `PlayHaptics()`                    | 震动                                                    |
+| `GetCountryCode()`                   | 获取当前设备的ISO地区码（ISO 3166-1 alpha-2）                     |
 
 ### NativeShare
 
 > iOS 分享文件功能
 
-| 方法                   | 功能                        |
-|----------------------|---------------------------|
-| `Share()`            | 调用系统分享功能                  |
-| *`ShareObjects()`     | 调用系统分享功能（与上一个方法功能一致，但允许自定义分享内容类型） |
-| `SaveFileDialog()`   | 调用系统保存文件对话框，允许玩家选择保存文件的路径 |
-| `SelectFileDialog()` | 调用系统选择文件对话框，允许玩家选择文件      |
-| `SaveImageToAlbum()` | 保存图片（本地路径）到相册（需申请相册权限） |
+| 方法                   | 功能                                |
+|----------------------|-----------------------------------|
+| `Share()`            | 调用系统分享功能                          |
+| `ShareObjects()`     | 调用系统分享功能（与上一个方法功能一致，但允许自定义分享内容类型） |
+| `SaveFileDialog()`   | 调用系统保存文件对话框，允许玩家选择保存文件的路径         |
+| `SelectFileDialog()` | 调用系统选择文件对话框，允许玩家选择文件              |
+| `SaveImageToAlbum()` | 保存图片（本地路径）到相册（需申请相册权限）            |

@@ -4,44 +4,20 @@ namespace iOSNativePlugin
 {
     public static class iCloudKeyValueStore
     {
-        [DllImport("__Internal")]
-        private static extern void _InitializeICloud();
-            
-        [DllImport("__Internal")]
-        private static extern bool _Synchronize();
-
-        [DllImport("__Internal")]
-        private static extern bool _IsICloudAvailable();
-
-        [DllImport("__Internal")]
-        static extern bool _ICloudKeyExists(string key);
-        
-        [DllImport("__Internal")]
-        private static extern bool _ClearICloudSave();
-
-        [DllImport("__Internal")]
-        private static extern string _iCloudGetString(string key, string defaultValue);
-
-        [DllImport("__Internal")]
-        private static extern bool _iCloudSaveString(string key, string value);
-
-        [DllImport("__Internal")]
-        private static extern int _iCloudGetInt(string key, int defaultValue);
-
-        [DllImport("__Internal")]
-        private static extern bool _iCloudSaveInt(string key, int value);
-
-        [DllImport("__Internal")]
-        private static extern float _iCloudGetFloat(string key, float defaultValue);
-
-        [DllImport("__Internal")]
-        private static extern bool _iCloudSaveFloat(string key, float value);
-
-        [DllImport("__Internal")]
-        private static extern bool _iCloudGetBool(string key, bool defaultValue);
-
-        [DllImport("__Internal")]
-        private static extern bool _iCloudSaveBool(string key, bool value);
+        [DllImport("__Internal")] static extern void _InitializeICloud();
+        [DllImport("__Internal")] static extern bool _Synchronize();
+        [DllImport("__Internal")] static extern bool _IsICloudAvailable();
+        [DllImport("__Internal")] static extern bool _ICloudKeyExists(string key);
+        [DllImport("__Internal")] static extern bool _ICloudDeleteKey(string key);
+        [DllImport("__Internal")] static extern bool _ClearICloudSave();
+        [DllImport("__Internal")] static extern string _iCloudGetString(string key, string defaultValue);
+        [DllImport("__Internal")] static extern bool _iCloudSaveString(string key, string value);
+        [DllImport("__Internal")] static extern int _iCloudGetInt(string key, int defaultValue);
+        [DllImport("__Internal")] static extern bool _iCloudSaveInt(string key, int value);
+        [DllImport("__Internal")] static extern float _iCloudGetFloat(string key, float defaultValue);
+        [DllImport("__Internal")] static extern bool _iCloudSaveFloat(string key, float value);
+        [DllImport("__Internal")] static extern bool _iCloudGetBool(string key, bool defaultValue);
+        [DllImport("__Internal")] static extern bool _iCloudSaveBool(string key, bool value);
 
         /// <summary>
         /// 初始化iCloud
@@ -67,7 +43,18 @@ namespace iOSNativePlugin
         public static bool ContainsKey(string key)
         {
             return _ICloudKeyExists(key);
-        } 
+        }
+        
+        /// <summary>
+        /// 删除Key
+        /// </summary>
+        /// <param name="key">Key</param>
+        /// <returns>Key存在并删除成功</returns>
+        public static bool DeleteKey(string key)
+        {
+            return _ICloudDeleteKey(key);
+        }
+        
         /// <summary>
         /// 判断当前设备iCloud是否可用
         /// </summary>

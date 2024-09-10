@@ -40,7 +40,7 @@ static BOOL canWrite;
         
         NSString *keyString = @"initKey";
         [keyValueStore setString:valueString forKey:keyString];
-        canWrite = [[keyValueStore objectForKey:keyString] isEqualToString:valueString] && [keyValueStore synchronize];
+        canWrite = [[keyValueStore stringForKey:keyString] isEqualToString:valueString] && [keyValueStore synchronize];
     }
     
     return canWrite;
@@ -51,11 +51,27 @@ static BOOL canWrite;
     return [keyValueStore synchronize];
 }
 
-+(BOOL)IsKeyExists:(NSString *)key
++(BOOL)IsKeyExists:(NSString*)key
 {
+    if(key == nil)
+        return NO;
+    
     if([iCloudKeyValueStore IsICloudAvailable]){
 
-        return [[keyValueStore dictionaryRepresentation] objectForKey:key] != nil ;
+        return [keyValueStore objectForKey:key] != nil;
+    }
+    return NO;
+}
+
++(BOOL)DeleteKey:(NSString*)key
+{
+    if(key == nil)
+        return NO;
+    
+    if([iCloudKeyValueStore IsKeyExists:key])
+    {
+        [keyValueStore removeObjectForKey:key];
+        return YES;
     }
     return NO;
 }
@@ -63,11 +79,11 @@ static BOOL canWrite;
 +(BOOL)ClearICloudSave{
     if([iCloudKeyValueStore IsICloudAvailable])
     {
-        NSArray *keyArray = [[keyValueStore dictionaryRepresentation] allKeys];
+        NSArray* keyArray = [[keyValueStore dictionaryRepresentation] allKeys];
 
         for(int i = 0; i < keyArray.count; i++){
             @autoreleasepool {
-                NSString *key = [keyArray objectAtIndex:i];
+                NSString* key = [keyArray objectAtIndex:i];
                 if(key != nil){
                     [keyValueStore removeObjectForKey:key];
                 }
