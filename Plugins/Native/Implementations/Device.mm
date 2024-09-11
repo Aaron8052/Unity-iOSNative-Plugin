@@ -1,6 +1,6 @@
 #import <UIKit/UIFeedbackGenerator.h>
-#import "iOSNative.h"
 #import <AVFoundation/AVFoundation.h>
+#import "../Headers/Device.h"
 
 @implementation Device
 +(NSInteger)GetDeviceOrientation{

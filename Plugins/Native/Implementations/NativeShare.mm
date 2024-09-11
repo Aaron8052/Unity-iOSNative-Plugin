@@ -1,8 +1,7 @@
-#import "iOSNative.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
-
+#import "../Headers/NativeShare.h"
 
 
 @implementation NativeShare

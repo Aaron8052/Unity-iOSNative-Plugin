@@ -96,6 +96,8 @@
 
 > 无需调用 `Initialize` 方法，插件会自动初始化
 
+> 使用iCloudKeyValueStore功能需要在Xcode的Capability中开启iCloud的Key-Value Storage
+
 | 方法                    | 功能                                     |
 |-----------------------|----------------------------------------|
 | `Initialize()`        | 初始化iCloud                              |
@@ -167,10 +169,20 @@
 
 > iOS 分享文件功能
 
-| 方法                   | 功能                                |
-|----------------------|-----------------------------------|
-| `Share()`            | 调用系统分享功能                          |
-| `ShareObjects()`     | 调用系统分享功能（与上一个方法功能一致，但允许自定义分享内容类型） |
-| `SaveFileDialog()`   | 调用系统保存文件对话框，允许玩家选择保存文件的路径         |
-| `SelectFileDialog()` | 调用系统选择文件对话框，允许玩家选择文件              |
-| `SaveImageToAlbum()` | 保存图片（本地路径）到相册（需申请相册权限）            |
+
+| 方法                   | 功能                                 | 说明                                                                   | 
+|----------------------|------------------------------------|----------------------------------------------------------------------|
+| `Share()`            | 调用系统分享功能                           |                                                                      |
+| `ShareObjects()`     | 调用系统分享功能（与上一个方法功能一致，但允许自定义分享内容类型）  |                                                                      |
+| `SaveFileDialog()`   | 调用系统保存文件对话框，允许玩家选择保存文件的路径          |                                                                      |
+| `SelectFileDialog()` | 调用系统选择文件对话框，允许玩家选择文件               | 需要`LSSupportsOpeningDocumentsInPlace`权限                              |
+| `SaveImageToAlbum()` | 保存图片（本地绝对路径）到相册（App安装后首次调用会申请相册权限） | 网上搜索关于Xcode相册权限（`NSPhotoLibraryUsageDescription`）的配置方法。否则App无法正常申请权限 |
+
+# 如果插件升级后打包Xcode后插件代码编译报错...
+## 可能的解决方法
+> Unity打包的Xcode工程的Native插件都会放在Libraries文件夹里
+- （当插件的文件结构发生变化）如果打包Xcode时选择的是Append，需要在Xcode中重新关联Plugin的文件夹（Xcode里面的Plugin文件变成红色）
+- 确保每个Plugin文件都在右侧的属性里选择Relative to Project
+- 确保每个Plugin文件的Target Membership都**只勾选UnityFramework**，其余都不要选
+- 所有的.h头文件除了勾选UnityFramework外，右侧下拉选项还要选Project，而不是Public或Private
+> 如果不会弄，可以清空Unity的打包缓存，然后再打包一个全新的Xcode工程，基本上可以解决问题

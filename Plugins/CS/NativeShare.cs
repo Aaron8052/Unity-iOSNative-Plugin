@@ -29,6 +29,12 @@ namespace iOSNativePlugin
         }
 
         static event Action<bool> OnSaveImageToAlbumCallback;
+        
+        /// <summary>
+        /// 保存图片（本地绝对路径）到相册（App安装后首次调用会申请相册权限）
+        /// </summary>
+        /// <param name="imagePath">图片文件的本地绝对路径</param>
+        /// <param name="callback">保存成功回调</param>
         public static void SaveImageToAlbum(string imagePath, Action<bool> callback = null)
         {
             _SaveImageToAlbum(imagePath, OnShareCloseCallback);

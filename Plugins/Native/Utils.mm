@@ -1,3 +1,10 @@
+// 包含本插件内的共享内容
+
+#import <Foundation/Foundation.h>
+#import "UnityAppController.h"
+
+extern UIViewController *UnityGetGLViewController();
+
 static void LOG(NSString* log){
     @autoreleasepool {
         NSLog(@"[iOS Native] %@", log);

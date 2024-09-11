@@ -1,6 +1,5 @@
-#import "iOSNative.h"
 #import <UIKit/UIView.h>
-
+#import "../Headers/NativeUI.h"
 
 
 @implementation NativeUI

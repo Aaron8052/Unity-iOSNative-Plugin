@@ -1,4 +1,4 @@
-#import "iOSNative.h"
+#import "../Headers/iOSGameKit.h"
 
 
 @implementation iOSGameKit

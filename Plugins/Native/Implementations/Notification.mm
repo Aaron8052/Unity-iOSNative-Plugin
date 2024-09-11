@@ -1,10 +1,10 @@
 #import <UserNotifications/UserNotifications.h>
-#import "iOSNative.h"
+#import "../Headers/Notification.h"
+
+@implementation Notification
 
 static UNUserNotificationCenter *notificationCenter;
 static BOOL notificationGranted;
-
-@implementation Notification
 
 +(void)init{
     if(notificationCenter == nil)

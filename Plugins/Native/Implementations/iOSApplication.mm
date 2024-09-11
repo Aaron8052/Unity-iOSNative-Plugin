@@ -1,4 +1,4 @@
-#import "iOSNative.h"
+#import "../Headers/iOSApplication.h"
 
 @implementation iOSApplication
 
