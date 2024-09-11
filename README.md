@@ -49,15 +49,14 @@
 
 | 模块名                      | 功能                        |
 |--------------------------|---------------------------|
-| `iOSNative.h`            | 头文件                       |
+| `.h`            | 头文件，包含各个类的声明和ExternC函数接口   |
 | `iOSApplication.mm`      | iOS应用相关                   |
 | `iCloudKeyValueStore.mm` | iCloud相关功能                |
 | `Device.mm`              | iPhone 设备相关               |
 | `Notification.mm`        | iOS 本地通知推送                |
 | `NativeShare.mm`         | iOS 自带的分享文件功能             |
 | `NativeUI.mm`            | 原生UI相关                    |
-| `Utils.mm`               | OC辅助文件，包含了typedef、静态函数等声明 |
-| `ExternC.mm`             | 负责将插件的方法暴露给UnityC#端以进行交互  |
+| `Utils.mm`               | 辅助文件，包含了插件通用内容、typedef、静态函数等声明 |
 
 ## C#类/功能介绍
 
@@ -67,9 +66,12 @@
 
 > 游戏相关功能实现，用于补全Unity自带Game Center的功能缺陷
 
+> 使用Game Center功能需要在Xcode的Capability中添加Game Center
+
 | 方法                      | 功能                       |
 |-------------------------|--------------------------|
 | `LoadScore()` | 用于获取GameCenter中指定的玩家排行榜分数（支持获取循环排行榜分数） |
+| ShowGameCenterView | 显示Game Center界面 |
 
 ### iOSApplication
 
