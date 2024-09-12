@@ -30,7 +30,7 @@ namespace iOSNativePlugin
         /// <summary>
         /// 判断当前设备iCloud是否可用
         /// </summary>
-        /// <returns></returns>
+        /// <returns>是否可用</returns>
         public static bool IsICloudAvailable()
         {
             return _IsICloudAvailable();
@@ -66,7 +66,6 @@ namespace iOSNativePlugin
             
         /// <summary>
         /// 清空iCloud存档
-        /// <para><b> >此方法可用性未知</b></para>
         /// </summary>
         /// <returns>是否清除成功</returns>
         public static bool ClearICloudSave()

@@ -44,9 +44,10 @@ namespace iOSNativePlugin
         
         
         #region Load Score
-        //计时Recurring排行榜在iOS14以下不支持，会返回-1
+        // 
         /// <summary>
         /// 加载指定排行榜当前用户的分数
+        /// <para>计时Recurring排行榜在iOS14以下不支持，会返回-1</para>
         /// </summary>
         /// <param name="leaderboardID">排行榜ID</param>
         /// <param name="callback">分数回调，获取失败时返回-1</param>

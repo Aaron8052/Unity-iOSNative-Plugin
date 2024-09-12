@@ -10,18 +10,13 @@ namespace iOSNativePlugin
     delegate void OrientationChangeCallback(int orientation);
     delegate void CompletionCallback();
     delegate void UserSettingsChangeCallback();
-    delegate void LongCallback(long score);
+    delegate void LongCallback(long value);
     
     /// <summary>
     /// 指定原生分享的内容、类型
     /// </summary>
     public struct ShareObject
     {
-        /// <summary>
-        /// 指定对话框按钮的内容、样式
-        /// </summary>
-        /// <param name="content"></param>
-        /// <param name="type"></param>
         public ShareObject(string content, ShareObjectType type = ShareObjectType.NSString)
         {
             _content = content;

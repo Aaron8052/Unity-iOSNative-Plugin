@@ -87,60 +87,80 @@ namespace iOSNativePlugin
             _OpenAppSettings();
         }
 
+        /// <summary>
+        /// 设置用户设置中的布尔值（Switch）
+        /// </summary>
+        /// <param name="identifier">设置项的标识符</param>
+        /// <param name="value">设置的值</param>
         public static void SetUserSettingsBool(string identifier, bool value)
         {
             _SetUserSettingsBool(identifier, value);
         }
         /// <summary>
-        /// 获取iOS settings bundle的Toggle Switch值
+        /// 获取用户设置中的布尔值（Switch）
         /// </summary>
-        /// <param name="identifier">identifier</param>
-        /// <returns></returns>
+        /// <param name="identifier">设置项的标识符</param>
+        /// <returns>设置的值</returns>
         public static bool GetUserSettingsBool(string identifier)
         {
             return _GetUserSettingsBool(identifier);
         }
         
+        /// <summary>
+        /// 设置用户设置中的字符串值（TextArea）
+        /// </summary>
+        /// <param name="identifier">设置项的标识符</param>
+        /// <param name="value">设置的值</param>
         public static void SetUserSettingsString(string identifier, string value)
         {
             _SetUserSettingsString(identifier, value);
         }
         
         /// <summary>
-        /// 获取iOS settings bundle的TextArea值
+        /// 获取用户设置中的字符串值（TextArea）
         /// </summary>
-        /// <param name="identifier">identifier</param>
-        /// <returns></returns>
+        /// <param name="identifier">设置项的标识符</param>
+        /// <returns>设置的值</returns>
         public static string GetUserSettingsString(string identifier)
         {
             return _GetUserSettingsString(identifier);
         }
         
+        /// <summary>
+        /// 设置用户设置中的浮点值（Slider）
+        /// </summary>
+        /// <param name="identifier">设置项的标识符</param>
+        /// <param name="value">设置的值</param>
         public static void SetUserSettingsFloat(string identifier, float value)
         {
             _SetUserSettingsFloat(identifier, value);
         }
         
         /// <summary>
-        /// 获取iOS settings bundle的Slider Float值
+        /// 获取用户设置中的浮点值（Slider）
         /// </summary>
-        /// <param name="identifier">identifier</param>
-        /// <returns></returns>
+        /// <param name="identifier">设置项的标识符</param>
+        /// <returns>设置的值</returns>
         public static float GetUserSettingsFloat(string identifier)
         {
             return _GetUserSettingsFloat(identifier);
         }
         
+        /// <summary>
+        /// 设置用户设置中的整数值（Slider）
+        /// </summary>
+        /// <param name="identifier">设置项的标识符</param>
+        /// <param name="value">设置的值</param>
         public static void SetUserSettingsInt(string identifier, long value)
         {
             _SetUserSettingsInt(identifier, value);
         }
         
         /// <summary>
-        /// 获取iOS settings bundle的Slider Long值
+        /// 获取用户设置中的整数值（Slider）
         /// </summary>
-        /// <param name="identifier">identifier</param>
-        /// <returns></returns>
+        /// <param name="identifier">设置项的标识符</param>
+        /// <returns>设置的值</returns>
         public static long GetUserSettingsInt(string identifier)
         {
             return _GetUserSettingsInt(identifier);
