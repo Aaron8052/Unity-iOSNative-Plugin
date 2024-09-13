@@ -60,6 +60,8 @@
 
 ## C#类/功能介绍
 
+建议前往[Wiki](https://github.com/Aaron8052/Unity-iOSNative-Plugin/wiki)查看更详细的API文档
+
 > 方法名前标有星号 “*” 表示该方法尚未经测试，可用性未知
 
 ### GameKit
