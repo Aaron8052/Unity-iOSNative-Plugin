@@ -4,6 +4,7 @@
 //SFSafariViewControllerDelegate 实现SafariView回调协议
 @interface NativeUI : NSObject <SFSafariViewControllerDelegate>
 +(void)SafariViewFromUrl:(NSString *)url onCompletionCallback:(CompletionCallback)callback;
++(void)SafariPageSheetFromUrl:(NSString *)url onCompletionCallback:(CompletionCallback)callback;
 +(void)RegisterStatusBarOrientationChangeCallback:(OrientationChangeCallback)callback;
 +(void)UnregisterStatusBarOrientationChangeCallback;
 +(NSInteger)GetStatusBarOrientation;
@@ -29,6 +30,14 @@ extern "C"
                onCompletionCallback:onCompletionCallback];
     }
 
+    void _SafariPageSheetFromUrl(const char* url, CompletionCallback onCompletionCallback)
+    {
+        if(url == NULL)
+            return;
+        
+        [NativeUI SafariPageSheetFromUrl:[NSString stringWithUTF8String:url]
+               onCompletionCallback:onCompletionCallback];
+    }
     void _RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback)
     {
         [NativeUI RegisterStatusBarOrientationChangeCallback:callback];

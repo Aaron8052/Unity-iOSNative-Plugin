@@ -9,35 +9,17 @@ namespace iOSNativePlugin
 {
     public static class NativeUI
     {
-        [DllImport("__Internal")]
-        static extern void _SafariViewFromUrl(string url, CompletionCallback onCompletionCallback);
-            
-        [DllImport("__Internal")]
-        static extern void _RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback);
-            
-        [DllImport("__Internal")]
-        static extern void _UnregisterStatusBarOrientationChangeCallback();
-
-        [DllImport("__Internal")]
-        static extern int _GetStatusBarOrientation();
-            
-        [DllImport("__Internal")]
-        static extern void _SetStatusBarOrientation(int orientation);
-            
-        [DllImport("__Internal")]
-        static extern bool _IsStatusBarHidden();
-                
-        [DllImport("__Internal")]
-        private static extern void _ShowTempMessage(string alertString, int duration = 5);
-
-        [DllImport("__Internal")]
-        static extern void _SetStatusBarHidden(bool hidden, int withAnimation);
-
-        [DllImport("__Internal")]
-        static extern void _SetStatusBarStyle(int style, bool animated);
-            
-        [DllImport("__Internal")]
-        static extern void _ShowDialog(string title, string message, string[] actions, int count, int style, DialogSelectionCallback callback);
+        [DllImport("__Internal")] static extern void _SafariViewFromUrl(string url, CompletionCallback onCompletionCallback);
+        [DllImport("__Internal")] static extern void _SafariPageSheetFromUrl(string url, CompletionCallback onCompletionCallback);
+        [DllImport("__Internal")] static extern void _RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback);
+        [DllImport("__Internal")] static extern void _UnregisterStatusBarOrientationChangeCallback();
+        [DllImport("__Internal")] static extern int _GetStatusBarOrientation();
+        [DllImport("__Internal")] static extern void _SetStatusBarOrientation(int orientation);
+        [DllImport("__Internal")] static extern bool _IsStatusBarHidden();
+        [DllImport("__Internal")] static extern void _ShowTempMessage(string alertString, int duration = 5);
+        [DllImport("__Internal")] static extern void _SetStatusBarHidden(bool hidden, int withAnimation);
+        [DllImport("__Internal")] static extern void _SetStatusBarStyle(int style, bool animated);
+        [DllImport("__Internal")] static extern void _ShowDialog(string title, string message, string[] actions, int count, int style, DialogSelectionCallback callback);
 
         public static bool HideHomeIndicator
         {
@@ -67,6 +49,17 @@ namespace iOSNativePlugin
         public static void SafariViewFromUrl(string url, Action onCompletionCallback = null)
         {
             _SafariViewFromUrl(url, OnSafariViewCompletionCallback);
+            _onSafariViewComplete = onCompletionCallback;
+        }
+        
+        /// <summary>
+        /// 调用游戏内Safari窗口打开url（以UIModalPresentationPageSheet方式）
+        /// </summary>
+        /// <param name="url">URL</param>
+        /// <param name="onCompletionCallback">用户关闭窗口回调</param>
+        public static void SafariPageSheetFromUrl(string url, Action onCompletionCallback = null)
+        {
+            _SafariPageSheetFromUrl(url, OnSafariViewCompletionCallback);
             _onSafariViewComplete = onCompletionCallback;
         }
 

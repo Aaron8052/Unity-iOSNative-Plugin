@@ -33,11 +33,31 @@
 
     SFSafariViewController* safariView = [[SFSafariViewController alloc] initWithURL:nsUrl];
     safariView.delegate = [NativeUI Instance];
-    
     SafariViewCompleteCallback = callback;
-    
     [UnityGetGLViewController() presentViewController:safariView animated:YES completion:nil];
 
+}
+
++(void)SafariPageSheetFromUrl:(NSString *)url onCompletionCallback:(CompletionCallback)callback
+{
+    if(url == nil || url.length <= 0){
+        return;
+    }
+    
+    NSURL * nsUrl = [NSURL URLWithString:url];
+    
+    if(nsUrl == nil)
+    {
+        return;
+    }
+    
+    SFSafariViewController* safariView = [[SFSafariViewController alloc] initWithURL:nsUrl];
+    safariView.delegate = [NativeUI Instance];
+    safariView.modalPresentationStyle = UIModalPresentationPageSheet;
+    SafariViewCompleteCallback = callback;
+    [UnityGetGLViewController() presentViewController:safariView animated:YES completion:nil];
+    
+    
 }
 static CompletionCallback SafariViewCompleteCallback;
 

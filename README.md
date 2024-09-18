@@ -145,14 +145,15 @@
 | `StatusBarOrientation` | 当前UI的朝向      |
 | `HideHomeIndicator`    | 显示/隐藏Home指示条 |
 
-| 方法                     | 功能                                      |
-|------------------------|-----------------------------------------|
-| `SafariViewFromUrl()`  | 调用游戏内Safari窗口打开url                      |
-| `StatusBarOrientation` | 当前UI的朝向                                 |
-| `IsStatusBarHidden()`  | 判断当前系统状态栏是否被隐藏                          |
-| `SetStatusBarHidden()` | 设置状态栏的隐藏状态                              |
-| `SetStatusBarStyle()`  | 设置状态栏的样式（白色、黑色、自动）                      |
-| `ShowTempAlert()`      | 在应用内顶部展示一个内容为alertString，时长duration秒的横幅 |
+| 方法                         | 功能                                                  |
+|----------------------------|-----------------------------------------------------|
+| `SafariViewFromUrl()`      | 调用游戏内Safari窗口打开url                                  |
+| `SafariPageSheetFromUrl()` | 调用游戏内Safari窗口打开url（以UIModalPresentationPageSheet方式） |
+| `StatusBarOrientation`     | 当前UI的朝向                                             |
+| `IsStatusBarHidden()`      | 判断当前系统状态栏是否被隐藏                                      |
+| `SetStatusBarHidden()`     | 设置状态栏的隐藏状态                                          |
+| `SetStatusBarStyle()`      | 设置状态栏的样式（白色、黑色、自动）                                  |
+| `ShowTempAlert()`          | 在应用内顶部展示一个内容为alertString，时长duration秒的横幅             |
 
 ### Device
 
