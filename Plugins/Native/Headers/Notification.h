@@ -14,19 +14,19 @@
 
 extern "C"
 {
-    void _InitializeNotification(){
+    void Notification_Initialize(){
         [Notification init];
     }
-    void _PushNotification(const char *msg, const char *title, const char *identifier, int delay){
+    void Notification_PushNotification(const char *msg, const char *title, const char *identifier, int delay){
         [Notification PushNotification:[NSString stringWithUTF8String:msg ?: ""]
                               title:[NSString stringWithUTF8String:title ?: ""]
                          identifier:[NSString stringWithUTF8String:identifier ?: ""]
                               delay:(NSInteger)delay];
     }
-    void _RemovePendingNotifications(const char *identifier){
+    void Notification_RemovePendingNotifications(const char *identifier){
         [Notification RemovePendingNotifications:[NSString stringWithUTF8String:identifier]];
     }
-    void _RemoveAllPendingNotifications(){
+    void Notification_RemoveAllPendingNotifications(){
         [Notification RemoveAllPendingNotifications];
     }
 }

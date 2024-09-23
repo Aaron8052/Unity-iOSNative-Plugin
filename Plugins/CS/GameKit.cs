@@ -10,10 +10,10 @@ namespace iOSNativePlugin
     public static class GameKit
     {
         [DllImport("__Internal")]
-        private static extern void _ShowGameCenterView(CompletionCallback callback);
+        private static extern void GameKit_ShowGameCenterView(CompletionCallback callback);
         
         [DllImport("__Internal")]
-        private static extern void _LoadScore(string leaderboardID, LongCallback callback);
+        private static extern void GameKit_LoadScore(string leaderboardID, LongCallback callback);
         
         
         
@@ -25,7 +25,7 @@ namespace iOSNativePlugin
         /// <param name="gameCenterViewControllerDidFinish">用户关闭GC以及GC调用失败时的回调</param>
         public static void ShowGameCenterView(Action gameCenterViewControllerDidFinish = null)
         {
-            _ShowGameCenterView(OnScoreCallback);
+            GameKit_ShowGameCenterView(OnScoreCallback);
         }
         
         
@@ -53,7 +53,7 @@ namespace iOSNativePlugin
         /// <param name="callback">分数回调，获取失败时返回-1</param>
         public static void LoadScore(string leaderboardID, Action<long> callback)
         {
-            _LoadScore(leaderboardID, OnScoreCallback);
+            GameKit_LoadScore(leaderboardID, OnScoreCallback);
             _onScoreCallback = callback;
             
         }

@@ -7,15 +7,15 @@ namespace iOSNativePlugin
     public static class NativeShare
     {
         [DllImport("__Internal")]
-        private static extern void _Share(string message, string url, string imagePath, ShareCloseCallback callback);
+        private static extern void NativeShare_Share(string message, string url, string imagePath, ShareCloseCallback callback);
 		[DllImport("__Internal")]
-		private static extern void _ShareObjects(string[] objects, int count, ShareCloseCallback callback);
+		private static extern void NativeShare_ShareObjects(string[] objects, int count, ShareCloseCallback callback);
         [DllImport("__Internal")]
-        private static extern void _SaveFileDialog(string content, string fileName, FileSavedCallback callback);
+        private static extern void NativeShare_SaveFileDialog(string content, string fileName, FileSavedCallback callback);
         [DllImport("__Internal")]
-        private static extern void _SelectFileDialog(string ext, FileSelectCallback callback);
+        private static extern void NativeShare_SelectFileDialog(string ext, FileSelectCallback callback);
         [DllImport("__Internal")]
-        private static extern void _SaveImageToAlbum(string imagePath, SaveImageToAlbumCallback callback);
+        private static extern void NativeShare_SaveImageToAlbum(string imagePath, SaveImageToAlbumCallback callback);
         
         
         
@@ -37,7 +37,7 @@ namespace iOSNativePlugin
         /// <param name="callback">保存成功回调</param>
         public static void SaveImageToAlbum(string imagePath, Action<bool> callback = null)
         {
-            _SaveImageToAlbum(imagePath, OnShareCloseCallback);
+            NativeShare_SaveImageToAlbum(imagePath, OnShareCloseCallback);
             OnSaveImageToAlbumCallback = callback;
         }
         
@@ -52,7 +52,7 @@ namespace iOSNativePlugin
         /// <param name="closeCallback">用户关闭分享面板的回调</param>
         public static void Share(string message, string url = "", string imagePath = "", Action closeCallback = null)
         {
-            _Share(message, url, imagePath, OnShareCloseCallback);
+            NativeShare_Share(message, url, imagePath, OnShareCloseCallback);
             OnShareClose = closeCallback;
         }
         /// <summary>
@@ -72,7 +72,7 @@ namespace iOSNativePlugin
                 objectsArray[i] = shareObjects[i];
             }
 
-            _ShareObjects(objectsArray, objectsArray.Length, OnShareCloseCallback);
+            NativeShare_ShareObjects(objectsArray, objectsArray.Length, OnShareCloseCallback);
             OnShareClose = closeCallback;
         }
         static event Action OnShareClose;
@@ -96,7 +96,7 @@ namespace iOSNativePlugin
         /// <returns>保存成功</returns>
         public static bool SaveFileDialog(string content, string fileName, Action callback = null)
         {
-            _SaveFileDialog(content, fileName, OnFileSavedCallback);
+            NativeShare_SaveFileDialog(content, fileName, OnFileSavedCallback);
             OnFileSaved = callback;
             return true; 
         }
@@ -123,7 +123,7 @@ namespace iOSNativePlugin
         {
             OnFiledSelected = callback;
             OnFileSelectFailed = failedCallback;
-            _SelectFileDialog(ext, OnFileSelectedCallback); 
+            NativeShare_SelectFileDialog(ext, OnFileSelectedCallback); 
         }
             
         static event Action<string> OnFiledSelected;

@@ -11,11 +11,11 @@
 
 extern "C"
 {
-    void _ShowGameCenterView(CompletionCallback callback)
+    void iOSGameKit_ShowGameCenterView(CompletionCallback callback)
     {
         [iOSGameKit ShowGameCenterView:callback];
     }
-    void _LoadScore(const char* leaderboardID, LongCallback callback)
+    void iOSGameKit_LoadScore(const char* leaderboardID, LongCallback callback)
     {
         [iOSGameKit LoadScore:[NSString stringWithUTF8String:leaderboardID] callback:callback];
     }

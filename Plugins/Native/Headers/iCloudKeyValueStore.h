@@ -25,61 +25,61 @@
 
 extern "C"
 {
-    void _InitializeICloud(){
+    void iCloudKeyValueStore_Initialize(){
         [iCloudKeyValueStore InitICloud];
     }
 
-    bool _IsICloudAvailable(){
+    bool iCloudKeyValueStore_IsICloudAvailable(){
         return [iCloudKeyValueStore IsICloudAvailable];
     }
-    bool _ICloudKeyExists(const char* key){
+    bool iCloudKeyValueStore_ICloudKeyExists(const char* key){
         return [iCloudKeyValueStore IsKeyExists:[NSString stringWithUTF8String:key ?: nil]];
     }
-    bool _ICloudDeleteKey(const char* key){
+    bool iCloudKeyValueStore_ICloudDeleteKey(const char* key){
         return [iCloudKeyValueStore DeleteKey:[NSString stringWithUTF8String:key ?: nil]];
     }
-    bool _ClearICloudSave(){
+    bool iCloudKeyValueStore_ClearICloudSave(){
         return [iCloudKeyValueStore ClearICloudSave];
     }
-    bool _Synchronize(){
+    bool iCloudKeyValueStore_Synchronize(){
         return [iCloudKeyValueStore Synchronize];
     }
-    const char* _iCloudGetString(const char *key, const char *defaultValue)
+    const char* iCloudKeyValueStore_GetString(const char *key, const char *defaultValue)
     {
         return StringCopy([[iCloudKeyValueStore GetString:[NSString stringWithUTF8String:key]
                                              defaultValue:[NSString stringWithUTF8String:defaultValue]] UTF8String]);
     }
-    bool _iCloudSaveString(const char *key, const char *value)
+    bool iCloudKeyValueStore_SaveString(const char *key, const char *value)
     {
         return [iCloudKeyValueStore SetString:[NSString stringWithUTF8String:key]
                                      setValue:[NSString stringWithUTF8String:value]];
     }
-    int _iCloudGetInt(const char *key, int defaultValue)
+    int iCloudKeyValueStore_GetInt(const char *key, int defaultValue)
     {
         return [iCloudKeyValueStore GetInt:[NSString stringWithUTF8String:key]
                               defaultValue:defaultValue];
     }
-    bool _iCloudSaveInt(const char *key, int value)
+    bool iCloudKeyValueStore_SaveInt(const char *key, int value)
     {
         return [iCloudKeyValueStore SetInt:[NSString stringWithUTF8String:key]
                                   setValue:value];
     }
-    float _iCloudGetFloat(const char *key, float defaultValue)
+    float iCloudKeyValueStore_GetFloat(const char *key, float defaultValue)
     {
         return [iCloudKeyValueStore GetFloat:[NSString stringWithUTF8String:key]
                                 defaultValue:defaultValue];
     }
-    bool _iCloudSaveFloat(const char *key, float value)
+    bool iCloudKeyValueStore_SaveFloat(const char *key, float value)
     {
         return [iCloudKeyValueStore SetFloat:[NSString stringWithUTF8String:key]
                                     setValue:value];
     }
-    bool _iCloudGetBool(const char *key, bool defaultValue)
+    bool iCloudKeyValueStore_GetBool(const char *key, bool defaultValue)
     {
         return [iCloudKeyValueStore GetBool:[NSString stringWithUTF8String:key]
                                defaultValue:defaultValue];
     }
-    bool _iCloudSaveBool(const char *key, bool value)
+    bool iCloudKeyValueStore_SaveBool(const char *key, bool value)
     {
         return [iCloudKeyValueStore SetBool:[NSString stringWithUTF8String:key]
                                    setValue:value];

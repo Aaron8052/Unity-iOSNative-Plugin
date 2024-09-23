@@ -4,27 +4,27 @@ namespace iOSNativePlugin
 {
     public static class iCloudKeyValueStore
     {
-        [DllImport("__Internal")] static extern void _InitializeICloud();
-        [DllImport("__Internal")] static extern bool _Synchronize();
-        [DllImport("__Internal")] static extern bool _IsICloudAvailable();
-        [DllImport("__Internal")] static extern bool _ICloudKeyExists(string key);
-        [DllImport("__Internal")] static extern bool _ICloudDeleteKey(string key);
-        [DllImport("__Internal")] static extern bool _ClearICloudSave();
-        [DllImport("__Internal")] static extern string _iCloudGetString(string key, string defaultValue);
-        [DllImport("__Internal")] static extern bool _iCloudSaveString(string key, string value);
-        [DllImport("__Internal")] static extern int _iCloudGetInt(string key, int defaultValue);
-        [DllImport("__Internal")] static extern bool _iCloudSaveInt(string key, int value);
-        [DllImport("__Internal")] static extern float _iCloudGetFloat(string key, float defaultValue);
-        [DllImport("__Internal")] static extern bool _iCloudSaveFloat(string key, float value);
-        [DllImport("__Internal")] static extern bool _iCloudGetBool(string key, bool defaultValue);
-        [DllImport("__Internal")] static extern bool _iCloudSaveBool(string key, bool value);
+        [DllImport("__Internal")] static extern void iCloudKeyValueStore_Initialize();
+        [DllImport("__Internal")] static extern bool iCloudKeyValueStore_Synchronize();
+        [DllImport("__Internal")] static extern bool iCloudKeyValueStore_IsICloudAvailable();
+        [DllImport("__Internal")] static extern bool iCloudKeyValueStore_ICloudKeyExists(string key);
+        [DllImport("__Internal")] static extern bool iCloudKeyValueStore_ICloudDeleteKey(string key);
+        [DllImport("__Internal")] static extern bool iCloudKeyValueStore_ClearICloudSave();
+        [DllImport("__Internal")] static extern string iCloudKeyValueStore_GetString(string key, string defaultValue);
+        [DllImport("__Internal")] static extern bool iCloudKeyValueStore_SaveString(string key, string value);
+        [DllImport("__Internal")] static extern int iCloudKeyValueStore_GetInt(string key, int defaultValue);
+        [DllImport("__Internal")] static extern bool iCloudKeyValueStore_SaveInt(string key, int value);
+        [DllImport("__Internal")] static extern float iCloudKeyValueStore_GetFloat(string key, float defaultValue);
+        [DllImport("__Internal")] static extern bool iCloudKeyValueStore_SaveFloat(string key, float value);
+        [DllImport("__Internal")] static extern bool iCloudKeyValueStore_GetBool(string key, bool defaultValue);
+        [DllImport("__Internal")] static extern bool iCloudKeyValueStore_SaveBool(string key, bool value);
 
         /// <summary>
         /// 初始化iCloud
         /// </summary>
         public static void Initialize()
         {
-            _InitializeICloud();
+            iCloudKeyValueStore_Initialize();
         }
             
         /// <summary>
@@ -33,7 +33,7 @@ namespace iOSNativePlugin
         /// <returns>是否可用</returns>
         public static bool IsICloudAvailable()
         {
-            return _IsICloudAvailable();
+            return iCloudKeyValueStore_IsICloudAvailable();
         }
         /// <summary>
         /// 判断当前iCloud是否包含键
@@ -42,7 +42,7 @@ namespace iOSNativePlugin
         /// <returns>iCloud云存储包含该key</returns>
         public static bool ContainsKey(string key)
         {
-            return _ICloudKeyExists(key);
+            return iCloudKeyValueStore_ICloudKeyExists(key);
         }
         
         /// <summary>
@@ -52,7 +52,7 @@ namespace iOSNativePlugin
         /// <returns>Key存在并删除成功</returns>
         public static bool DeleteKey(string key)
         {
-            return _ICloudDeleteKey(key);
+            return iCloudKeyValueStore_ICloudDeleteKey(key);
         }
         
         /// <summary>
@@ -61,7 +61,7 @@ namespace iOSNativePlugin
         /// <returns>是否同步成功</returns>
         public static bool Synchronize()
         {
-            return _Synchronize();
+            return iCloudKeyValueStore_Synchronize();
         }
             
         /// <summary>
@@ -70,7 +70,7 @@ namespace iOSNativePlugin
         /// <returns>是否清除成功</returns>
         public static bool ClearICloudSave()
         {
-            return _ClearICloudSave();
+            return iCloudKeyValueStore_ClearICloudSave();
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace iOSNativePlugin
         /// <returns></returns>
         public static string GetString(string key, string defaultValue)
         {
-            return _iCloudGetString(key, defaultValue);
+            return iCloudKeyValueStore_GetString(key, defaultValue);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace iOSNativePlugin
         /// <returns></returns>
         public static bool SetString(string key, string value)
         {
-            return _iCloudSaveString(key, value);
+            return iCloudKeyValueStore_SaveString(key, value);
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace iOSNativePlugin
         /// <returns></returns>
         public static int GetInt(string key, int defaultValue)
         {
-            return _iCloudGetInt(key, defaultValue);
+            return iCloudKeyValueStore_GetInt(key, defaultValue);
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace iOSNativePlugin
         /// <returns></returns>
         public static bool SetInt(string key, int value)
         {
-            return _iCloudSaveInt(key, value);
+            return iCloudKeyValueStore_SaveInt(key, value);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace iOSNativePlugin
         /// <returns></returns>
         public static float GetFloat(string key, float defaultValue)
         {
-            return _iCloudGetFloat(key, defaultValue);
+            return iCloudKeyValueStore_GetFloat(key, defaultValue);
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace iOSNativePlugin
         /// <returns></returns>
         public static bool SetFloat(string key, float value)
         {
-            return _iCloudSaveFloat(key, value);
+            return iCloudKeyValueStore_SaveFloat(key, value);
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace iOSNativePlugin
         /// <returns></returns>
         public static bool GetBool(string key, bool defaultValue)
         {
-            return _iCloudGetBool(key, defaultValue);
+            return iCloudKeyValueStore_GetBool(key, defaultValue);
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace iOSNativePlugin
         /// <returns></returns>
         public static bool SetBool(string key, bool value)
         {
-            return _iCloudSaveBool(key, value);
+            return iCloudKeyValueStore_SaveBool(key, value);
         }
     }
 }

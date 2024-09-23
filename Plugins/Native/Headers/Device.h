@@ -3,10 +3,8 @@
 @interface Device : NSObject
 
 +(NSInteger)GetDeviceOrientation;
-+(BOOL)IsBluetoothHeadphonesConnected;
 +(BOOL)IsMacCatalyst;
 +(BOOL)IsSuperuser;
-+(void)SetAudioExclusive:(BOOL)exclusiveOn;
 +(void)PlayHaptics:(int)style _intensity:(float)intensity;
 +(NSString *)GetCountryCode;
 
@@ -14,26 +12,19 @@
 
 extern "C"
 {
-    int _GetDeviceOrientation(){
+    int Device_GetDeviceOrientation(){
         return (int)[Device GetDeviceOrientation];
     }
-    bool _IsBluetoothHeadphonesConnected(){
-        return [Device IsBluetoothHeadphonesConnected];
-    }
-    bool _IsMacCatalyst(){
+    bool Device_IsMacCatalyst(){
         return [Device IsMacCatalyst];
     }
-    bool _IsSuperuser(){
+    bool Device_IsSuperuser(){
         return [Device IsSuperuser];
     }
-    const char* _GetCountryCode(){
+    const char* Device_GetCountryCode(){
         return StringCopy([[Device GetCountryCode] UTF8String]);
     }
-    void _SetAudioExclusive(bool exclusive){
-        [Device SetAudioExclusive:exclusive];
-    }
-
-    void _PlayHaptics(int style, float intensity){
+    void Device_PlayHaptics(int style, float intensity){
         [Device PlayHaptics:style _intensity:intensity];
     }
 }

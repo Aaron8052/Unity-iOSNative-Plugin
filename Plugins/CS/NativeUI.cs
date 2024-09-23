@@ -9,17 +9,17 @@ namespace iOSNativePlugin
 {
     public static class NativeUI
     {
-        [DllImport("__Internal")] static extern void _SafariViewFromUrl(string url, CompletionCallback onCompletionCallback);
-        [DllImport("__Internal")] static extern void _SafariPageSheetFromUrl(string url, CompletionCallback onCompletionCallback);
-        [DllImport("__Internal")] static extern void _RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback);
-        [DllImport("__Internal")] static extern void _UnregisterStatusBarOrientationChangeCallback();
-        [DllImport("__Internal")] static extern int _GetStatusBarOrientation();
-        [DllImport("__Internal")] static extern void _SetStatusBarOrientation(int orientation);
-        [DllImport("__Internal")] static extern bool _IsStatusBarHidden();
-        [DllImport("__Internal")] static extern void _ShowTempMessage(string alertString, int duration = 5);
-        [DllImport("__Internal")] static extern void _SetStatusBarHidden(bool hidden, int withAnimation);
-        [DllImport("__Internal")] static extern void _SetStatusBarStyle(int style, bool animated);
-        [DllImport("__Internal")] static extern void _ShowDialog(string title, string message, string[] actions, int count, int style, DialogSelectionCallback callback);
+        [DllImport("__Internal")] static extern void NativeUI_SafariViewFromUrl(string url, CompletionCallback onCompletionCallback);
+        [DllImport("__Internal")] static extern void NativeUI_SafariPageSheetFromUrl(string url, CompletionCallback onCompletionCallback);
+        [DllImport("__Internal")] static extern void NativeUI_RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback);
+        [DllImport("__Internal")] static extern void NativeUI_UnregisterStatusBarOrientationChangeCallback();
+        [DllImport("__Internal")] static extern int NativeUI_GetStatusBarOrientation();
+        [DllImport("__Internal")] static extern void NativeUI_SetStatusBarOrientation(int orientation);
+        [DllImport("__Internal")] static extern bool NativeUI_IsStatusBarHidden();
+        [DllImport("__Internal")] static extern void NativeUI_ShowTempMessage(string alertString, int duration = 5);
+        [DllImport("__Internal")] static extern void NativeUI_SetStatusBarHidden(bool hidden, int withAnimation);
+        [DllImport("__Internal")] static extern void NativeUI_SetStatusBarStyle(int style, bool animated);
+        [DllImport("__Internal")] static extern void NativeUI_ShowDialog(string title, string message, string[] actions, int count, int style, DialogSelectionCallback callback);
 
         public static bool HideHomeIndicator
         {
@@ -48,7 +48,7 @@ namespace iOSNativePlugin
         /// <param name="onCompletionCallback">用户关闭窗口回调</param>
         public static void SafariViewFromUrl(string url, Action onCompletionCallback = null)
         {
-            _SafariViewFromUrl(url, OnSafariViewCompletionCallback);
+            NativeUI_SafariViewFromUrl(url, OnSafariViewCompletionCallback);
             _onSafariViewComplete = onCompletionCallback;
         }
         
@@ -59,7 +59,7 @@ namespace iOSNativePlugin
         /// <param name="onCompletionCallback">用户关闭窗口回调</param>
         public static void SafariPageSheetFromUrl(string url, Action onCompletionCallback = null)
         {
-            _SafariPageSheetFromUrl(url, OnSafariViewCompletionCallback);
+            NativeUI_SafariPageSheetFromUrl(url, OnSafariViewCompletionCallback);
             _onSafariViewComplete = onCompletionCallback;
         }
 
@@ -86,14 +86,14 @@ namespace iOSNativePlugin
             add
             {
                 _onStatusBarOrientationChanged += value;
-                _RegisterStatusBarOrientationChangeCallback(OnStatusBarOrientationChangeCallback);
+                NativeUI_RegisterStatusBarOrientationChangeCallback(OnStatusBarOrientationChangeCallback);
             }
             remove
             {
                 _onStatusBarOrientationChanged -= value;
                     
                 if(_onStatusBarOrientationChanged == null)
-                    _UnregisterStatusBarOrientationChangeCallback();
+                    NativeUI_UnregisterStatusBarOrientationChangeCallback();
             }
         }
             
@@ -112,11 +112,11 @@ namespace iOSNativePlugin
         {
             get
             {
-                return (UIInterfaceOrientation)_GetStatusBarOrientation();
+                return (UIInterfaceOrientation)NativeUI_GetStatusBarOrientation();
             }
             set
             {
-                _SetStatusBarOrientation((int)value);
+                NativeUI_SetStatusBarOrientation((int)value);
             }
         }
             
@@ -126,7 +126,7 @@ namespace iOSNativePlugin
         /// <returns><c>true</c> - 隐藏 <para><c>false</c> - 显示</para></returns>
         public static bool IsStatusBarHidden()
         {
-            return _IsStatusBarHidden();
+            return NativeUI_IsStatusBarHidden();
         }
 
            
@@ -138,7 +138,7 @@ namespace iOSNativePlugin
         /// <param name="withAnimation">隐藏显示时的动画类型，无动画/渐变/滑动</param>
         public static void SetStatusBarHidden(bool hidden, UIStatusBarAnimation withAnimation = UIStatusBarAnimation.None)
         {
-            _SetStatusBarHidden(hidden, (int)withAnimation);
+            NativeUI_SetStatusBarHidden(hidden, (int)withAnimation);
         }
             
             
@@ -149,7 +149,7 @@ namespace iOSNativePlugin
         /// <param name="animated">应用渐变动画</param>
         public static void SetStatusBarStyle(UIStatusBarStyle style, bool animated = false)
         {
-            _SetStatusBarStyle((int)style, animated);
+            NativeUI_SetStatusBarStyle((int)style, animated);
         }
                 
         /// <summary>
@@ -159,7 +159,7 @@ namespace iOSNativePlugin
         /// <param name="duration">时长 default - 5</param>
         public static void ShowTempMessage(string alertString, int duration = 5)
         {
-            _ShowTempMessage(alertString, duration);
+            NativeUI_ShowTempMessage(alertString, duration);
         }
 
 
@@ -184,7 +184,7 @@ namespace iOSNativePlugin
                 actionsArray[i] = actions[i];
             }
 
-            _ShowDialog(title, message, actionsArray, actions.Length, (int)style, OnDialogSelectionCallback);
+            NativeUI_ShowDialog(title, message, actionsArray, actions.Length, (int)style, OnDialogSelectionCallback);
             ShowDialogCallback = callback;
         }
             

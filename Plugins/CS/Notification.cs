@@ -6,23 +6,23 @@ namespace iOSNativePlugin
      {
          
          [DllImport("__Internal")]
-         private static extern void _InitializeNotification();
+         private static extern void Notification_Initialize();
                 
          [DllImport("__Internal")]
-         private static extern void _PushNotification(string msg, string title, string identifier, int delay);
+         private static extern void Notification_PushNotification(string msg, string title, string identifier, int delay);
     
          [DllImport("__Internal")]
-         private static extern void _RemovePendingNotifications(string identifier);
+         private static extern void Notification_RemovePendingNotifications(string identifier);
     
          [DllImport("__Internal")]
-         private static extern void _RemoveAllPendingNotifications();
+         private static extern void Notification_RemoveAllPendingNotifications();
                 
          /// <summary>
          /// 初始化通知系统
          /// </summary>
          public static void Initialize()
          {
-             _InitializeNotification();
+             Notification_Initialize();
          }
                 
          /// <summary>
@@ -34,7 +34,7 @@ namespace iOSNativePlugin
          /// <param name="delay">延迟待定delay秒后推送此通知</param>
          public static void PushNotification(string msg, string title, string identifier, int delay)
          {
-             _PushNotification(msg, title, identifier, delay);
+             Notification_PushNotification(msg, title, identifier, delay);
          }
                 
          /// <summary>
@@ -44,7 +44,7 @@ namespace iOSNativePlugin
          /// <param name="identifier">要移除的通知的标识符</param>
          public static void RemovePendingNotifications(string identifier)
          {
-             _RemovePendingNotifications(identifier);
+             Notification_RemovePendingNotifications(identifier);
          }
                 
          /// <summary>
@@ -52,7 +52,7 @@ namespace iOSNativePlugin
          /// </summary>
          public static void RemoveAllPendingNotifications()
          {
-             _RemoveAllPendingNotifications();
+             Notification_RemoveAllPendingNotifications();
          }
      }
 }

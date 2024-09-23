@@ -21,7 +21,7 @@
 
 extern "C"
 {
-    void _SafariViewFromUrl(const char* url, CompletionCallback onCompletionCallback)
+    void NativeUI_SafariViewFromUrl(const char* url, CompletionCallback onCompletionCallback)
     {
         if(url == NULL)
             return;
@@ -30,7 +30,7 @@ extern "C"
                onCompletionCallback:onCompletionCallback];
     }
 
-    void _SafariPageSheetFromUrl(const char* url, CompletionCallback onCompletionCallback)
+    void NativeUI_SafariPageSheetFromUrl(const char* url, CompletionCallback onCompletionCallback)
     {
         if(url == NULL)
             return;
@@ -38,33 +38,33 @@ extern "C"
         [NativeUI SafariPageSheetFromUrl:[NSString stringWithUTF8String:url]
                onCompletionCallback:onCompletionCallback];
     }
-    void _RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback)
+    void NativeUI_RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback)
     {
         [NativeUI RegisterStatusBarOrientationChangeCallback:callback];
     }
-    void _UnregisterStatusBarOrientationChangeCallback(){
+    void NativeUI_UnregisterStatusBarOrientationChangeCallback(){
         [NativeUI UnregisterStatusBarOrientationChangeCallback];
     }
-    int _GetStatusBarOrientation(){
+    int NativeUI_GetStatusBarOrientation(){
         return (int)[NativeUI GetStatusBarOrientation];
     }
-    void _SetStatusBarOrientation(int orientation){
+    void NativeUI_SetStatusBarOrientation(int orientation){
         [NativeUI SetStatusBarOrientation:orientation];
     }
-    bool _IsStatusBarHidden(){
+    bool NativeUI_IsStatusBarHidden(){
         return [NativeUI IsStatusBarHidden];
     }
-    void _SetStatusBarHidden(bool hidden, int withAnimation){
+    void NativeUI_SetStatusBarHidden(bool hidden, int withAnimation){
         [NativeUI SetStatusBarHidden:hidden withAnimation:withAnimation];
     }
-    void _SetStatusBarStyle(int style, bool animated){
+    void NativeUI_SetStatusBarStyle(int style, bool animated){
         [NativeUI SetStatusBarStyle:style animated:animated];
     }
 
-    void _ShowTempMessage(const char* alertString, int duration = 5){
+    void NativeUI_ShowTempMessage(const char* alertString, int duration = 5){
         [NativeUI ShowTempMessage:[NSString stringWithUTF8String:alertString ?: ""] duration:duration];
     }
-    void _ShowDialog(const char* title, const char* message, const char** actions, int count, int style, DialogSelectionCallback callback)
+    void NativeUI_ShowDialog(const char* title, const char* message, const char** actions, int count, int style, DialogSelectionCallback callback)
     {
         if(count <= 0)
             return;

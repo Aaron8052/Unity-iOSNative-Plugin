@@ -9,25 +9,25 @@ namespace iOSNativePlugin
     public static class Device
     {
         [DllImport("__Internal")]
-        static extern int _GetDeviceOrientation();
+        static extern int Device_GetDeviceOrientation();
             
         [DllImport("__Internal")]
-        static extern bool _IsBluetoothHeadphonesConnected();
+        static extern bool Audio_IsBluetoothHeadphonesConnected();
             
         [DllImport("__Internal")]
-        static extern bool _IsMacCatalyst();
+        static extern bool Device_IsMacCatalyst();
             
         [DllImport("__Internal")]
-        static extern bool _IsSuperuser();
+        static extern bool Device_IsSuperuser();
             
         [DllImport("__Internal")]
-        static extern void _SetAudioExclusive(bool exclusive);
+        static extern void Audio_SetAudioExclusive(bool exclusive);
             
         [DllImport("__Internal")]
-        static extern void _PlayHaptics(int style, float intensity);
+        static extern void Device_PlayHaptics(int style, float intensity);
                 
         [DllImport("__Internal")]
-        static extern string _GetCountryCode();
+        static extern string Device_GetCountryCode();
 
         /// <summary>
         /// 获取当前设备的物理朝向
@@ -35,16 +35,17 @@ namespace iOSNativePlugin
         /// <returns></returns>
         public static UIDeviceOrientation GetDeviceOrientation()
         {
-            return (UIDeviceOrientation)_GetDeviceOrientation();
+            return (UIDeviceOrientation)Device_GetDeviceOrientation();
         }
             
         /// <summary>
         /// 判断玩家当前是否连接了蓝牙耳机
         /// </summary>
         /// <returns></returns>
+        [Obsolete("未来将会移动到Audio类中")]
         public static bool IsBluetoothHeadphonesConnected()
         {
-            return _IsBluetoothHeadphonesConnected();
+            return Audio_IsBluetoothHeadphonesConnected();
         }
             
         /// <summary>
@@ -54,7 +55,7 @@ namespace iOSNativePlugin
         [Obsolete("Use IsRunningOnMac instead.")]
         public static bool IsMacCatalyst()
         {
-            return _IsMacCatalyst();
+            return Device_IsMacCatalyst();
         }
 
         /// <summary>
@@ -63,7 +64,7 @@ namespace iOSNativePlugin
         /// <returns></returns>
         public static bool IsRunningOnMac()
         {
-            return _IsMacCatalyst() || UnityEngine.iOS.Device.iosAppOnMac;
+            return Device_IsMacCatalyst() || UnityEngine.iOS.Device.iosAppOnMac;
         }
         /// <summary>
         /// 判断当前设备是否越狱
@@ -71,16 +72,17 @@ namespace iOSNativePlugin
         /// <returns><c>true</c> - 已越狱 <para><c>false</c> - 未越狱</para></returns>
         public static bool IsSuperuser()
         {
-            return _IsSuperuser();
+            return Device_IsSuperuser();
         }
             
         /// <summary>
         /// 调用此方法可静音/暂停设备后台正在播放的音频
         /// </summary>
         /// <param name="exclusive">音频独占</param>
+        [Obsolete("未来将会移动到Audio类中")]
         public static void SetAudioExclusive(bool exclusive)
         {
-            _SetAudioExclusive(exclusive);
+            Audio_SetAudioExclusive(exclusive);
         }
             
             
@@ -93,7 +95,7 @@ namespace iOSNativePlugin
         /// <param name="intensity">强度（0-1）</param>
         public static void PlayHaptics(UIImpactFeedbackStyle style, float intensity)
         {
-            _PlayHaptics((int)style, intensity);
+            Device_PlayHaptics((int)style, intensity);
         }
 
         /// <summary>
@@ -102,7 +104,7 @@ namespace iOSNativePlugin
         /// <returns>ISO 3166-1 alpha-2</returns>
         public static string GetCountryCode()
         {
-            return _GetCountryCode();
+            return Device_GetCountryCode();
         }
     }
 }

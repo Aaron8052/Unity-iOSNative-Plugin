@@ -1,22 +1,10 @@
 #import <UIKit/UIFeedbackGenerator.h>
-#import <AVFoundation/AVFoundation.h>
 #import "../Headers/Device.h"
 
 @implementation Device
+
 +(NSInteger)GetDeviceOrientation{
     return [[UIDevice currentDevice]orientation];
-}
-
-+(BOOL)IsBluetoothHeadphonesConnected{
-    AVAudioSession* audioSession = [AVAudioSession sharedInstance];
-    AVAudioSessionPortDescription *firstOutput = [[[audioSession currentRoute]outputs]firstObject];
-    
-    if([firstOutput portType] == AVAudioSessionPortBluetoothA2DP ||
-       [firstOutput portType] == AVAudioSessionPortBluetoothHFP )
-    {
-        return true;
-    }
-    return false;
 }
 
 +(BOOL)IsMacCatalyst{
@@ -50,21 +38,7 @@
     return NO;
 }
 
-+(void)SetAudioExclusive:(BOOL)exclusiveOn{
-    NSError* error = nil;
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    
-    if(exclusiveOn){
-        [audioSession setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers
-            error:&error];
-    }
-    else{
-        [audioSession setCategory:AVAudioSessionCategoryAmbient
-            error:&error];
-    }
-    
-    [audioSession setActive:YES error:&error];
-}
+
 
 +(void)PlayHaptics:(int)style _intensity:(float)intensity//参数int style，float intensity
 {
@@ -86,4 +60,5 @@
     NSString *countryCode = [currentLocale countryCode];
     return countryCode;
 }
+
 @end

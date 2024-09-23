@@ -10,46 +10,46 @@ namespace iOSNativePlugin
     public static class iOSApplication
     {
         [DllImport("__Internal")]
-        static extern string _GetBundleIdentifier();
+        static extern string iOSApplication_GetBundleIdentifier();
         
         [DllImport("__Internal")]
-        static extern string _GetVersion();
+        static extern string iOSApplication_GetVersion();
         
         [DllImport("__Internal")]
-        static extern string _GetBundleVersion();
+        static extern string iOSApplication_GetBundleVersion();
         
         [DllImport("__Internal")]
-        static extern void _OpenAppSettings();
+        static extern void iOSApplication_OpenAppSettings();
         
         [DllImport("__Internal")]
-        static extern void _SetUserSettingsBool(string identifier, bool value);
+        static extern void iOSApplication_SetUserSettingsBool(string identifier, bool value);
         
         [DllImport("__Internal")]
-        static extern bool _GetUserSettingsBool(string identifier);
+        static extern bool iOSApplication_GetUserSettingsBool(string identifier);
         
         [DllImport("__Internal")]
-        static extern void _SetUserSettingsString(string identifier, string value);
+        static extern void iOSApplication_SetUserSettingsString(string identifier, string value);
         
         [DllImport("__Internal")]
-        static extern string _GetUserSettingsString(string identifier);
+        static extern string iOSApplication_GetUserSettingsString(string identifier);
         
         [DllImport("__Internal")]
-        static extern void _SetUserSettingsFloat(string identifier, float value);
+        static extern void iOSApplication_SetUserSettingsFloat(string identifier, float value);
         
         [DllImport("__Internal")]
-        static extern float _GetUserSettingsFloat(string identifier);
+        static extern float iOSApplication_GetUserSettingsFloat(string identifier);
         
         [DllImport("__Internal")]
-        static extern void _SetUserSettingsInt(string identifier, long value);
+        static extern void iOSApplication_SetUserSettingsInt(string identifier, long value);
         
         [DllImport("__Internal")]
-        static extern long _GetUserSettingsInt(string identifier);
+        static extern long iOSApplication_GetUserSettingsInt(string identifier);
 
         [DllImport("__Internal")]
-        static extern void _RegisterUserSettingsChangeCallback(UserSettingsChangeCallback callback);
+        static extern void iOSApplication_RegisterUserSettingsChangeCallback(UserSettingsChangeCallback callback);
         
         [DllImport("__Internal")]
-        static extern void _UnregisterUserSettingsChangeCallback();
+        static extern void iOSApplication_UnregisterUserSettingsChangeCallback();
         
         
         /// <summary>
@@ -58,7 +58,7 @@ namespace iOSNativePlugin
         /// <returns>Bundle Identifier (与<c>Application.identifier</c>一致)</returns>
         public static string GetBundleIdentifier()
         {
-            return _GetBundleIdentifier();
+            return iOSApplication_GetBundleIdentifier();
         }
         
         /// <summary>
@@ -67,7 +67,7 @@ namespace iOSNativePlugin
         /// <returns></returns>
         public static string GetVersion()
         {
-            return _GetVersion();
+            return iOSApplication_GetVersion();
         }
         
         /// <summary>
@@ -76,7 +76,7 @@ namespace iOSNativePlugin
         /// <returns></returns>
         public static string GetBundleVersion()
         {
-            return _GetBundleVersion();
+            return iOSApplication_GetBundleVersion();
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace iOSNativePlugin
         /// </summary>
         public static void OpenAppSettings()
         {
-            _OpenAppSettings();
+            iOSApplication_OpenAppSettings();
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace iOSNativePlugin
         /// <param name="value">设置的值</param>
         public static void SetUserSettingsBool(string identifier, bool value)
         {
-            _SetUserSettingsBool(identifier, value);
+            iOSApplication_SetUserSettingsBool(identifier, value);
         }
         /// <summary>
         /// 获取用户设置中的布尔值（Switch）
@@ -103,7 +103,7 @@ namespace iOSNativePlugin
         /// <returns>设置的值</returns>
         public static bool GetUserSettingsBool(string identifier)
         {
-            return _GetUserSettingsBool(identifier);
+            return iOSApplication_GetUserSettingsBool(identifier);
         }
         
         /// <summary>
@@ -113,7 +113,7 @@ namespace iOSNativePlugin
         /// <param name="value">设置的值</param>
         public static void SetUserSettingsString(string identifier, string value)
         {
-            _SetUserSettingsString(identifier, value);
+            iOSApplication_SetUserSettingsString(identifier, value);
         }
         
         /// <summary>
@@ -123,7 +123,7 @@ namespace iOSNativePlugin
         /// <returns>设置的值</returns>
         public static string GetUserSettingsString(string identifier)
         {
-            return _GetUserSettingsString(identifier);
+            return iOSApplication_GetUserSettingsString(identifier);
         }
         
         /// <summary>
@@ -133,7 +133,7 @@ namespace iOSNativePlugin
         /// <param name="value">设置的值</param>
         public static void SetUserSettingsFloat(string identifier, float value)
         {
-            _SetUserSettingsFloat(identifier, value);
+            iOSApplication_SetUserSettingsFloat(identifier, value);
         }
         
         /// <summary>
@@ -143,7 +143,7 @@ namespace iOSNativePlugin
         /// <returns>设置的值</returns>
         public static float GetUserSettingsFloat(string identifier)
         {
-            return _GetUserSettingsFloat(identifier);
+            return iOSApplication_GetUserSettingsFloat(identifier);
         }
         
         /// <summary>
@@ -153,7 +153,7 @@ namespace iOSNativePlugin
         /// <param name="value">设置的值</param>
         public static void SetUserSettingsInt(string identifier, long value)
         {
-            _SetUserSettingsInt(identifier, value);
+            iOSApplication_SetUserSettingsInt(identifier, value);
         }
         
         /// <summary>
@@ -163,7 +163,7 @@ namespace iOSNativePlugin
         /// <returns>设置的值</returns>
         public static long GetUserSettingsInt(string identifier)
         {
-            return _GetUserSettingsInt(identifier);
+            return iOSApplication_GetUserSettingsInt(identifier);
         }
         
         static Action _onUserSettingsChanged;
@@ -176,14 +176,14 @@ namespace iOSNativePlugin
             add
             {
                 _onUserSettingsChanged += value;
-                _RegisterUserSettingsChangeCallback(OnStatusBarOrientationChangeCallback);
+                iOSApplication_RegisterUserSettingsChangeCallback(OnStatusBarOrientationChangeCallback);
             }
             remove
             {
                 _onUserSettingsChanged -= value;
                     
                 if(_onUserSettingsChanged == null)
-                    _UnregisterUserSettingsChangeCallback();
+                    iOSApplication_UnregisterUserSettingsChangeCallback();
             }
         }
         
