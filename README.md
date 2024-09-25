@@ -44,25 +44,24 @@
 - 调用本插件请确保引入 `iOSNativePlugin` 命名空间
 - 然后调用 [C#类](#c类功能介绍) 中的方法
 
-
-## 原生代码介绍
-
-| 模块名                      | 功能                        |
-|--------------------------|---------------------------|
-| `.h`            | 头文件，包含各个类的声明和ExternC函数接口   |
-| `iOSApplication.mm`      | iOS应用相关                   |
-| `iCloudKeyValueStore.mm` | iCloud相关功能                |
-| `Device.mm`              | iPhone 设备相关               |
-| `Notification.mm`        | iOS 本地通知推送                |
-| `NativeShare.mm`         | iOS 自带的分享文件功能             |
-| `NativeUI.mm`            | 原生UI相关                    |
-| `Utils.mm`               | 辅助文件，包含了插件通用内容、typedef、静态函数等声明 |
-
 ## C#类/功能介绍
 
 建议前往[Wiki](https://github.com/Aaron8052/Unity-iOSNative-Plugin/wiki)查看更详细的API文档
 
 > 方法名前标有星号 “*” 表示该方法尚未经测试，可用性未知
+
+### Audio
+
+> 系统音频相关
+
+| 方法                                   | 功能                                                    |
+|--------------------------------------|-------------------------------------------------------|
+| `IsBluetoothHeadphonesConnected()`  | 判断玩家当前是否连接了蓝牙耳机                     |
+| `SetAudioExclusive()`                | 调用此方法可静音/暂停设备后台正在播放的音频           |
+| `SystemVolume()`                    | 当前系统音量（0-1）                                                    |
+| `InputLatency()`                   | 音频输入延迟（秒）                     |
+| `OutputLatency()`                   | 音频输出延迟（秒）                     |
+| `SampleRate()`                   | 音频采样率（Hz）                     |
 
 ### GameKit
 
@@ -162,11 +161,11 @@
 | 方法                                   | 功能                                                    |
 |--------------------------------------|-------------------------------------------------------|
 | `GetDeviceOrientation()`             | 获取当前设备的物理朝向                                           |
-| * `IsBluetoothHeadphonesConnected()` | 判断玩家当前是否连接了蓝牙耳机                                       |
+| ~~`IsBluetoothHeadphonesConnected()`~~ | 判断玩家当前是否连接了蓝牙耳机（该函数已经迁移至Audio类中）                     |
 | ~~`IsMacCatalyst()`~~                | 判断当前app是否运行在Mac Catalyst环境下 (该方法已过时，改用IsRunningOnMac) |
 | `IsRunningOnMac()`                   | 判断当前app是否运行在Mac环境下                                    |
 | `IsSuperuser()`                      | 判断当前设备是否越狱                                            |
-| `SetAudioExclusive()`                | 调用此方法可静音/暂停设备后台正在播放的音频                                |
+| ~~`SetAudioExclusive()`~~                | 调用此方法可静音/暂停设备后台正在播放的音频（该函数已经迁移至Audio类中）            |
 | * `PlayHaptics()`                    | 震动                                                    |
 | `GetCountryCode()`                   | 获取当前设备的ISO地区码（ISO 3166-1 alpha-2）                     |
 
