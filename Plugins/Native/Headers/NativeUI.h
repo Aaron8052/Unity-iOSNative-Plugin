@@ -3,6 +3,7 @@
 
 //SFSafariViewControllerDelegate 实现SafariView回调协议
 @interface NativeUI : NSObject <SFSafariViewControllerDelegate>
++(CGSize)GetUnityViewSize;
 +(void)SafariViewFromUrl:(NSString *)url onCompletionCallback:(CompletionCallback)callback;
 +(void)SafariPageSheetFromUrl:(NSString *)url onCompletionCallback:(CompletionCallback)callback;
 +(void)RegisterStatusBarOrientationChangeCallback:(OrientationChangeCallback)callback;
@@ -21,6 +22,13 @@
 
 extern "C"
 {
+    void NativeUI_GetUnityViewSize(double &x, double &y)
+    {
+        CGSize size = [NativeUI GetUnityViewSize];
+        x = size.width;
+        y = size.height;
+    }
+
     void NativeUI_SafariViewFromUrl(const char* url, CompletionCallback onCompletionCallback)
     {
         if(url == NULL)

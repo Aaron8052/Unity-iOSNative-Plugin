@@ -3,7 +3,10 @@
 
 
 @implementation NativeUI
-
++(CGSize)GetUnityViewSize
+{
+    return UnityGetGLViewController().view.frame.size;
+}
 //获取单例
 +(instancetype)Instance {
     

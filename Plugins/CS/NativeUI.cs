@@ -9,6 +9,7 @@ namespace iOSNativePlugin
 {
     public static class NativeUI
     {
+        [DllImport("__Internal")] static extern void NativeUI_GetUnityViewSize(ref double x, ref double y);
         [DllImport("__Internal")] static extern void NativeUI_SafariViewFromUrl(string url, CompletionCallback onCompletionCallback);
         [DllImport("__Internal")] static extern void NativeUI_SafariPageSheetFromUrl(string url, CompletionCallback onCompletionCallback);
         [DllImport("__Internal")] static extern void NativeUI_RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback);
