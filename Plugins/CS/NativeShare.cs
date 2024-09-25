@@ -7,9 +7,9 @@ namespace iOSNativePlugin
     public static class NativeShare
     {
         [DllImport("__Internal")]
-        private static extern void NativeShare_Share(string message, string url, string imagePath, ShareCloseCallback callback);
+        private static extern void NativeShare_Share(string message, string url, string imagePath, double posX, double posY, ShareCloseCallback callback);
 		[DllImport("__Internal")]
-		private static extern void NativeShare_ShareObjects(string[] objects, int count, ShareCloseCallback callback);
+		private static extern void NativeShare_ShareObjects(string[] objects, int count, double posX, double posY, ShareCloseCallback callback);
         [DllImport("__Internal")]
         private static extern void NativeShare_SaveFileDialog(string content, string fileName, FileSavedCallback callback);
         [DllImport("__Internal")]

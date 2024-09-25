@@ -51,25 +51,9 @@
         }];
 }
 
-
-+(void)ShareMessage:(NSString *)message addUrl:(NSString *)url imgPath:(NSString *)imgPath  callback:(ShareCloseCallback)callback
-{
-    NSMutableArray<NSString*>* array = [NSMutableArray new];
-    
-    if(message != nil)
-        [array addObject:[NSString stringWithFormat:@"0%@", message]];
-    
-    if(url != nil)
-        [array addObject:[NSString stringWithFormat:@"1%@", url]];
-    
-    if(imgPath != nil)
-        [array addObject:[NSString stringWithFormat:@"2%@", imgPath]];
-    
-    
-    [NativeShare ShareObject:array callback:callback];
-    
-}
-+(void)ShareObject:(NSMutableArray<NSString*>*)objects callback:(ShareCloseCallback)callback
++(void)ShareObject:(NSMutableArray<NSString*>*)objects
+              posX:(CGFloat)posX posY:(CGFloat)posY
+          callback:(ShareCloseCallback)callback
 {
     if(objects == nil || objects == nil){
         if(callback != nil){
@@ -116,7 +100,7 @@
     UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
  
     //为iPad初始化分享界面
-    InitUIPopoverViewController(activity);
+    InitUIPopoverViewController(activity, posX, posY);
     
     //显示分享界面
     [UnityGetGLViewController() presentViewController:activity animated:YES completion:nil];

@@ -20,7 +20,7 @@ namespace iOSNativePlugin
         [DllImport("__Internal")] static extern void NativeUI_ShowTempMessage(string alertString, int duration = 5);
         [DllImport("__Internal")] static extern void NativeUI_SetStatusBarHidden(bool hidden, int withAnimation);
         [DllImport("__Internal")] static extern void NativeUI_SetStatusBarStyle(int style, bool animated);
-        [DllImport("__Internal")] static extern void NativeUI_ShowDialog(string title, string message, string[] actions, int count, int style, DialogSelectionCallback callback);
+        [DllImport("__Internal")] static extern void NativeUI_ShowDialog(string title, string message, string[] actions, int count, int style, double posX, double posY, DialogSelectionCallback callback);
 
         public static bool HideHomeIndicator
         {

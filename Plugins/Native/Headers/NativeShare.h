@@ -4,11 +4,8 @@
 
 +(void)SaveImageToAlbum:(NSString *)imagePath
                callback:(SaveImageToAlbumCallback)callback;
-+(void)ShareMessage:(NSString *)message
-             addUrl:(NSString *)url
-            imgPath:(NSString *)imgPath
-           callback:(ShareCloseCallback)callback;
 +(void)ShareObject:(NSMutableArray<NSString*>*)objects
+              posX:(CGFloat)posX posY:(CGFloat)posY
           callback:(ShareCloseCallback)callback;
 +(void)SaveFileDialog:(NSString *)content
              fileName:(NSString *)fileName
@@ -23,14 +20,23 @@ extern "C"
     void NativeShare_SaveImageToAlbum(const char* imagePath, SaveImageToAlbumCallback callback){
         [NativeShare SaveImageToAlbum:[NSString stringWithUTF8String:imagePath ?: ""] callback:callback];
     }
-    void NativeShare_Share(const char* message, const char* url, const char* imagePath, ShareCloseCallback callback)
+    void NativeShare_Share(const char* message, const char* url, const char* imagePath, double posX, double posY, ShareCloseCallback callback)
     {
-        [NativeShare ShareMessage:[NSString stringWithUTF8String:message ?: ""]
-         addUrl:[NSString stringWithUTF8String:url ?: ""]
-        imgPath:[NSString stringWithUTF8String:imagePath ?: ""]
-        callback:callback];
+        NSMutableArray<NSString*>* array = [NSMutableArray new];
+        
+        if(message != nil)
+            [array addObject:[NSString stringWithFormat:@"0%@", message]];
+        
+        if(url != nil)
+            [array addObject:[NSString stringWithFormat:@"1%@", url]];
+        
+        if(imgPath != nil)
+            [array addObject:[NSString stringWithFormat:@"2%@", imgPath]];
+        
+        
+        [NativeShare ShareObject:array posX:posY posY:posY callback:callback];
     }
-    void NativeShare_ShareObjects(const char** objects, int count, ShareCloseCallback callback)
+    void NativeShare_ShareObjects(const char** objects, int count, double posX, double posY,ShareCloseCallback callback)
     {
         if(count <= 0)
             return;
@@ -42,7 +48,7 @@ extern "C"
             [objectsArray addObject:str];
         }
         
-        [NativeShare ShareObject:objectsArray callback:callback];
+        [NativeShare ShareObject:objectsArray posX:posY posY:posY callback:callback];
     }
     void NativeShare_SaveFileDialog(const char* content, const char* fileName, FileSavedCallback callback)
     {

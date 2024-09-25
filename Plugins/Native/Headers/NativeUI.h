@@ -15,8 +15,11 @@
 +(void)SetStatusBarStyle:(NSInteger)style animated:(BOOL)animated;
 +(void)ShowTempMessage:(NSString *)alertString duration:(NSInteger)duration;
 +(void)ShowTempMessage:(NSString *)alertString;
-+(void)ShowDialog:(NSString *) title message:(NSString *)message actions:(NSMutableArray*)actions
-            style:(NSInteger)style
++(void)ShowDialog:(NSString *) title
+          message:(NSString *)message
+          actions:(NSMutableArray*)actions
+            style:(UIAlertControllerStyle)style
+             posX:(CGFloat)posX posY:(CGFloat)posY
          callback:(DialogSelectionCallback)callback;
 @end
 
@@ -72,7 +75,8 @@ extern "C"
     void NativeUI_ShowTempMessage(const char* alertString, int duration = 5){
         [NativeUI ShowTempMessage:[NSString stringWithUTF8String:alertString ?: ""] duration:duration];
     }
-    void NativeUI_ShowDialog(const char* title, const char* message, const char** actions, int count, int style, DialogSelectionCallback callback)
+
+    void NativeUI_ShowDialog(const char* title, const char* message, const char** actions, int count, int style, double posX, double posY, DialogSelectionCallback callback)
     {
         if(count <= 0)
             return;
@@ -87,7 +91,8 @@ extern "C"
         [NativeUI ShowDialog:[NSString stringWithUTF8String:title ?: ""]
                      message:[NSString stringWithUTF8String:message ?: ""]
                   actions:actionsArray
-                       style:style
+                       style:(UIAlertControllerStyle)style
+                        posX:posX posY:posY
                     callback:callback];
     }
 }

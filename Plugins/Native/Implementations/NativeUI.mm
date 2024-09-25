@@ -242,7 +242,8 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
 +(void)ShowDialog:(NSString *) title
           message:(NSString *)message
           actions:(NSMutableArray*)actions
-            style:(NSInteger)style
+            style:(UIAlertControllerStyle)style
+             posX:(CGFloat)posX posY:(CGFloat)posY
          callback:(DialogSelectionCallback)callback
 {
     
@@ -250,9 +251,9 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:(UIAlertControllerStyle)style];
     
-    if ((UIAlertControllerStyle)style == UIAlertControllerStyleActionSheet)
+    if (style == UIAlertControllerStyleActionSheet)
     {
-        InitUIPopoverViewController(alertController);
+        InitUIPopoverViewController(alertController, posX, posY);
     }
     
     UIAlertAction *action;
@@ -277,42 +278,5 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
     
     
     [UnityGetGLViewController() presentViewController:alertController animated:YES completion:nil];
-}
-
-+(void)ShowAlert:(NSString *) title
-         message:(NSString *)message
-         actions:(NSMutableArray*)actions
-        callback:(DialogSelectionCallback)callback
-{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *action;
-    
-    for(int i = 0; i < actions.count; i++){
-        NSString *actionStr = actions[i];
-        
-        NSString *firstChar = [actionStr substringToIndex:1];
-        NSInteger style = [firstChar intValue];
-        
-        action = [UIAlertAction actionWithTitle:[actionStr substringFromIndex:1]
-                    style:(UIAlertActionStyle)style
-                    handler:^(UIAlertAction * _Nonnull action) {
-            
-            if(callback != nil)
-                callback(i);
-        }];
-        
-        [alertController addAction:action];
-        
-    }
-    
-    
-    [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:alertController animated:YES completion:nil];
-}
-
-+(void)ShowUIAlert:(UIAlertController*)alertController
-action:(UIAlertAction*)action
-{
-    
 }
 @end
