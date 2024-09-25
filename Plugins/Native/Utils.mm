@@ -56,5 +56,5 @@ static void InitUIPopoverViewController(UIViewController *viewController)
     CGSize size = unityView.frame.size;
     
     // 不指定位置的话默认设到屏幕中间
-    InitUIPopoverViewController(viewController, size.width / 2, size.height / 2);
+    InitUIPopoverViewController(viewController, size.width / 2, size.height);
 }
