@@ -25,13 +25,13 @@ extern "C"
         NSMutableArray<NSString*>* array = [NSMutableArray new];
         
         if(message != nil)
-            [array addObject:[NSString stringWithFormat:@"0%@", message]];
+            [array addObject:[NSString stringWithFormat:@"0%@", [NSString stringWithUTF8String:message]]];
         
         if(url != nil)
-            [array addObject:[NSString stringWithFormat:@"1%@", url]];
+            [array addObject:[NSString stringWithFormat:@"1%@", [NSString stringWithUTF8String:url]]];
         
-        if(imgPath != nil)
-            [array addObject:[NSString stringWithFormat:@"2%@", imgPath]];
+        if(imagePath != nil)
+            [array addObject:[NSString stringWithFormat:@"2%@", [NSString stringWithUTF8String:imagePath]]];
         
         
         [NativeShare ShareObject:array posX:posY posY:posY callback:callback];

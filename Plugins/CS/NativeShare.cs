@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 using AOT;
+using UnityEngine;
 
 namespace iOSNativePlugin
 {
@@ -40,9 +41,9 @@ namespace iOSNativePlugin
             NativeShare_SaveImageToAlbum(imagePath, OnShareCloseCallback);
             OnSaveImageToAlbumCallback = callback;
         }
-        
-        
-        
+
+
+
         /// <summary>
         ///  调用系统分享功能
         /// </summary>
@@ -52,15 +53,28 @@ namespace iOSNativePlugin
         /// <param name="closeCallback">用户关闭分享面板的回调</param>
         public static void Share(string message, string url = "", string imagePath = "", Action closeCallback = null)
         {
-            NativeShare_Share(message, url, imagePath, OnShareCloseCallback);
-            OnShareClose = closeCallback;
+            var pos = NativeUI.UnityViewSize;
+            pos.x /= 2; // 将对话框放置在屏幕底部中间位置
+            Share(message, url, imagePath, pos, closeCallback);
         }
+        public static void Share(string message, string url = "", string imagePath = "", Vector2 pos = default(Vector2), Action closeCallback = null)
+        {
+            OnShareClose = closeCallback;
+            NativeShare_Share(message, url, imagePath, pos.x, pos.y, OnShareCloseCallback);
+        }
+
         /// <summary>
         /// 调用系统分享功能
         /// </summary>
         /// <param name="closeCallback">用户关闭分享面板的回调</param>
         /// <param name="shareObjects">分享内容</param>
-		public static void ShareObjects(Action closeCallback = null, params ShareObject[] shareObjects)
+        public static void ShareObjects(Action closeCallback = null, params ShareObject[] shareObjects)
+        {
+            var pos = NativeUI.UnityViewSize;
+            pos.x /= 2; // 将对话框放置在屏幕底部中间位置
+            ShareObjects(closeCallback, pos, shareObjects);
+        }
+		public static void ShareObjects(Action closeCallback = null, Vector2 pos = default(Vector2), params ShareObject[] shareObjects)
         {
             if(shareObjects == null || shareObjects.Length <= 0)
                 return;
@@ -72,7 +86,7 @@ namespace iOSNativePlugin
                 objectsArray[i] = shareObjects[i];
             }
 
-            NativeShare_ShareObjects(objectsArray, objectsArray.Length, OnShareCloseCallback);
+            NativeShare_ShareObjects(objectsArray, objectsArray.Length, pos.x, pos.y, OnShareCloseCallback);
             OnShareClose = closeCallback;
         }
         static event Action OnShareClose;

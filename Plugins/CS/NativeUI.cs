@@ -22,6 +22,20 @@ namespace iOSNativePlugin
         [DllImport("__Internal")] static extern void NativeUI_SetStatusBarStyle(int style, bool animated);
         [DllImport("__Internal")] static extern void NativeUI_ShowDialog(string title, string message, string[] actions, int count, int style, double posX, double posY, DialogSelectionCallback callback);
 
+        
+        /// <summary>
+        /// 获取游戏的iOS视图大小，用于与iOS原生UI进行交互、计算
+        /// </summary>
+        public static Vector2 UnityViewSize
+        {
+            get
+            {
+                double x = 0, y = 0;
+                NativeUI_GetUnityViewSize(ref x, ref y);
+                return new Vector2((float)x, (float)y);
+            }
+        }
+        
         public static bool HideHomeIndicator
         {
             get
@@ -164,7 +178,7 @@ namespace iOSNativePlugin
         }
 
 
-            
+
         /// <summary>
         /// 显示一个对话框，允许用户进行回应
         /// </summary>
@@ -174,6 +188,31 @@ namespace iOSNativePlugin
         /// <param name="style">对话框样式（UIAlertControllerStyle）</param>
         /// <param name="actions">（params数组）对话框选项（action）<para><b>注 - UIAlertActionStyle会影响最终呈现在玩家屏幕上的选项顺序，但不会影响回调中的index顺序</b></para></param>
         public static void ShowDialog(string title, string message, Action<int> callback, UIAlertControllerStyle style, params UIAlertAction[] actions)
+        {
+            var pos = UnityViewSize;
+            pos.x /= 2; // 将对话框放置在屏幕底部中间位置
+            ShowDialog(title, message, callback, style, pos, actions);
+        }
+        
+        public static void ShowAlert(string title, string message, Action<int> callback, params UIAlertAction[] actions)
+        {
+            ShowDialog(title, message, callback, UIAlertControllerStyle.Alert, Vector2.zero, actions);
+        }
+        
+        public static void ShowActionSheet(string title, string message, Action<int> callback, params UIAlertAction[] actions)
+        {
+            var pos = UnityViewSize;
+            pos.x /= 2; // 将对话框放置在屏幕底部中间位置
+            ShowActionSheet(title, message, callback, pos, actions);
+        }
+        
+        
+        public static void ShowActionSheet(string title, string message, Action<int> callback, Vector2 pos, params UIAlertAction[] actions)
+        {
+            ShowDialog(title, message, callback, UIAlertControllerStyle.ActionSheet, pos, actions);
+        }
+        
+        static void ShowDialog(string title, string message, Action<int> callback, UIAlertControllerStyle style, Vector2 pos, params UIAlertAction[] actions)
         {
             if(actions == null || actions.Length <= 0)
                 return;
@@ -185,7 +224,7 @@ namespace iOSNativePlugin
                 actionsArray[i] = actions[i];
             }
 
-            NativeUI_ShowDialog(title, message, actionsArray, actions.Length, (int)style, OnDialogSelectionCallback);
+            NativeUI_ShowDialog(title, message, actionsArray, actions.Length, (int)style, pos.x, pos.y, OnDialogSelectionCallback);
             ShowDialogCallback = callback;
         }
             
