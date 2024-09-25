@@ -243,12 +243,45 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
          callback:(DialogSelectionCallback)callback
 {
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        style = UIAlertControllerStyleAlert;
-    }
+    
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:(UIAlertControllerStyle)style];
+    
+    if ((UIAlertControllerStyle)style == UIAlertControllerStyleActionSheet)
+    {
+        InitUIPopoverViewController(alertController);
+    }
+    
+    UIAlertAction *action;
+    
+    for(int i = 0; i < actions.count; i++){
+        NSString *actionStr = actions[i];
+        
+        NSString *firstChar = [actionStr substringToIndex:1];
+        NSInteger style = [firstChar intValue];
+        
+        action = [UIAlertAction actionWithTitle:[actionStr substringFromIndex:1]
+                    style:(UIAlertActionStyle)style
+                    handler:^(UIAlertAction * _Nonnull action) {
+            
+            if(callback != nil)
+                callback(i);
+        }];
+        
+        [alertController addAction:action];
+        
+    }
+    
+    
+    [UnityGetGLViewController() presentViewController:alertController animated:YES completion:nil];
+}
+
++(void)ShowAlert:(NSString *) title
+         message:(NSString *)message
+         actions:(NSMutableArray*)actions
+        callback:(DialogSelectionCallback)callback
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *action;
     
@@ -274,5 +307,9 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
     [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:alertController animated:YES completion:nil];
 }
 
-
++(void)ShowUIAlert:(UIAlertController*)alertController
+action:(UIAlertAction*)action
+{
+    
+}
 @end

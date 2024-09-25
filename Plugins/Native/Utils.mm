@@ -1,5 +1,5 @@
 // 包含本插件内的共享内容
-
+#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "UnityAppController.h"
 
@@ -31,3 +31,30 @@ typedef void (*OrientationChangeCallback)(int);
 typedef void (*CompletionCallback)();
 typedef void (*UserSettingsChangeCallback)();
 typedef void (*LongCallback)(long);
+
+static void InitUIPopoverViewController(UIViewController *viewController, float posX, float posY)
+{
+    if(activity == nil || UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
+        return;
+    
+    if (@available(iOS 13.0, *)) {
+        viewController.modalPresentationStyle = UIModalPresentationAutomatic;
+    } else {
+        viewController.modalPresentationStyle = UIModalPresentationPopover;
+    }
+    
+    viewController.popoverPresentationController.sourceView = UnityGetGLViewController().view;
+    viewController.popoverPresentationController.sourceRect = CGRectMake(posX, posY, 1, 1 );
+}
+
+static void InitUIPopoverViewController(UIViewController *viewController)
+{
+    if(viewController == nil || UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
+        return;
+    
+    UIView* unityView = UnityGetGLViewController().view;
+    CGSize size = unityView.frame.size;
+    
+    // 不指定位置的话默认设到屏幕中间
+    InitUIPopoverViewController(viewController, size.width / 2, size.height / 2);
+}
