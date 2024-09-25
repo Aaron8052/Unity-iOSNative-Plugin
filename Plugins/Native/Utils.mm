@@ -34,7 +34,7 @@ typedef void (*LongCallback)(long);
 
 static void InitUIPopoverViewController(UIViewController *viewController, float posX, float posY)
 {
-    if(activity == nil || UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
+    if(viewController == nil || UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
         return;
     
     if (@available(iOS 13.0, *)) {
