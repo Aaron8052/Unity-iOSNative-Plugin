@@ -34,7 +34,7 @@ extern "C"
             [array addObject:[NSString stringWithFormat:@"2%@", [NSString stringWithUTF8String:imagePath]]];
         
         
-        [NativeShare ShareObject:array posX:posY posY:posY callback:callback];
+        [NativeShare ShareObject:array posX:posX posY:posY callback:callback];
     }
     void NativeShare_ShareObjects(const char** objects, int count, double posX, double posY,ShareCloseCallback callback)
     {
