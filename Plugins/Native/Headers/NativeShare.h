@@ -27,7 +27,7 @@ extern "C"
         UIImage *image = [UIImage imageWithContentsOfFile:[NSString stringWithUTF8String:imagePath]];
         [NativeShare CopyImageToClipboard:image];
     }
-    void NativeShare_CopyImageToClipboard(char* bytes, long length)
+    void NativeShare_CopyImageBytesToClipboard(char* bytes, long length)
     {
         if(bytes == nil)
             return;
@@ -48,7 +48,7 @@ extern "C"
             return;
         NSString* str = [NSString stringWithUTF8String:url];
         NSURL* nsUrl = [NSURL URLWithString:str];
-        [NativeShare CopyStringToClipboard:str];
+        [NativeShare CopyUrlToClipboard:nsUrl];
     }
     void NativeShare_SaveImageToAlbum(char* bytes, long length, SaveImageToAlbumCallback callback){
        if(bytes == nil){
