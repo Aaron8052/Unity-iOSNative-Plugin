@@ -14,7 +14,7 @@ namespace iOSNativePlugin
         [DllImport("__Internal")] private static extern void NativeShare_SaveImageToAlbum(byte[] bytes, long length, SaveImageToAlbumCallback callback);
         [DllImport("__Internal")] private static extern void NativeShare_SaveImageToAlbum(string imagePath, SaveImageToAlbumCallback callback);
         [DllImport("__Internal")] private static extern void NativeShare_CopyImageToClipboard(string imagePath);
-        [DllImport("__Internal")] private static extern void NativeShare_CopyImageToClipboard(byte[] bytes, long length);
+        [DllImport("__Internal")] private static extern void NativeShare_CopyImageBytesToClipboard(byte[] bytes, long length);
         [DllImport("__Internal")] private static extern void NativeShare_CopyStringToClipboard(string @string);
         [DllImport("__Internal")] private static extern void NativeShare_CopyUrlToClipboard(string url);
         
@@ -26,14 +26,14 @@ namespace iOSNativePlugin
         
         public static void CopyImageToClipboard(byte[] bytes)
         {
-            NativeShare_CopyImageToClipboard(bytes, bytes.Length);
+            NativeShare_CopyImageBytesToClipboard(bytes, bytes.Length);
         }
         
         public static void CopyImageToClipboard(Texture2D texture)
         {
             var bytes = texture.EncodeToPNG();
             var length = bytes.Length;
-            NativeShare_CopyImageToClipboard(bytes, length);
+            NativeShare_CopyImageBytesToClipboard(bytes, length);
         }
         
         public static void CopyStringToClipboard(string @string)
