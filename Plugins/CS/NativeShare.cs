@@ -7,19 +7,44 @@ namespace iOSNativePlugin
 {
     public static class NativeShare
     {
-        [DllImport("__Internal")]
-        private static extern void NativeShare_Share(string message, string url, string imagePath, double posX, double posY, ShareCloseCallback callback);
-		[DllImport("__Internal")]
-		private static extern void NativeShare_ShareObjects(string[] objects, int count, double posX, double posY, ShareCloseCallback callback);
-        [DllImport("__Internal")]
-        private static extern void NativeShare_SaveFileDialog(string content, string fileName, FileSavedCallback callback);
-        [DllImport("__Internal")]
-        private static extern void NativeShare_SelectFileDialog(string ext, FileSelectCallback callback);
+        [DllImport("__Internal")] private static extern void NativeShare_Share(string message, string url, string imagePath, double posX, double posY, ShareCloseCallback callback);
+		[DllImport("__Internal")] private static extern void NativeShare_ShareObjects(string[] objects, int count, double posX, double posY, ShareCloseCallback callback);
+        [DllImport("__Internal")] private static extern void NativeShare_SaveFileDialog(string content, string fileName, FileSavedCallback callback);
+        [DllImport("__Internal")] private static extern void NativeShare_SelectFileDialog(string ext, FileSelectCallback callback);
+        [DllImport("__Internal")] private static extern void NativeShare_SaveImageToAlbum(byte[] bytes, long length, SaveImageToAlbumCallback callback);
+        [DllImport("__Internal")] private static extern void NativeShare_SaveImageToAlbum(string imagePath, SaveImageToAlbumCallback callback);
+        [DllImport("__Internal")] private static extern void NativeShare_CopyImageToClipboard(string imagePath);
+        [DllImport("__Internal")] private static extern void NativeShare_CopyImageToClipboard(byte[] bytes, long length);
+        [DllImport("__Internal")] private static extern void NativeShare_CopyStringToClipboard(string @string);
+        [DllImport("__Internal")] private static extern void NativeShare_CopyUrlToClipboard(string url);
         
-        [DllImport("__Internal")]
-        private static extern void NativeShare_SaveImageToAlbum(byte[] bytes, long length, SaveImageToAlbumCallback callback);
-        [DllImport("__Internal")]
-        private static extern void NativeShare_SaveImageToAlbum(string imagePath, SaveImageToAlbumCallback callback);
+        
+        public static void CopyImageToClipboard(string imagePath)
+        {
+            NativeShare_CopyImageToClipboard(imagePath);
+        }
+        
+        public static void CopyImageToClipboard(byte[] bytes)
+        {
+            NativeShare_CopyImageToClipboard(bytes, bytes.Length);
+        }
+        
+        public static void CopyImageToClipboard(Texture2D texture)
+        {
+            var bytes = texture.EncodeToPNG();
+            var length = bytes.Length;
+            NativeShare_CopyImageToClipboard(bytes, length);
+        }
+        
+        public static void CopyStringToClipboard(string @string)
+        {
+            NativeShare_CopyStringToClipboard(@string);
+        }
+        
+        public static void CopyUrlToClipboard(string url)
+        {
+            NativeShare_CopyUrlToClipboard(url);
+        }
         
         
         
