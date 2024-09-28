@@ -19,9 +19,9 @@
 }
 
 
-+(void)SaveImageToAlbum:(NSString *)imagePath callback:(SaveImageToAlbumCallback)callback
++(void)SaveImageToAlbum:(UIImage *)image callback:(SaveImageToAlbumCallback)callback
 {
-    if(imagePath == nil){
+    if(image == nil){
         
         if(callback != nil)
         {
@@ -29,8 +29,6 @@
         }
         return;
     }
-    
-    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
     
     if(!image)
     {

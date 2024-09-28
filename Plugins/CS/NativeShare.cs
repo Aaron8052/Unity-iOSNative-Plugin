@@ -15,6 +15,9 @@ namespace iOSNativePlugin
         private static extern void NativeShare_SaveFileDialog(string content, string fileName, FileSavedCallback callback);
         [DllImport("__Internal")]
         private static extern void NativeShare_SelectFileDialog(string ext, FileSelectCallback callback);
+        
+        [DllImport("__Internal")]
+        private static extern void NativeShare_SaveImageToAlbum(byte[] bytes, long length, SaveImageToAlbumCallback callback);
         [DllImport("__Internal")]
         private static extern void NativeShare_SaveImageToAlbum(string imagePath, SaveImageToAlbumCallback callback);
         

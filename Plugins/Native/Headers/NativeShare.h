@@ -2,7 +2,7 @@
 
 @interface NativeShare : NSObject
 
-+(void)SaveImageToAlbum:(NSString *)imagePath
++(void)SaveImageToAlbum:(UIImage *)image
                callback:(SaveImageToAlbumCallback)callback;
 +(void)ShareObject:(NSMutableArray<NSString*>*)objects
               posX:(CGFloat)posX posY:(CGFloat)posY
@@ -17,8 +17,22 @@
 
 extern "C"
 {
+   void NativeShare_SaveImageToAlbum(char* bytes, long length, SaveImageToAlbumCallback callback){
+        NSData *data = [NSData dataWithBytes:bytes length:length]
+        UIImage *image = [UIImage imageWithData:data];
+        [NativeShare SaveImageToAlbum:image callback:callback];
+    }
+
     void NativeShare_SaveImageToAlbum(const char* imagePath, SaveImageToAlbumCallback callback){
-        [NativeShare SaveImageToAlbum:[NSString stringWithUTF8String:imagePath ?: ""] callback:callback];
+        if(imagePath == nil){
+            if(callback != nil)
+            {
+                callback(NO);
+            }
+            return;
+        }
+        UIImage *image = [UIImage imageWithContentsOfFile:[NSString stringWithUTF8String:imagePath]];
+        [NativeShare SaveImageToAlbum:image callback:callback];
     }
     void NativeShare_Share(const char* message, const char* url, const char* imagePath, double posX, double posY, ShareCloseCallback callback)
     {
