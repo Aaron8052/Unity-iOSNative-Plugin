@@ -41,12 +41,24 @@ namespace iOSNativePlugin
         /// <param name="callback">保存成功回调</param>
         public static void SaveImageToAlbum(string imagePath, Action<bool> callback = null)
         {
-            NativeShare_SaveImageToAlbum(imagePath, OnShareCloseCallback);
             OnSaveImageToAlbumCallback = callback;
+            NativeShare_SaveImageToAlbum(imagePath, OnShareCloseCallback);
         }
-
-
-
+        
+        public static void SaveImageToAlbum(byte[] bytes, Action<bool> callback = null)
+        {
+            OnSaveImageToAlbumCallback = callback;
+            NativeShare_SaveImageToAlbum(bytes, bytes.Length, OnShareCloseCallback);
+        }
+        
+        public static void SaveImageToAlbum(Texture2D texture, Action<bool> callback = null)
+        {
+            var bytes = texture.EncodeToPNG();
+            var length = bytes.Length;
+            OnSaveImageToAlbumCallback = callback;
+            NativeShare_SaveImageToAlbum(bytes, length, OnShareCloseCallback);
+        }
+        
         /// <summary>
         ///  调用系统分享功能
         /// </summary>
