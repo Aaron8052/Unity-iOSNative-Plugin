@@ -42,7 +42,7 @@ extern "C"
         NSString* str = [NSString stringWithUTF8String:string];
         [NativeShare CopyStringToClipboard:str];
     }
-    void NativeShare_CopyStringToClipboard(const char* url)
+    void NativeShare_CopyUrlToClipboard(const char* url)
     {
         if(url == nil)
             return;
