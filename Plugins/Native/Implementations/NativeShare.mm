@@ -19,6 +19,27 @@
 }
 
 
++(void)CopyImageToClipboard:(UIImage*)image
+{
+    if(!image)
+        return;
+    [[UIPasteboard generalPasteboard] setImage:image];
+}
+
++(void)CopyStringToClipboard:(NSString*)string
+{
+    if(!string)
+        return;
+    [[UIPasteboard generalPasteboard] setString:string];
+}
+
++(void)CopyUrlToClipboard:(NSURL*)url
+{
+    if(!url)
+        return;
+    [[UIPasteboard generalPasteboard] setURL:url];
+}
+
 +(void)SaveImageToAlbum:(UIImage *)image callback:(SaveImageToAlbumCallback)callback
 {
     if(image == nil){

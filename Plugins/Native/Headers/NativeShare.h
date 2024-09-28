@@ -2,6 +2,9 @@
 
 @interface NativeShare : NSObject
 
++(void)CopyImageToClipboard:(UIImage*)image;
++(void)CopyStringToClipboard:(NSString*)string;
++(void)CopyUrlToClipboard:(NSURL*)url;
 +(void)SaveImageToAlbum:(UIImage *)image
                callback:(SaveImageToAlbumCallback)callback;
 +(void)ShareObject:(NSMutableArray<NSString*>*)objects
@@ -17,7 +20,44 @@
 
 extern "C"
 {
-   void NativeShare_SaveImageToAlbum(char* bytes, long length, SaveImageToAlbumCallback callback){
+    void NativeShare_CopyImageToClipboard(const char* imagePath)
+    {
+        if(imagePath == nil)
+            return;
+        UIImage *image = [UIImage imageWithContentsOfFile:[NSString stringWithUTF8String:imagePath]];
+        [NativeShare CopyImageToClipboard:image];
+    }
+    void NativeShare_CopyImageToClipboard(char* bytes, long length)
+    {
+        if(bytes == nil)
+            return;
+        NSData *data = [NSData dataWithBytes:bytes length:length]
+        UIImage *image = [UIImage imageWithData:data];
+        [NativeShare CopyImageToClipboard:image];
+    }
+    void NativeShare_CopyStringToClipboard(const char* string)
+    {
+        if(string == nil)
+            return;
+        NSString* str = [NSString stringWithUTF8String:string];
+        [NativeShare CopyStringToClipboard:str];
+    }
+    void NativeShare_CopyStringToClipboard(const char* url)
+    {
+        if(url == nil)
+            return;
+        NSString* str = [NSString stringWithUTF8String:url];
+        NSURL* nsUrl = [NSURL URLWithString:str];
+        [NativeShare CopyStringToClipboard:str];
+    }
+    void NativeShare_SaveImageToAlbum(char* bytes, long length, SaveImageToAlbumCallback callback){
+       if(bytes == nil){
+           if(callback != nil)
+           {
+               callback(NO);
+           }
+           return;
+       }
         NSData *data = [NSData dataWithBytes:bytes length:length]
         UIImage *image = [UIImage imageWithData:data];
         [NativeShare SaveImageToAlbum:image callback:callback];
