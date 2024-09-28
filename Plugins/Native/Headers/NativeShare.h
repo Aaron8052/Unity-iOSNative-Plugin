@@ -31,7 +31,7 @@ extern "C"
     {
         if(bytes == nil)
             return;
-        NSData *data = [NSData dataWithBytes:bytes length:length]
+        NSData *data = [NSData dataWithBytes:bytes length:length];
         UIImage *image = [UIImage imageWithData:data];
         [NativeShare CopyImageToClipboard:image];
     }
@@ -50,7 +50,7 @@ extern "C"
         NSURL* nsUrl = [NSURL URLWithString:str];
         [NativeShare CopyUrlToClipboard:nsUrl];
     }
-    void NativeShare_SaveImageToAlbum(char* bytes, long length, SaveImageToAlbumCallback callback){
+    void NativeShare_SaveImageBytesToAlbum(char* bytes, long length, SaveImageToAlbumCallback callback){
        if(bytes == nil){
            if(callback != nil)
            {
@@ -58,7 +58,7 @@ extern "C"
            }
            return;
        }
-        NSData *data = [NSData dataWithBytes:bytes length:length]
+        NSData *data = [NSData dataWithBytes:bytes length:length];
         UIImage *image = [UIImage imageWithData:data];
         [NativeShare SaveImageToAlbum:image callback:callback];
     }

@@ -11,7 +11,7 @@ namespace iOSNativePlugin
 		[DllImport("__Internal")] private static extern void NativeShare_ShareObjects(string[] objects, int count, double posX, double posY, ShareCloseCallback callback);
         [DllImport("__Internal")] private static extern void NativeShare_SaveFileDialog(string content, string fileName, FileSavedCallback callback);
         [DllImport("__Internal")] private static extern void NativeShare_SelectFileDialog(string ext, FileSelectCallback callback);
-        [DllImport("__Internal")] private static extern void NativeShare_SaveImageToAlbum(byte[] bytes, long length, SaveImageToAlbumCallback callback);
+        [DllImport("__Internal")] private static extern void NativeShare_SaveImageBytesToAlbum(byte[] bytes, long length, SaveImageToAlbumCallback callback);
         [DllImport("__Internal")] private static extern void NativeShare_SaveImageToAlbum(string imagePath, SaveImageToAlbumCallback callback);
         [DllImport("__Internal")] private static extern void NativeShare_CopyImageToClipboard(string imagePath);
         [DllImport("__Internal")] private static extern void NativeShare_CopyImageBytesToClipboard(byte[] bytes, long length);
@@ -73,7 +73,7 @@ namespace iOSNativePlugin
         public static void SaveImageToAlbum(byte[] bytes, Action<bool> callback = null)
         {
             OnSaveImageToAlbumCallback = callback;
-            NativeShare_SaveImageToAlbum(bytes, bytes.Length, OnShareCloseCallback);
+            NativeShare_SaveImageBytesToAlbum(bytes, bytes.Length, OnShareCloseCallback);
         }
         
         public static void SaveImageToAlbum(Texture2D texture, Action<bool> callback = null)
@@ -81,7 +81,7 @@ namespace iOSNativePlugin
             var bytes = texture.EncodeToPNG();
             var length = bytes.Length;
             OnSaveImageToAlbumCallback = callback;
-            NativeShare_SaveImageToAlbum(bytes, length, OnShareCloseCallback);
+            NativeShare_SaveImageBytesToAlbum(bytes, length, OnShareCloseCallback);
         }
         
         /// <summary>
