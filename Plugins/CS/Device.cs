@@ -66,6 +66,15 @@ namespace iOSNativePlugin
         {
             return Device_IsMacCatalyst() || UnityEngine.iOS.Device.iosAppOnMac;
         }
+
+        /// <summary>
+        /// 判断当前app是否运行在iPad环境下
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsRunningOnIpad()
+        {
+            return !IsRunningOnMac() && UnityEngine.iOS.Device.generation.ToString().StartsWith("iPad");
+        }
         /// <summary>
         /// 判断当前设备是否越狱
         /// </summary>
