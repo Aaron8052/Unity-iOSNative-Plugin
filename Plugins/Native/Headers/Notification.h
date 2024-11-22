@@ -38,7 +38,7 @@ extern "C"
         NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDate *nsDate = [formatter dateFromString:[NSString stringWithUTF8String:date ?: ""]];
-        NSDateComponents *components = [[NSCalendar currentCalendar]components:units fromDate:nsDate];
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:units fromDate:nsDate];
         
         
         [Notification PushNotification:[NSString stringWithUTF8String:msg ?: ""]
