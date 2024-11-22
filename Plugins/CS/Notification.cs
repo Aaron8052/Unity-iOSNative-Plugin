@@ -8,7 +8,7 @@ namespace iOSNativePlugin
          
          [DllImport("__Internal")] static extern void Notification_Initialize();
          [DllImport("__Internal")] static extern void Notification_PushNotification(string msg, string title, string identifier, int delay, bool repeats);
-         [DllImport("__Internal")] static extern void Notification_PushNotification_Date(string msg, string title, string identifier, string date, ulong units, bool repeats);
+         [DllImport("__Internal")] static extern void Notification_PushNotification_Date(string msg, string title, string identifier,  long year, long month, long day, long hour, long minute, long second, ulong units, bool repeats);
          [DllImport("__Internal")] static extern void Notification_RemovePendingNotifications(string identifier);
          [DllImport("__Internal")] static extern void Notification_RemoveAllPendingNotifications();
                 
@@ -47,7 +47,7 @@ namespace iOSNativePlugin
          public static void PushNotification(string msg, string title, string identifier, NSDateComponents dateComp, bool repeats)
          {
              Notification_PushNotification_Date(msg, title, identifier,
-                 dateComp.date.ToString("yyyy-MM-dd HH:mm:ss"),
+                 dateComp.date.Year, dateComp.date.Month, dateComp.date.Day, dateComp.date.Hour, dateComp.date.Minute, dateComp.date.Second,
                  (ulong)dateComp.components,
                     repeats);
          }

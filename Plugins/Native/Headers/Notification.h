@@ -31,13 +31,10 @@ extern "C"
                               delay:(NSInteger)delay
                                repeats:repeats];
     }
-    void Notification_PushNotification_Date(const char *msg, const char *title, const char *identifier, const char *date, NSCalendarUnit units, bool repeats)
+    void Notification_PushNotification_Date(const char *msg, const char *title, const char *identifier, long year, long month, long day, long hour, long minute, long second, NSCalendarUnit units, bool repeats)
     {
         
-        
-        NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        NSDate *nsDate = [formatter dateFromString:[NSString stringWithUTF8String:date ?: ""]];
+        NSDate *nsDate = DateFromLong(year, month, day, hour, minute, second);
         NSDateComponents *components = [[NSCalendar currentCalendar] components:units fromDate:nsDate];
         
         

@@ -22,6 +22,21 @@ static char* StringCopy(const char* string)
     return newString;
 }
 
+static NSDate* DateFromLong(long year, long month, long day, long hour, long minute, long second)
+{
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.year = year;
+    components.month = month;
+    components.day = day;
+    components.hour = hour;
+    components.minute = minute;
+    components.second = second;
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *date = [calendar dateFromComponents:components];
+    return date;
+}
+
+
 typedef void (*SaveImageToAlbumCallback)(bool);
 typedef void (*ShareCloseCallback)();
 typedef void (*FileSavedCallback)(bool);
