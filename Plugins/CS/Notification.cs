@@ -37,7 +37,6 @@ namespace iOSNativePlugin
          }
 
          // https://developer.apple.com/documentation/usernotifications/uncalendarnotificationtrigger
-         // 参考Apple的文档来决定要赋值哪些NSDateComponents参数,参数默认值为-1，在原生代码中视作不赋值
          // 时区为本地时区
          public static void PushNotification(string msg, string title, string identifier, NSDateComponents dateComp)
          {
