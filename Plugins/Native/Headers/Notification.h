@@ -31,15 +31,15 @@ extern "C"
                               delay:(NSInteger)delay
                                repeats:repeats];
     }
-    void Notification_PushNotification_Date(const char *msg, const char *title, const char *identifier, long year, long month, long day, long hour, long min, long sec, bool repeats)
+    void Notification_PushNotification_Date(const char *msg, const char *title, const char *identifier, const char *date, NSCalendarUnit units, bool repeats)
     {
-        NSDateComponents *components = [[NSDateComponents alloc] init];
-        if(year > -1)   components.year = year;
-        if(month > -1)  components.month = month;
-        if(day > -1)    components.day = day;
-        if(hour > -1)   components.hour = hour;
-        if(min > -1)    components.minute = min;
-        if(sec > -1)    components.second = sec;
+        
+        
+        NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *nsDate = [formatter dateFromString:[NSString stringWithUTF8String:date ?: ""]];
+        NSDateComponents *components = [[NSCalendar currentCalendar]components:units fromDate:nsDate];
+        
         
         [Notification PushNotification:[NSString stringWithUTF8String:msg ?: ""]
                                  title:[NSString stringWithUTF8String:title ?: ""]
