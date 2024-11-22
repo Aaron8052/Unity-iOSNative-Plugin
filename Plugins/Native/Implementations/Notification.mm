@@ -6,7 +6,8 @@
 static UNUserNotificationCenter *notificationCenter;
 static BOOL notificationGranted;
 
-+(void)init{
++(void)init
+{
     if(notificationCenter == nil)
     {
         notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
@@ -31,36 +32,71 @@ static BOOL notificationGranted;
 }
 
 +(void)PushNotification:(NSString *)msg
-title:(NSString *)title
-identifier:(NSString *)identifier
-delay:(NSInteger)time{
+                  title:(NSString *)title
+             identifier:(NSString *)identifier
+                  delay:(NSInteger)time
+                repeats:(BOOL)repeats
+{
     [Notification init];
-    if(notificationGranted){
-        UNMutableNotificationContent* content = [[UNMutableNotificationContent alloc] init];
-        content.title = title ?: @"";
-        content.body = msg;
-        content.sound = [UNNotificationSound defaultSound];
-        
-        UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:time repeats:NO];
-        
-        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:identifier content:content trigger:trigger];
-        
-        [notificationCenter addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-            NSLog(@"Error: %@", error);
-        }];
-    }
-    
+    if(!notificationGranted)
+        return;
+
+    UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:time repeats:NO];
+   
+    [Notification InternalPushNotification:msg
+                                     title:title
+                                identifier:identifier
+                                   trigger:trigger];
 }
 
++(void)PushNotification:(NSString *)msg
+                  title:(NSString *)title
+             identifier:(NSString *)identifier
+                  date:(NSDateComponents *)dateComp
+                repeats:(BOOL)repeats
+{
+    [Notification init];
+    if(!notificationGranted)
+        return;
+    
+    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateComp repeats:repeats];
+   
+    // dateComp 数据无效
+    if(trigger == nil) return;
+    
+    [Notification InternalPushNotification:msg
+                                     title:title
+                                identifier:identifier
+                                   trigger:trigger];
+}
 
-+(void)RemovePendingNotifications:(NSString *)identifier{
++(void)InternalPushNotification:(NSString *)msg
+                  title:(NSString *)title
+             identifier:(NSString *)identifier
+                trigger:(UNNotificationTrigger*)trigger
+{
+    UNMutableNotificationContent* content = [[UNMutableNotificationContent alloc] init];
+    content.title = title ?: @"";
+    content.body = msg;
+    content.sound = [UNNotificationSound defaultSound];
+    
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:identifier content:content trigger:trigger];
+    
+    [notificationCenter addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
++(void)RemovePendingNotifications:(NSString *)identifier
+{
     if(notificationGranted){
         [notificationCenter removePendingNotificationRequestsWithIdentifiers:@[identifier]];
     }
 
 }
 
-+(void)RemoveAllPendingNotifications{
++(void)RemoveAllPendingNotifications
+{
     if(notificationGranted){
         [notificationCenter removeAllPendingNotificationRequests];
     }

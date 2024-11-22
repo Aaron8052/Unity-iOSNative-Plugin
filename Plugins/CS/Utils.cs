@@ -11,7 +11,61 @@ namespace iOSNativePlugin
     delegate void CompletionCallback();
     delegate void UserSettingsChangeCallback();
     delegate void LongCallback(long value);
-    
+
+
+    static class CF_OPTIONS
+    {
+        public const ulong
+            kCFCalendarUnitEra = (1UL << 1),
+            kCFCalendarUnitYear = (1UL << 2),
+            kCFCalendarUnitMonth = (1UL << 3),
+            kCFCalendarUnitDay = (1UL << 4),
+            kCFCalendarUnitHour = (1UL << 5),
+            kCFCalendarUnitMinute = (1UL << 6),
+            kCFCalendarUnitSecond = (1UL << 7),
+            //kCFCalendarUnitWeek API_DEPRECATED("Use kCFCalendarUnitWeekOfYear or kCFCalendarUnitWeekOfMonth instead", macos(10.4,10.10), ios(2.0,8.0), watchos(2.0,2.0), tvos(9.0,9.0)) = (1UL << 8),
+            kCFCalendarUnitWeekday = (1UL << 9),
+            kCFCalendarUnitWeekdayOrdinal = (1UL << 10),
+            kCFCalendarUnitQuarter = (1UL << 11),
+            kCFCalendarUnitWeekOfMonth = (1UL << 12),
+            kCFCalendarUnitWeekOfYear = (1UL << 13),
+            kCFCalendarUnitYearForWeekOfYear = (1UL << 14),
+            kCFCalendarUnitDayOfYear = (1UL << 16);
+    };
+
+    //https://developer.apple.com/documentation/foundation/nscalendarunit
+    [Flags] public enum NSCalendarUnit : ulong
+    {
+        Era                = CF_OPTIONS.kCFCalendarUnitEra,
+        Year               = CF_OPTIONS.kCFCalendarUnitYear,
+        Month              = CF_OPTIONS.kCFCalendarUnitMonth,
+        Day                = CF_OPTIONS.kCFCalendarUnitDay,
+        Hour               = CF_OPTIONS.kCFCalendarUnitHour,
+        Minute             = CF_OPTIONS.kCFCalendarUnitMinute,
+        Second             = CF_OPTIONS.kCFCalendarUnitSecond,
+        Weekday            = CF_OPTIONS.kCFCalendarUnitWeekday,
+        WeekdayOrdinal     = CF_OPTIONS.kCFCalendarUnitWeekdayOrdinal,
+        Quarter            = CF_OPTIONS.kCFCalendarUnitQuarter,
+        WeekOfMonth        = CF_OPTIONS.kCFCalendarUnitWeekOfMonth,
+        WeekOfYear         = CF_OPTIONS.kCFCalendarUnitWeekOfYear,
+        YearForWeekOfYear  = CF_OPTIONS.kCFCalendarUnitYearForWeekOfYear,
+        Nanosecond         = (1 << 15),
+        DayOfYear          = CF_OPTIONS.kCFCalendarUnitDayOfYear,
+    }
+
+    public struct NSDateComponents
+    {
+        public NSDateComponents(NSCalendarUnit components, DateTime fromDate)
+        {
+            date = fromDate;
+            this.components = components;
+        }
+
+        public readonly DateTime date;
+        public readonly NSCalendarUnit components;
+    }
+
+
     /// <summary>
     /// 指定原生分享的内容、类型
     /// </summary>

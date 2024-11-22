@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.InteropServices;
 
 namespace iOSNativePlugin
@@ -5,17 +6,11 @@ namespace iOSNativePlugin
     public static class Notification
      {
          
-         [DllImport("__Internal")]
-         private static extern void Notification_Initialize();
-                
-         [DllImport("__Internal")]
-         private static extern void Notification_PushNotification(string msg, string title, string identifier, int delay);
-    
-         [DllImport("__Internal")]
-         private static extern void Notification_RemovePendingNotifications(string identifier);
-    
-         [DllImport("__Internal")]
-         private static extern void Notification_RemoveAllPendingNotifications();
+         [DllImport("__Internal")] static extern void Notification_Initialize();
+         [DllImport("__Internal")] static extern void Notification_PushNotification(string msg, string title, string identifier, int delay, bool repeats);
+         [DllImport("__Internal")] static extern void Notification_PushNotification_Date(string msg, string title, string identifier, string date, long weekday, ulong units, bool repeats);
+         [DllImport("__Internal")] static extern void Notification_RemovePendingNotifications(string identifier);
+         [DllImport("__Internal")] static extern void Notification_RemoveAllPendingNotifications();
                 
          /// <summary>
          /// 初始化通知系统
@@ -34,9 +29,28 @@ namespace iOSNativePlugin
          /// <param name="delay">延迟待定delay秒后推送此通知</param>
          public static void PushNotification(string msg, string title, string identifier, int delay)
          {
-             Notification_PushNotification(msg, title, identifier, delay);
+             Notification_PushNotification(msg, title, identifier, delay, false);
          }
-                
+         public static void PushNotification(string msg, string title, string identifier, int delay, bool repeats)
+         {
+             Notification_PushNotification(msg, title, identifier, delay, repeats);
+         }
+
+         // https://developer.apple.com/documentation/usernotifications/uncalendarnotificationtrigger
+         // 参考Apple的文档来决定要赋值哪些NSDateComponents参数,参数默认值为-1，在原生代码中视作不赋值
+         // 时区为本地时区
+         public static void PushNotification(string msg, string title, string identifier, NSDateComponents dateComp)
+         {
+             PushNotification(msg, title, identifier, dateComp, false);
+         }
+
+         public static void PushNotification(string msg, string title, string identifier, NSDateComponents dateComp, bool repeats)
+         {
+             Notification_PushNotification_Date(msg, title, identifier,
+                 dateComp.date.ToString("yyyy-MM-dd HH:mm:ss"), (long)dateComp.date.DayOfWeek,
+                 (ulong)dateComp.components,
+                    repeats);
+         }
          /// <summary>
          /// 移除某个待定通知
          /// <para><b>>对于已经推送的通知无效</b></para>
