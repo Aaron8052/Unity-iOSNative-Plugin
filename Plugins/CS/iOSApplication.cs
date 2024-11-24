@@ -56,36 +56,24 @@ namespace iOSNativePlugin
         /// 获取当前应用的Bundle Identifier
         /// </summary>
         /// <returns>Bundle Identifier (与<c>Application.identifier</c>一致)</returns>
-        public static string GetBundleIdentifier()
-        {
-            return iOSApplication_GetBundleIdentifier();
-        }
-        
+        public static string GetBundleIdentifier() => iOSApplication_GetBundleIdentifier();
+
         /// <summary>
         /// 获取应用版本号
         /// </summary>
         /// <returns></returns>
-        public static string GetVersion()
-        {
-            return iOSApplication_GetVersion();
-        }
-        
+        public static string GetVersion() => iOSApplication_GetVersion();
+
         /// <summary>
         /// 获取应用构建号
         /// </summary>
         /// <returns></returns>
-        public static string GetBundleVersion()
-        {
-            return iOSApplication_GetBundleVersion();
-        }
+        public static string GetBundleVersion() => iOSApplication_GetBundleVersion();
 
         /// <summary>
         /// 打开本App的系统设置界面
         /// </summary>
-        public static void OpenAppSettings()
-        {
-            iOSApplication_OpenAppSettings();
-        }
+        public static void OpenAppSettings() => iOSApplication_OpenAppSettings();
 
         /// <summary>
         /// 设置用户设置中的布尔值（Switch）
@@ -93,79 +81,64 @@ namespace iOSNativePlugin
         /// <param name="identifier">设置项的标识符</param>
         /// <param name="value">设置的值</param>
         public static void SetUserSettingsBool(string identifier, bool value)
-        {
-            iOSApplication_SetUserSettingsBool(identifier, value);
-        }
+            => iOSApplication_SetUserSettingsBool(identifier, value);
+
         /// <summary>
         /// 获取用户设置中的布尔值（Switch）
         /// </summary>
         /// <param name="identifier">设置项的标识符</param>
         /// <returns>设置的值</returns>
         public static bool GetUserSettingsBool(string identifier)
-        {
-            return iOSApplication_GetUserSettingsBool(identifier);
-        }
-        
+            => iOSApplication_GetUserSettingsBool(identifier);
+
         /// <summary>
         /// 设置用户设置中的字符串值（TextArea）
         /// </summary>
         /// <param name="identifier">设置项的标识符</param>
         /// <param name="value">设置的值</param>
         public static void SetUserSettingsString(string identifier, string value)
-        {
-            iOSApplication_SetUserSettingsString(identifier, value);
-        }
-        
+            => iOSApplication_SetUserSettingsString(identifier, value);
+
         /// <summary>
         /// 获取用户设置中的字符串值（TextArea）
         /// </summary>
         /// <param name="identifier">设置项的标识符</param>
         /// <returns>设置的值</returns>
         public static string GetUserSettingsString(string identifier)
-        {
-            return iOSApplication_GetUserSettingsString(identifier);
-        }
-        
+            => iOSApplication_GetUserSettingsString(identifier);
+
         /// <summary>
         /// 设置用户设置中的浮点值（Slider）
         /// </summary>
         /// <param name="identifier">设置项的标识符</param>
         /// <param name="value">设置的值</param>
         public static void SetUserSettingsFloat(string identifier, float value)
-        {
-            iOSApplication_SetUserSettingsFloat(identifier, value);
-        }
-        
+            => iOSApplication_SetUserSettingsFloat(identifier, value);
+
         /// <summary>
         /// 获取用户设置中的浮点值（Slider）
         /// </summary>
         /// <param name="identifier">设置项的标识符</param>
         /// <returns>设置的值</returns>
         public static float GetUserSettingsFloat(string identifier)
-        {
-            return iOSApplication_GetUserSettingsFloat(identifier);
-        }
-        
+            => iOSApplication_GetUserSettingsFloat(identifier);
+
         /// <summary>
         /// 设置用户设置中的整数值（Slider）
         /// </summary>
         /// <param name="identifier">设置项的标识符</param>
         /// <param name="value">设置的值</param>
         public static void SetUserSettingsInt(string identifier, long value)
-        {
-            iOSApplication_SetUserSettingsInt(identifier, value);
-        }
-        
+            => iOSApplication_SetUserSettingsInt(identifier, value);
+
         /// <summary>
         /// 获取用户设置中的整数值（Slider）
         /// </summary>
         /// <param name="identifier">设置项的标识符</param>
         /// <returns>设置的值</returns>
         public static long GetUserSettingsInt(string identifier)
-        {
-            return iOSApplication_GetUserSettingsInt(identifier);
-        }
-        
+            => iOSApplication_GetUserSettingsInt(identifier);
+
         static Action _onUserSettingsChanged;
             
         /// <summary>
@@ -188,10 +161,6 @@ namespace iOSNativePlugin
         }
         
         [MonoPInvokeCallback(typeof(UserSettingsChangeCallback))]
-        static void OnStatusBarOrientationChangeCallback()
-        {
-            if (_onUserSettingsChanged != null)
-                _onUserSettingsChanged();
-        }
+        static void OnStatusBarOrientationChangeCallback() => _onUserSettingsChanged?.Invoke();
     }
 }

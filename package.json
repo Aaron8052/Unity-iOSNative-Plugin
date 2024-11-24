@@ -1,12 +1,12 @@
 {
   "name": "com.fengyan.ios-native-plugin",
-  "version": "2.5.2",
+  "version": "2.6.0",
   "displayName": "iOS Native Plugin",
   "description": "iOS Native Plugin for Unity",
   "documentationUrl": "https://github.com/Aaron8052/Unity-iOSNative-Plugin/tree/main?tab=readme-ov-file#unity-iosnative-plugin",
   "changelogUrl": "https://github.com/Aaron8052/Unity-iOSNative-Plugin/releases",
   "licensesUrl": "https://github.com/Aaron8052/Unity-iOSNative-Plugin?tab=MIT-1-ov-file#readme",
-  "unity": "2017.4",
+  "unity": "2021.3",
   "license": "AGPL-3.0",
   "repository": {
     "type": "git",

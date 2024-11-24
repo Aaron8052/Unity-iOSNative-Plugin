@@ -54,7 +54,7 @@ namespace iOSNativePlugin
     }
 
     // https://developer.apple.com/documentation/foundation/nsdatecomponents?language=objc
-    public struct NSDateComponents
+    public readonly struct NSDateComponents
     {
         public NSDateComponents(NSCalendarUnit components, DateTime fromDate)
         {
@@ -70,7 +70,7 @@ namespace iOSNativePlugin
     /// <summary>
     /// 指定原生分享的内容、类型
     /// </summary>
-    public struct ShareObject
+    public readonly struct ShareObject
     {
         public ShareObject(string content, ShareObjectType type = ShareObjectType.NSString)
         {
@@ -185,7 +185,7 @@ namespace iOSNativePlugin
     /// <summary>
     /// 指定对话框按钮的内容、样式
     /// </summary>
-    public struct UIAlertAction
+    public readonly struct UIAlertAction
     {
         /// <summary>
         /// 指定对话框按钮的内容、样式

@@ -38,14 +38,11 @@ namespace iOSNativePlugin
         
         public static bool HideHomeIndicator
         {
-            get
-            {
 #if UNITY_IOS //&& UNITY_2017_2_OR_NEWER
-                return UnityEngine.iOS.Device.hideHomeButton;
+            get => UnityEngine.iOS.Device.hideHomeButton;
 #else
-                return false;
+            get => false;
 #endif
-            }
             set
             {
 #if UNITY_IOS //&& UNITY_2017_2_OR_NEWER
@@ -83,9 +80,7 @@ namespace iOSNativePlugin
         [MonoPInvokeCallback(typeof(CompletionCallback))]
         static void OnSafariViewCompletionCallback()
         {
-            if (_onSafariViewComplete != null)
-                _onSafariViewComplete();
-
+            _onSafariViewComplete?.Invoke();
             _onSafariViewComplete = null;
         }
         
@@ -116,8 +111,7 @@ namespace iOSNativePlugin
         [MonoPInvokeCallback(typeof(OrientationChangeCallback))]
         static void OnStatusBarOrientationChangeCallback(int orientation)
         {
-            if (_onStatusBarOrientationChanged != null)
-                _onStatusBarOrientationChanged((UIInterfaceOrientation)orientation);
+            _onStatusBarOrientationChanged?.Invoke((UIInterfaceOrientation)orientation);
         }
             
         /// <summary>
@@ -125,58 +119,41 @@ namespace iOSNativePlugin
         /// </summary>
         public static UIInterfaceOrientation StatusBarOrientation
         {
-            get
-            {
-                return (UIInterfaceOrientation)NativeUI_GetStatusBarOrientation();
-            }
-            set
-            {
-                NativeUI_SetStatusBarOrientation((int)value);
-            }
+            get => (UIInterfaceOrientation)NativeUI_GetStatusBarOrientation();
+            set => NativeUI_SetStatusBarOrientation((int)value);
         }
             
         /// <summary>
         /// 判断当前系统状态栏是否被隐藏
         /// </summary>
         /// <returns><c>true</c> - 隐藏 <para><c>false</c> - 显示</para></returns>
-        public static bool IsStatusBarHidden()
-        {
-            return NativeUI_IsStatusBarHidden();
-        }
+        public static bool IsStatusBarHidden() => NativeUI_IsStatusBarHidden();
 
-           
-            
+
         /// <summary>
         /// 设置状态栏的隐藏状态
         /// </summary>
         /// <param name="hidden">隐藏</param>
         /// <param name="withAnimation">隐藏显示时的动画类型，无动画/渐变/滑动</param>
         public static void SetStatusBarHidden(bool hidden, UIStatusBarAnimation withAnimation = UIStatusBarAnimation.None)
-        {
-            NativeUI_SetStatusBarHidden(hidden, (int)withAnimation);
-        }
-            
-            
+            => NativeUI_SetStatusBarHidden(hidden, (int)withAnimation);
+
+
         /// <summary>
         /// 设置状态栏的样式
         /// </summary>
         /// <param name="style">样式：白色、黑色、自动（根据系统暗色主题）</param>
         /// <param name="animated">应用渐变动画</param>
         public static void SetStatusBarStyle(UIStatusBarStyle style, bool animated = false)
-        {
-            NativeUI_SetStatusBarStyle((int)style, animated);
-        }
-                
+            => NativeUI_SetStatusBarStyle((int)style, animated);
+
         /// <summary>
         /// 在应用内顶部展示一个内容为<c>alertString</c>，时长<c>duration</c>秒的横幅
         /// </summary>
         /// <param name="alertString">内容</param>
         /// <param name="duration">时长 default - 5</param>
         public static void ShowTempMessage(string alertString, int duration = 5)
-        {
-            NativeUI_ShowTempMessage(alertString, duration);
-        }
-
+            => NativeUI_ShowTempMessage(alertString, duration);
 
 
         /// <summary>
@@ -195,10 +172,8 @@ namespace iOSNativePlugin
         }
         
         public static void ShowAlert(string title, string message, Action<int> callback, params UIAlertAction[] actions)
-        {
-            ShowDialog(title, message, callback, UIAlertControllerStyle.Alert, Vector2.zero, actions);
-        }
-        
+            => ShowDialog(title, message, callback, UIAlertControllerStyle.Alert, Vector2.zero, actions);
+
         public static void ShowActionSheet(string title, string message, Action<int> callback, params UIAlertAction[] actions)
         {
             var pos = UnityViewSize;
@@ -208,10 +183,8 @@ namespace iOSNativePlugin
         
         
         public static void ShowActionSheet(string title, string message, Action<int> callback, Vector2 pos, params UIAlertAction[] actions)
-        {
-            ShowDialog(title, message, callback, UIAlertControllerStyle.ActionSheet, pos, actions);
-        }
-        
+            => ShowDialog(title, message, callback, UIAlertControllerStyle.ActionSheet, pos, actions);
+
         static void ShowDialog(string title, string message, Action<int> callback, UIAlertControllerStyle style, Vector2 pos, params UIAlertAction[] actions)
         {
             if(actions == null || actions.Length <= 0)
@@ -234,9 +207,7 @@ namespace iOSNativePlugin
         [MonoPInvokeCallback(typeof(DialogSelectionCallback))]
         static void OnDialogSelectionCallback(int selection)
         {
-            if (ShowDialogCallback != null)
-                ShowDialogCallback(selection);
-
+            ShowDialogCallback?.Invoke(selection);
             ShowDialogCallback = null;
         }
     }

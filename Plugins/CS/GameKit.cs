@@ -24,19 +24,15 @@ namespace iOSNativePlugin
         /// </summary>
         /// <param name="gameCenterViewControllerDidFinish">用户关闭GC以及GC调用失败时的回调</param>
         public static void ShowGameCenterView(Action gameCenterViewControllerDidFinish = null)
-        {
-            iOSGameKit_ShowGameCenterView(OnScoreCallback);
-        }
-        
-        
+            => iOSGameKit_ShowGameCenterView(OnScoreCallback);
+
+
         private static event CompletionCallback _gameCenterViewControllerDidFinishCallback;
         
         [MonoPInvokeCallback(typeof(CompletionCallback))]
         static void OnScoreCallback()
         {
-            if (_gameCenterViewControllerDidFinishCallback != null)
-                _gameCenterViewControllerDidFinishCallback();
-
+            _gameCenterViewControllerDidFinishCallback?.Invoke();
             _gameCenterViewControllerDidFinishCallback = null;
         }
 
@@ -63,9 +59,7 @@ namespace iOSNativePlugin
         [MonoPInvokeCallback(typeof(LongCallback))]
         static void OnScoreCallback(long score)
         {
-            if (_onScoreCallback != null)
-                _onScoreCallback(score);
-
+            _onScoreCallback?.Invoke(score);
             _onScoreCallback = null;
         }
         

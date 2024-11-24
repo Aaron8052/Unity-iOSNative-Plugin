@@ -22,56 +22,39 @@ namespace iOSNativePlugin
         /// <summary>
         /// 初始化iCloud
         /// </summary>
-        public static void Initialize()
-        {
-            iCloudKeyValueStore_Initialize();
-        }
-            
+        public static void Initialize() => iCloudKeyValueStore_Initialize();
+
         /// <summary>
         /// 判断当前设备iCloud是否可用
         /// </summary>
         /// <returns>是否可用</returns>
-        public static bool IsICloudAvailable()
-        {
-            return iCloudKeyValueStore_IsICloudAvailable();
-        }
+        public static bool IsICloudAvailable() => iCloudKeyValueStore_IsICloudAvailable();
+
         /// <summary>
         /// 判断当前iCloud是否包含键
         /// </summary>
         /// <param name="key">要判断的key</param>
         /// <returns>iCloud云存储包含该key</returns>
-        public static bool ContainsKey(string key)
-        {
-            return iCloudKeyValueStore_ICloudKeyExists(key);
-        }
-        
+        public static bool ContainsKey(string key) => iCloudKeyValueStore_ICloudKeyExists(key);
+
         /// <summary>
         /// 删除Key
         /// </summary>
         /// <param name="key">Key</param>
         /// <returns>Key存在并删除成功</returns>
-        public static bool DeleteKey(string key)
-        {
-            return iCloudKeyValueStore_ICloudDeleteKey(key);
-        }
-        
+        public static bool DeleteKey(string key) => iCloudKeyValueStore_ICloudDeleteKey(key);
+
         /// <summary>
         /// 强制同步iCloud云存档至Apple服务器
         /// </summary>
         /// <returns>是否同步成功</returns>
-        public static bool Synchronize()
-        {
-            return iCloudKeyValueStore_Synchronize();
-        }
-            
+        public static bool Synchronize() => iCloudKeyValueStore_Synchronize();
+
         /// <summary>
         /// 清空iCloud存档
         /// </summary>
         /// <returns>是否清除成功</returns>
-        public static bool ClearICloudSave()
-        {
-            return iCloudKeyValueStore_ClearICloudSave();
-        }
+        public static bool ClearICloudSave() => iCloudKeyValueStore_ClearICloudSave();
 
         /// <summary>
         /// 从iCloud读取String值
@@ -79,10 +62,7 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="defaultValue">默认值</param>
         /// <returns></returns>
-        public static string GetString(string key, string defaultValue)
-        {
-            return iCloudKeyValueStore_GetString(key, defaultValue);
-        }
+        public static string GetString(string key, string defaultValue) => iCloudKeyValueStore_GetString(key, defaultValue);
 
         /// <summary>
         /// 保存String值到iCloud
@@ -90,10 +70,7 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="value">值</param>
         /// <returns></returns>
-        public static bool SetString(string key, string value)
-        {
-            return iCloudKeyValueStore_SaveString(key, value);
-        }
+        public static bool SetString(string key, string value) => iCloudKeyValueStore_SaveString(key, value);
 
         /// <summary>
         /// 从iCloud读取Int值
@@ -101,10 +78,7 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="defaultValue">默认值</param>
         /// <returns></returns>
-        public static int GetInt(string key, int defaultValue)
-        {
-            return iCloudKeyValueStore_GetInt(key, defaultValue);
-        }
+        public static int GetInt(string key, int defaultValue) => iCloudKeyValueStore_GetInt(key, defaultValue);
 
         /// <summary>
         /// 保存Int值到iCloud
@@ -112,10 +86,7 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="value">值</param>
         /// <returns></returns>
-        public static bool SetInt(string key, int value)
-        {
-            return iCloudKeyValueStore_SaveInt(key, value);
-        }
+        public static bool SetInt(string key, int value) => iCloudKeyValueStore_SaveInt(key, value);
 
         /// <summary>
         /// 从iCloud读取Float值
@@ -123,10 +94,7 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="defaultValue">默认值</param>
         /// <returns></returns>
-        public static float GetFloat(string key, float defaultValue)
-        {
-            return iCloudKeyValueStore_GetFloat(key, defaultValue);
-        }
+        public static float GetFloat(string key, float defaultValue) => iCloudKeyValueStore_GetFloat(key, defaultValue);
 
         /// <summary>
         /// 保存Float值到iCloud
@@ -134,10 +102,7 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="value">值</param>
         /// <returns></returns>
-        public static bool SetFloat(string key, float value)
-        {
-            return iCloudKeyValueStore_SaveFloat(key, value);
-        }
+        public static bool SetFloat(string key, float value) => iCloudKeyValueStore_SaveFloat(key, value);
 
         /// <summary>
         /// 从iCloud读取Bool值
@@ -145,10 +110,7 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="defaultValue">默认值</param>
         /// <returns></returns>
-        public static bool GetBool(string key, bool defaultValue)
-        {
-            return iCloudKeyValueStore_GetBool(key, defaultValue);
-        }
+        public static bool GetBool(string key, bool defaultValue) => iCloudKeyValueStore_GetBool(key, defaultValue);
 
         /// <summary>
         /// 保存Bool值到iCloud
@@ -156,9 +118,6 @@ namespace iOSNativePlugin
         /// <param name="key">键</param>
         /// <param name="value">值</param>
         /// <returns></returns>
-        public static bool SetBool(string key, bool value)
-        {
-            return iCloudKeyValueStore_SaveBool(key, value);
-        }
+        public static bool SetBool(string key, bool value) => iCloudKeyValueStore_SaveBool(key, value);
     }
 }

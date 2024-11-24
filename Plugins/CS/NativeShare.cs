@@ -20,15 +20,11 @@ namespace iOSNativePlugin
         
         
         public static void CopyImageToClipboard(string imagePath)
-        {
-            NativeShare_CopyImageToClipboard(imagePath);
-        }
-        
+            => NativeShare_CopyImageToClipboard(imagePath);
+
         public static void CopyImageToClipboard(byte[] bytes)
-        {
-            NativeShare_CopyImageBytesToClipboard(bytes, bytes.Length);
-        }
-        
+            => NativeShare_CopyImageBytesToClipboard(bytes, bytes.Length);
+
         public static void CopyImageToClipboard(Texture2D texture)
         {
             var bytes = texture.EncodeToPNG();
@@ -37,23 +33,16 @@ namespace iOSNativePlugin
         }
         
         public static void CopyStringToClipboard(string @string)
-        {
-            NativeShare_CopyStringToClipboard(@string);
-        }
-        
+            => NativeShare_CopyStringToClipboard(@string);
+
         public static void CopyUrlToClipboard(string url)
-        {
-            NativeShare_CopyUrlToClipboard(url);
-        }
-        
-        
-        
+            => NativeShare_CopyUrlToClipboard(url);
+
+
         [MonoPInvokeCallback(typeof(SaveImageToAlbumCallback))]
         static void OnShareCloseCallback(bool saved)
         {
-            if(OnSaveImageToAlbumCallback != null)
-                OnSaveImageToAlbumCallback.Invoke(saved);
-                
+            OnSaveImageToAlbumCallback?.Invoke(saved);
             OnSaveImageToAlbumCallback = null;
         }
 
@@ -135,9 +124,7 @@ namespace iOSNativePlugin
         [MonoPInvokeCallback(typeof(ShareCloseCallback))]
         static void OnShareCloseCallback()
         {
-            if(OnShareClose != null)
-                OnShareClose.Invoke();
-                
+            OnShareClose?.Invoke();
             OnShareClose = null;
         }
             
@@ -160,10 +147,8 @@ namespace iOSNativePlugin
         [MonoPInvokeCallback(typeof(FileSavedCallback))]
         static void OnFileSavedCallback(bool saved)
         {
-            if (saved && OnFileSaved != null)
-            {
-                OnFileSaved.Invoke();
-            }
+            if (saved)
+                OnFileSaved?.Invoke();
             OnFileSaved = null;
         }
             
@@ -188,15 +173,9 @@ namespace iOSNativePlugin
         static void OnFileSelectedCallback(bool selected, string content)
         {
             if (selected)
-            {
-                if(OnFiledSelected != null)
-                    OnFiledSelected.Invoke(content);
-            }
+                OnFiledSelected?.Invoke(content);
             else
-            {
-                if(OnFileSelectFailed != null)
-                    OnFileSelectFailed.Invoke();
-            }
+                OnFileSelectFailed?.Invoke();
             OnFileSaved = null;
             OnFileSelectFailed = null;
         }
