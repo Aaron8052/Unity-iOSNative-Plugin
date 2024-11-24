@@ -41,7 +41,7 @@ static BOOL notificationGranted;
     if(!notificationGranted)
         return;
 
-    UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:time repeats:NO];
+    UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:time repeats:repeats];
    
     [Notification InternalPushNotification:msg
                                      title:title
