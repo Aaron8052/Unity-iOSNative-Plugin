@@ -10,6 +10,7 @@ namespace iOSNativePlugin
     public static class NativeUI
     {
         [DllImport("__Internal")] static extern void NativeUI_GetUnityViewSize(ref double x, ref double y);
+        [DllImport("__Internal")] static extern void NativeUI_OpenUrl(string url);
         [DllImport("__Internal")] static extern void NativeUI_SafariViewFromUrl(string url, CompletionCallback onCompletionCallback);
         [DllImport("__Internal")] static extern void NativeUI_SafariPageSheetFromUrl(string url, CompletionCallback onCompletionCallback);
         [DllImport("__Internal")] static extern void NativeUI_RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback);
@@ -50,9 +51,14 @@ namespace iOSNativePlugin
 #endif
             }
         }
-        
-        
-        
+
+
+        public static void OpenURL(string url)
+        {
+            NativeUI_OpenUrl(url);
+        }
+
+
         /// <summary>
         /// 调用游戏内Safari窗口打开url
         /// </summary>
@@ -75,7 +81,7 @@ namespace iOSNativePlugin
             _onSafariViewComplete = onCompletionCallback;
         }
 
-        private static Action _onSafariViewComplete;
+        static Action _onSafariViewComplete;
         
         [MonoPInvokeCallback(typeof(CompletionCallback))]
         static void OnSafariViewCompletionCallback()
