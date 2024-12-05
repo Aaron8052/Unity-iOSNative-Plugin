@@ -25,10 +25,9 @@
     NSURL * nsUrl = [NSURL URLWithString:url];
     
     if(nsUrl == nil)
-    {
         return;
-    }
-    [[UIApplication sharedApplication] openURL:nsUrl options:@{} completionHandler:nil];
+    if([[UIApplication sharedApplication] canOpenURL:nsUrl])
+        [[UIApplication sharedApplication] openURL:nsUrl options:@{} completionHandler:nil];
 }
 
 +(void)SafariViewFromUrl:(NSString *)url onCompletionCallback:(CompletionCallback)callback
