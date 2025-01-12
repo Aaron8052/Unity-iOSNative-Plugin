@@ -1,10 +1,11 @@
-#import "../Headers/Input.h"
+#import "../Headers/Keyboard.h"
 
 
-@implementation Input
+@implementation Keyboard
 static BOOL inited;
 API_AVAILABLE(ios(14.0)) static GCKeyboard* keyboard;
-NSMutableSet *pressedKeys;
+static LongCallback OnKeyPressedCallback;
+static LongCallback OnKeyReleasedCallback;
 
 +(void)Init
 {
@@ -12,17 +13,25 @@ NSMutableSet *pressedKeys;
         return;
     if (@available(iOS 14.0, *)) {
         keyboard = GCKeyboard.coalescedKeyboard;
-        pressedKeys = [NSMutableSet init];
-        [[NSNotificationCenter defaultCenter] addObserver:[Input class]
+        [[NSNotificationCenter defaultCenter] addObserver:[Keyboard class]
                                                  selector:@selector(OnKeyboardConnected:)
                                                      name:GCKeyboardDidConnectNotification
                                                    object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:[Input class]
+        [[NSNotificationCenter defaultCenter] addObserver:[Keyboard class]
                                                  selector:@selector(OnKeyboardDisconnected:)
                                                      name:GCKeyboardDidDisconnectNotification
                                                    object:nil];
     }
     inited = YES;
+}
++(void)RegisterKeyPressCallback:(LongCallback)callback
+{
+    OnKeyPressedCallback = callback;
+}
+
++(void)RegisterKeyReleaseCallback:(LongCallback)callback
+{
+    OnKeyReleasedCallback = callback;
 }
 
 +(void)OnKeyboardConnected:(NSNotification *)notification
@@ -31,12 +40,13 @@ NSMutableSet *pressedKeys;
         keyboard = notification.object;
         keyboard.keyboardInput.keyChangedHandler = ^(GCKeyboardInput * _Nonnull keyboard, GCControllerButtonInput * _Nonnull key, GCKeyCode keyCode, BOOL pressed)
         {
-            NSNumber *KeyCodeNumber = [NSNumber numberWithLong:keyCode];
             if(pressed){
-                [pressedKeys addObject:KeyCodeNumber];
+                if(OnKeyPressedCallback)
+                    OnKeyPressedCallback(keyCode);
             }
             else{
-                [pressedKeys removeObject:KeyCodeNumber];
+                if(OnKeyReleasedCallback)
+                    OnKeyReleasedCallback(keyCode);
             }
         };
     }
@@ -57,35 +67,22 @@ NSMutableSet *pressedKeys;
 {
     if (@available(iOS 14.0, *))
     {
-        [Input Init];
+        [Keyboard Init];
         return keyboard != nil;
     } else {
         return NO;
     }
-    
 }
 
 +(BOOL)IsAnyKeyPressed
 {
     if (@available(iOS 14.0, *))
     {
-        [Input Init];
+        [Keyboard Init];
         return keyboard.keyboardInput.anyKeyPressed;
     } else {
         return false;
     }
-}
-
-+(BOOL)GetKey:(GCKeyCode)keyCode
-API_AVAILABLE(ios(14.0))
-{
-    if (@available(iOS 14.0, *)){
-        [Input Init];
-        NSNumber *KeyCodeNumber = [NSNumber numberWithLong:keyCode];
-        return [pressedKeys containsObject:KeyCodeNumber];
-    }
-    return NO;
-    
 }
 
 @end
