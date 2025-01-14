@@ -21,6 +21,9 @@ namespace iOSNativePlugin
         [DllImport("__Internal")] static extern bool Keyboard_IsKeyboardSupported();
         [DllImport("__Internal")] static extern bool Keyboard_IsAnyKeyPressed();
 
+        public static bool IsKeyboardSupported() => Keyboard_IsKeyboardSupported();
+        public static bool IsAnyKeyPressed() => Keyboard_IsAnyKeyPressed();
+
         public static event Action<KeyCode> OnKeyPressed;
         public static event Action<KeyCode> OnKeyReleased;
 
