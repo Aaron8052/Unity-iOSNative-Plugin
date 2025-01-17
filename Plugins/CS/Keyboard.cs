@@ -27,13 +27,14 @@ namespace iOSNativePlugin
         public static event Action<KeyCode> OnKeyPressed;
         public static event Action<KeyCode> OnKeyReleased;
 
+#if !UNITY_EDITOR && UNITY_IOS
         [RuntimeInitializeOnLoadMethod]
         static void Init()
         {
             Keyboard_RegisterKeyPressCallback(OnKeyPressedCallback);
             Keyboard_RegisterKeyReleaseCallback(OnKeyReleasedCallback);
         }
-
+#endif
         [MonoPInvokeCallback(typeof(LongCallback))]
         static void OnKeyPressedCallback(long GCKeyCode)
         {
