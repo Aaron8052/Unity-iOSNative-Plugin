@@ -41,8 +41,6 @@ namespace iOSNativePlugin
         /// <returns></returns>
         public static bool IsIPhoneNotchScreen() => Device_IsIPhoneNotchScreen();
 
-        // 是否在 iPad 运行
-        public static bool IsIPad() => Device_IsIPad();
 
         /// <summary>
         /// 获取当前设备的物理朝向
@@ -74,11 +72,11 @@ namespace iOSNativePlugin
             => Device_IsMacCatalyst() || UnityEngine.iOS.Device.iosAppOnMac;
 
         /// <summary>
-        /// 判断当前app是否运行在iPad环境下
+        /// 判断当前 app 是否运行在iPad环境下
         /// </summary>
         /// <returns></returns>
         public static bool IsRunningOnIpad()
-            => !IsRunningOnMac() && UnityEngine.iOS.Device.generation.ToString().StartsWith("iPad");
+            => !IsRunningOnMac() && Device_IsIPad();
 
         /// <summary>
         /// 判断当前设备是否越狱
