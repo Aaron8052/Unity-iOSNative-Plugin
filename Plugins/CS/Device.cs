@@ -9,6 +9,12 @@ namespace iOSNativePlugin
     public static class Device
     {
         [DllImport("__Internal")]
+        static extern bool Device_IsIPhoneNotchScreen();
+
+        [DllImport("__Internal")]
+        static extern bool Device_IsIPad();
+
+        [DllImport("__Internal")]
         static extern int Device_GetDeviceOrientation();
             
         [DllImport("__Internal")]
@@ -30,6 +36,15 @@ namespace iOSNativePlugin
         static extern string Device_GetCountryCode();
 
         /// <summary>
+        /// 是否是 iPhone 刘海屏
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsIPhoneNotchScreen() => Device_IsIPhoneNotchScreen();
+
+        // 是否在 iPad 运行
+        public static bool IsIPad() => Device_IsIPad();
+
+        /// <summary>
         /// 获取当前设备的物理朝向
         /// </summary>
         /// <returns></returns>
@@ -45,14 +60,14 @@ namespace iOSNativePlugin
             => Audio_IsBluetoothHeadphonesConnected();
 
         /// <summary>
-        /// 判断当前app是否运行在Mac Catalyst环境下
+        /// 判断当前app是否运行在 Mac Catalyst 环境下
         /// </summary>
         /// <returns></returns>
         [Obsolete("Use IsRunningOnMac instead.")]
         public static bool IsMacCatalyst() => Device_IsMacCatalyst();
 
         /// <summary>
-        /// 判断当前app是否运行在Mac环境下
+        /// 判断当前 app 是否运行在 Mac 环境下
         /// </summary>
         /// <returns></returns>
         public static bool IsRunningOnMac()

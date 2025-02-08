@@ -1,7 +1,8 @@
 #import "../Utils.mm"
 
 @interface Device : NSObject
-
++(BOOL)IsIPhoneNotchScreen;
++(BOOL)IsIPad;
 +(NSInteger)GetDeviceOrientation;
 +(BOOL)IsMacCatalyst;
 +(BOOL)IsSuperuser;
@@ -12,6 +13,14 @@
 
 extern "C"
 {
+    bool Device_IsIPhoneNotchScreen()
+    {
+        return [Device IsIPhoneNotchScreen];
+    }
+    bool Device_IsIPad()
+    {
+        return [Device IsIPad];
+    }
     int Device_GetDeviceOrientation(){
         return (int)[Device GetDeviceOrientation];
     }

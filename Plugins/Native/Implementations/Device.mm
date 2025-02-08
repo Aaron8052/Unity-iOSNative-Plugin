@@ -1,13 +1,30 @@
 #import <UIKit/UIFeedbackGenerator.h>
 #import "../Headers/Device.h"
+#import <UIKit/UIDevice.h>
 
 @implementation Device
 
-+(NSInteger)GetDeviceOrientation{
++(BOOL)IsIPhoneNotchScreen
+{
+    if([Device IsIPad])
+       return NO;
+    
+    UIWindow *mainWindow = [[[UIApplication sharedApplication] delegate] window];
+    return mainWindow.safeAreaInsets.bottom > 0.0;
+}
+
++(BOOL)IsIPad
+{
+    return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
+}
+
++(NSInteger)GetDeviceOrientation
+{
     return [[UIDevice currentDevice]orientation];
 }
 
-+(BOOL)IsMacCatalyst{
++(BOOL)IsMacCatalyst
+{
 #if TARGET_OS_MACCATALYST
     return YES;
 #else

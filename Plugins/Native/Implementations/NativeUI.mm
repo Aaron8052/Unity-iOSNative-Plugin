@@ -134,16 +134,22 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
 }
 +(BOOL)IsStatusBarHidden {
     return [UIApplication sharedApplication].isStatusBarHidden;
+    //return [UnityGetGLViewController() prefersStatusBarHidden];
 }
 
 
 +(void)SetStatusBarHidden:(BOOL)hidden
             withAnimation:(NSInteger)withAnimation {
-    if([NativeUI IsStatusBarHidden] == hidden)
-        return;
+    /* if([NativeUI IsStatusBarHidden] == hidden)
+        return; */
         
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:(UIStatusBarAnimation)withAnimation];
+        [[UIApplication sharedApplication] setStatusBarHidden:hidden
+                                                withAnimation:(UIStatusBarAnimation)withAnimation];
+        [UnityGetGLViewController() setNeedsStatusBarAppearanceUpdate];
+        UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
+        [keyWindow setNeedsLayout];
+        [keyWindow layoutIfNeeded];
     });
 }
 
@@ -153,6 +159,10 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [[UIApplication sharedApplication] setStatusBarStyle:statusBarStyle animated:animated];
+        [UnityGetGLViewController() setNeedsStatusBarAppearanceUpdate];
+        UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
+        [keyWindow setNeedsLayout];
+        [keyWindow layoutIfNeeded];
     });
     
 }
