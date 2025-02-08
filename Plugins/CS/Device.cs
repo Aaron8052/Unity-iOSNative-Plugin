@@ -35,6 +35,13 @@ namespace iOSNativePlugin
         [DllImport("__Internal")]
         static extern string Device_GetCountryCode();
 
+        public static Version GetIOSVersion()
+        {
+            if(Version.TryParse(UnityEngine.iOS.Device.systemVersion, out var iOSVersion))
+                return iOSVersion;
+            return new Version(0, 0);
+        }
+
         /// <summary>
         /// 是否是 iPhone 刘海屏
         /// </summary>
