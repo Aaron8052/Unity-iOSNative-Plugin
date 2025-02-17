@@ -8,12 +8,32 @@ namespace iOSNativePlugin
 {
     public static class Audio
     {
+        [DllImport("__Internal")] static extern float Audio_Init(Action OnAudioSessionRouteChangedCallback);
         [DllImport("__Internal")] static extern float Audio_SystemVolume();
         [DllImport("__Internal")] static extern double Audio_InputLatency();
         [DllImport("__Internal")] static extern double Audio_OutputLatency();
         [DllImport("__Internal")] static extern double Audio_SampleRate();
         [DllImport("__Internal")] static extern bool Audio_IsBluetoothHeadphonesConnected();
         [DllImport("__Internal")] static extern void Audio_SetAudioExclusive(bool exclusive);
+
+        static Action onAudioSessionRouteChangedEvent;
+
+        public static event Action OnAudioSessionRouteChangedEvent
+        {
+            add
+            {
+                Audio_Init(OnAudioSessionRouteChanged);
+                onAudioSessionRouteChangedEvent += value;
+            }
+            remove => onAudioSessionRouteChangedEvent -= value;
+        }
+
+
+        [MonoPInvokeCallback(typeof(Action))]
+        static void OnAudioSessionRouteChanged()
+        {
+            onAudioSessionRouteChangedEvent?.Invoke();
+        }
 
         /// <summary>
         /// 当前系统音量

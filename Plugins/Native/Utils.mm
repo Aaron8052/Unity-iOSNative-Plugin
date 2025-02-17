@@ -36,7 +36,7 @@ static NSDate* DateFromLong(long year, long month, long day, long hour, long min
     return date;
 }
 
-
+typedef void (*Action)();
 typedef void (*SaveImageToAlbumCallback)(bool);
 typedef void (*ShareCloseCallback)();
 typedef void (*FileSavedCallback)(bool);

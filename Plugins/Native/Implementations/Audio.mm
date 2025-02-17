@@ -3,6 +3,28 @@
 
 @implementation Audio
 
+static Action onAudioSessionRouteChangedEvent;
+static BOOL inited;
+
++(void)Init:(Action)OnAudioSessionRouteChangedCallback
+{
+    if(inited)
+        return;
+    onAudioSessionRouteChangedEvent = OnAudioSessionRouteChangedCallback;
+    [[NSNotificationCenter defaultCenter] addObserver: [Audio class]
+                                             selector: @selector(OnAudioSessionRouteChanged:)
+                                                 name: AVAudioSessionRouteChangeNotification
+                                               object: nil];
+    inited = YES;
+}
+
++(void)OnAudioSessionRouteChanged:(NSNotification *)notification
+{
+    if(onAudioSessionRouteChangedEvent != nil)
+        onAudioSessionRouteChangedEvent();
+}
+
+
 +(float)SystemVolume
 {
     return [[AVAudioSession sharedInstance] outputVolume];
