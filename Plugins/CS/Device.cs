@@ -8,32 +8,16 @@ namespace iOSNativePlugin
 {
     public static class Device
     {
-        [DllImport("__Internal")]
-        static extern bool Device_IsIPhoneNotchScreen();
-
-        [DllImport("__Internal")]
-        static extern bool Device_IsIPad();
-
-        [DllImport("__Internal")]
-        static extern int Device_GetDeviceOrientation();
-            
-        [DllImport("__Internal")]
-        static extern bool Audio_IsBluetoothHeadphonesConnected();
-            
-        [DllImport("__Internal")]
-        static extern bool Device_IsMacCatalyst();
-            
-        [DllImport("__Internal")]
-        static extern bool Device_IsSuperuser();
-            
-        [DllImport("__Internal")]
-        static extern void Audio_SetAudioExclusive(bool exclusive);
-            
-        [DllImport("__Internal")]
-        static extern void Device_PlayHaptics(int style, float intensity);
-                
-        [DllImport("__Internal")]
-        static extern string Device_GetCountryCode();
+        [DllImport("__Internal")] static extern bool Device_IsIPhoneNotchScreen();
+        [DllImport("__Internal")] static extern bool Device_IsIPad();
+        [DllImport("__Internal")] static extern int Device_GetDeviceOrientation();
+        [DllImport("__Internal")] static extern bool Audio_IsBluetoothHeadphonesConnected();
+        [DllImport("__Internal")] static extern bool Device_IsMacCatalyst();
+        [DllImport("__Internal")] static extern bool Device_IsSuperuser();
+        [DllImport("__Internal")] static extern void Audio_SetAudioExclusive(bool exclusive);
+        [DllImport("__Internal")] static extern void Device_PlayHaptics(int style, float intensity);
+        [DllImport("__Internal")] static extern string Device_GetLocaleISOCode();
+        [DllImport("__Internal")] static extern string Device_GetLanguageISOCode();
 
         public static Version GetIOSVersion()
         {
@@ -112,6 +96,19 @@ namespace iOSNativePlugin
         /// 获取当前设备的ISO地区码（ISO 3166-1 alpha-2）
         /// </summary>
         /// <returns>ISO 3166-1 alpha-2</returns>
-        public static string GetCountryCode() => Device_GetCountryCode();
+        [Obsolete("Use Device.GetLocaleISOCode() instead")]
+        public static string GetCountryCode() => GetLocaleISOCode();
+
+        /// <summary>
+        /// 获取当前设备的ISO地区码（ISO 3166-1 alpha-2）
+        /// </summary>
+        /// <returns>ISO 3166-1 alpha-2</returns>
+        public static string GetLocaleISOCode() => Device_GetLocaleISOCode();
+
+        /// <summary>
+        /// 获取当前设备语言的ISO码（ISO 3166-1 alpha-2）
+        /// </summary>
+        /// <returns>ISO 3166-1 alpha-2</returns>
+        public static string GetLanguageISOCode() => Device_GetLanguageISOCode();
     }
 }

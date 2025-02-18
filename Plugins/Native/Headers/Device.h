@@ -7,7 +7,8 @@
 +(BOOL)IsMacCatalyst;
 +(BOOL)IsSuperuser;
 +(void)PlayHaptics:(int)style _intensity:(float)intensity;
-+(NSString *)GetCountryCode;
++(NSString *)GetLocaleISOCode;
++(NSString *)GetLanguageISOCode;
 
 @end
 
@@ -30,10 +31,13 @@ extern "C"
     bool Device_IsSuperuser(){
         return [Device IsSuperuser];
     }
-    const char* Device_GetCountryCode(){
-        return StringCopy([[Device GetCountryCode] UTF8String]);
-    }
     void Device_PlayHaptics(int style, float intensity){
         [Device PlayHaptics:style _intensity:intensity];
+    }
+    const char* Device_GetLocaleISOCode(){
+        return StringCopy([[Device GetLocaleISOCode] UTF8String]);
+    }
+    const char* Device_GetLanguageISOCode(){
+        return StringCopy([[Device GetLanguageISOCode] UTF8String]);
     }
 }

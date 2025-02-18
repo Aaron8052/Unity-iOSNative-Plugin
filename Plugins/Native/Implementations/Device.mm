@@ -72,10 +72,17 @@
     
 }
 
-+(NSString *)GetCountryCode{
++(NSString *)GetLocaleISOCode{
     NSLocale *currentLocale = [NSLocale currentLocale];
     NSString *countryCode = [currentLocale countryCode];
     return countryCode;
 }
 
++(NSString *)GetLanguageISOCode
+{
+    NSString *lang = [NSLocale preferredLanguages].firstObject;
+    NSLocale *locale = [NSLocale localeWithLocaleIdentifier:lang];
+    NSString *languageCode = [locale languageCode];
+    return languageCode;
+}
 @end
