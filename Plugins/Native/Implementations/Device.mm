@@ -81,8 +81,6 @@
 +(NSString *)GetLanguageISOCode
 {
     NSString *lang = [NSLocale preferredLanguages].firstObject;
-    NSLocale *locale = [NSLocale localeWithLocaleIdentifier:lang];
-    NSString *languageCode = [locale languageCode];
-    return languageCode;
+    return lang;
 }
 @end

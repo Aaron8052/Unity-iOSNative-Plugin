@@ -106,9 +106,9 @@ namespace iOSNativePlugin
         public static string GetLocaleISOCode() => Device_GetLocaleISOCode();
 
         /// <summary>
-        /// 获取当前设备语言的ISO码（ISO 3166-1 alpha-2）
+        /// 获取当前设备语言的ISO码（例：zh-Hans-CN）
         /// </summary>
-        /// <returns>ISO 3166-1 alpha-2</returns>
+        /// <returns>语言ISO码</returns>
         public static string GetLanguageISOCode() => Device_GetLanguageISOCode();
     }
 }
