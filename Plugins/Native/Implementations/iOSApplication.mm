@@ -28,6 +28,7 @@
         
     }];
 }
+
 +(NSString *)GetBundleIdentifier
 {
     return [[NSBundle mainBundle] bundleIdentifier];
@@ -41,6 +42,19 @@
     return [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
 }
 
++(void)SetAlternateIconName:(NSString *)iconName
+{
+    [[UIApplication sharedApplication] setAlternateIconName:iconName completionHandler:^(NSError * _Nullable error) {
+        if(error != nil){
+            LOG([@"Failed to set alternate icon" stringByAppendingString:error.localizedDescription]);
+        }
+        
+    }];
+}
+
++ (NSString *)GetAlternateIconName {
+    return [[UIApplication sharedApplication] alternateIconName];
+}
 // Bool
 +(void)SetUserSettingsBool:(NSString *) identifier value:(bool) value
 {

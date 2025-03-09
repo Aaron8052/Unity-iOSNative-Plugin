@@ -6,6 +6,8 @@
 +(NSString *)GetBundleIdentifier;
 +(NSString *)GetVersion;
 +(NSString *)GetBundleVersion;
++(NSString *)GetAlternateIconName;
++(void)SetAlternateIconName:(NSString *)iconName;
 
 +(void)SetUserSettingsBool:(NSString *) identifier value:(bool) value;
 +(BOOL)GetUserSettingsBool:(NSString *) identifier;
@@ -23,6 +25,26 @@
 
 extern "C"
 {
+
+    const char* iOSApplication_GetAlternateIconName()
+    {
+        NSString * str = [iOSApplication GetAlternateIconName];
+        if(str == nil){
+            return nullptr;
+        }
+        
+        return StringCopy([str UTF8String]);
+    }
+
+    void iOSApplication_SetAlternateIconName(const char* iconName){
+        if(iconName  == nullptr){
+            [iOSApplication SetAlternateIconName:nil];
+            return;
+        }
+        [iOSApplication SetAlternateIconName:[NSString stringWithUTF8String:iconName]];
+    }
+
+
     const char* iOSApplication_GetBundleIdentifier()
     {
         return StringCopy([[iOSApplication GetBundleIdentifier] UTF8String]);

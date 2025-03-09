@@ -9,49 +9,32 @@ namespace iOSNativePlugin
 {
     public static class iOSApplication
     {
-        [DllImport("__Internal")]
-        static extern string iOSApplication_GetBundleIdentifier();
-        
-        [DllImport("__Internal")]
-        static extern string iOSApplication_GetVersion();
-        
-        [DllImport("__Internal")]
-        static extern string iOSApplication_GetBundleVersion();
-        
-        [DllImport("__Internal")]
-        static extern void iOSApplication_OpenAppSettings();
-        
-        [DllImport("__Internal")]
-        static extern void iOSApplication_SetUserSettingsBool(string identifier, bool value);
-        
-        [DllImport("__Internal")]
-        static extern bool iOSApplication_GetUserSettingsBool(string identifier);
-        
-        [DllImport("__Internal")]
-        static extern void iOSApplication_SetUserSettingsString(string identifier, string value);
-        
-        [DllImport("__Internal")]
-        static extern string iOSApplication_GetUserSettingsString(string identifier);
-        
-        [DllImport("__Internal")]
-        static extern void iOSApplication_SetUserSettingsFloat(string identifier, float value);
-        
-        [DllImport("__Internal")]
-        static extern float iOSApplication_GetUserSettingsFloat(string identifier);
-        
-        [DllImport("__Internal")]
-        static extern void iOSApplication_SetUserSettingsInt(string identifier, long value);
-        
-        [DllImport("__Internal")]
-        static extern long iOSApplication_GetUserSettingsInt(string identifier);
+        [DllImport("__Internal")] static extern string iOSApplication_GetBundleIdentifier();
+        [DllImport("__Internal")] static extern string iOSApplication_GetVersion();
+        [DllImport("__Internal")] static extern string iOSApplication_GetBundleVersion();
+        [DllImport("__Internal")] static extern void iOSApplication_OpenAppSettings();
+        [DllImport("__Internal")] static extern void iOSApplication_SetAlternateIconName(string iconName);
+        [DllImport("__Internal")] static extern string iOSApplication_GetAlternateIconName();
+        [DllImport("__Internal")] static extern void iOSApplication_SetUserSettingsBool(string identifier, bool value);
+        [DllImport("__Internal")] static extern bool iOSApplication_GetUserSettingsBool(string identifier);
+        [DllImport("__Internal")] static extern void iOSApplication_SetUserSettingsString(string identifier, string value);
+        [DllImport("__Internal")] static extern string iOSApplication_GetUserSettingsString(string identifier);
+        [DllImport("__Internal")] static extern void iOSApplication_SetUserSettingsFloat(string identifier, float value);
+        [DllImport("__Internal")] static extern float iOSApplication_GetUserSettingsFloat(string identifier);
+        [DllImport("__Internal")] static extern void iOSApplication_SetUserSettingsInt(string identifier, long value);
+        [DllImport("__Internal")] static extern long iOSApplication_GetUserSettingsInt(string identifier);
+        [DllImport("__Internal")] static extern void iOSApplication_RegisterUserSettingsChangeCallback(UserSettingsChangeCallback callback);
+        [DllImport("__Internal")] static extern void iOSApplication_UnregisterUserSettingsChangeCallback();
 
-        [DllImport("__Internal")]
-        static extern void iOSApplication_RegisterUserSettingsChangeCallback(UserSettingsChangeCallback callback);
-        
-        [DllImport("__Internal")]
-        static extern void iOSApplication_UnregisterUserSettingsChangeCallback();
-        
-        
+        public static string GetAlternateIconName()
+        {
+            return iOSApplication_GetAlternateIconName();
+        }
+
+        public static void SetAlternateIconName(string iconName)
+        {
+            iOSApplication_SetAlternateIconName(iconName);
+        }
         /// <summary>
         /// 获取当前应用的Bundle Identifier
         /// </summary>
