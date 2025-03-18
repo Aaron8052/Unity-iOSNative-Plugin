@@ -3,6 +3,8 @@
 
 //SFSafariViewControllerDelegate 实现SafariView回调协议
 @interface NativeUI : NSObject <SFSafariViewControllerDelegate>
++(BOOL)UIAccessibilityIsBoldTextEnabled;
++(void)RegisterUIAccessibilityBoldTextStatusDidChangeNotification:(Action)event;
 +(UIContentSizeCategory)PreferredContentSizeCategory;
 +(void)RegisterUIContentSizeCategoryDidChangeNotification:(Action)event;
 +(CGSize)GetUnityViewSize;
@@ -28,9 +30,13 @@
 
 extern "C"
 {
-    void NativeUI_RegisterUIContentSizeCategoryDidChangeNotification(Action event)
+    bool NativeUI_UIAccessibilityIsBoldTextEnabled(){
+        return [NativeUI UIAccessibilityIsBoldTextEnabled];
+    }
+
+    void NativeUI_RegisterUIAccessibilityBoldTextStatusDidChangeNotification(Action event)
     {
-        [NativeUI RegisterUIContentSizeCategoryDidChangeNotification:event];
+        [NativeUI RegisterUIAccessibilityBoldTextStatusDidChangeNotification:event];
     }
 
     int NativeUI_PreferredContentSizeCategory()
@@ -64,6 +70,12 @@ extern "C"
         
         return -1;
     }
+
+    void NativeUI_RegisterUIContentSizeCategoryDidChangeNotification(Action event)
+    {
+        [NativeUI RegisterUIContentSizeCategoryDidChangeNotification:event];
+    }
+
     void NativeUI_GetUnityViewSize(double &x, double &y)
     {
         CGSize size = [NativeUI GetUnityViewSize];

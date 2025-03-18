@@ -7,6 +7,8 @@ namespace iOSNativePlugin
 {
     public static class NativeUI
     {
+        [DllImport("__Internal")] static extern bool NativeUI_UIAccessibilityIsBoldTextEnabled();
+        [DllImport("__Internal")] static extern void NativeUI_RegisterUIAccessibilityBoldTextStatusDidChangeNotification(Action @event);
         [DllImport("__Internal")] static extern int NativeUI_PreferredContentSizeCategory();
         [DllImport("__Internal")] static extern void NativeUI_RegisterUIContentSizeCategoryDidChangeNotification(Action @event);
         [DllImport("__Internal")] static extern void NativeUI_GetUnityViewSize(ref double x, ref double y);
@@ -22,6 +24,30 @@ namespace iOSNativePlugin
         [DllImport("__Internal")] static extern void NativeUI_SetStatusBarHidden(bool hidden, int withAnimation);
         [DllImport("__Internal")] static extern void NativeUI_SetStatusBarStyle(int style, bool animated);
         [DllImport("__Internal")] static extern void NativeUI_ShowDialog(string title, string message, string[] actions, int count, int style, double posX, double posY, DialogSelectionCallback callback);
+
+        /// <summary>
+        /// 用户是否开启粗体文本
+        /// </summary>
+        /// <returns></returns>
+        public static bool UIAccessibilityIsBoldTextEnabled() => NativeUI_UIAccessibilityIsBoldTextEnabled();
+
+        public static event Action OnUIAccessibilityBoldTextStatusChange
+        {
+            add
+            {
+                NativeUI_RegisterUIAccessibilityBoldTextStatusDidChangeNotification(UIAccessibilityBoldTextStatusDidChangeNotification);
+                onUIAccessibilityBoldTextStatusChange += value;
+            }
+            remove => onUIAccessibilityBoldTextStatusChange -= value;
+        }
+
+        static event Action onUIAccessibilityBoldTextStatusChange;
+
+        [MonoPInvokeCallback(typeof(Action))]
+        static void UIAccessibilityBoldTextStatusDidChangeNotification()
+        {
+            onUIAccessibilityBoldTextStatusChange?.Invoke();
+        }
 
 
         /// <summary>
@@ -53,6 +79,7 @@ namespace iOSNativePlugin
                 };
             }
         }
+
         /// <summary>
         /// 系统字体大小变更事件
         /// </summary>

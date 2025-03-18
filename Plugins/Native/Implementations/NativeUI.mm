@@ -1,8 +1,33 @@
 #import <UIKit/UIView.h>
 #import "../Headers/NativeUI.h"
-
+#import <UIKit/UIKit.h>
 
 @implementation NativeUI
+
++(BOOL)UIAccessibilityIsBoldTextEnabled
+{
+    return UIAccessibilityIsBoldTextEnabled();
+}
+
+
+static Action onUIAccessibilityBoldTextStatusDidChange;
++(void)RegisterUIAccessibilityBoldTextStatusDidChangeNotification:(Action)event
+{
+    if(onUIAccessibilityBoldTextStatusDidChange)
+        return;
+    [[NSNotificationCenter defaultCenter] addObserver:[NativeUI class]
+                                             selector:@selector(HandleUIAccessibilityBoldTextStatusDidChangeNotification)
+                                                 name:UIAccessibilityBoldTextStatusDidChangeNotification
+                                               object:nil];
+    onUIAccessibilityBoldTextStatusDidChange = event;
+}
+
++(void)HandleUIAccessibilityBoldTextStatusDidChangeNotification
+{
+    if(onUIAccessibilityBoldTextStatusDidChange)
+        onUIAccessibilityBoldTextStatusDidChange();
+}
+
 +(UIContentSizeCategory)PreferredContentSizeCategory
 {
     return [UIApplication sharedApplication].preferredContentSizeCategory;
