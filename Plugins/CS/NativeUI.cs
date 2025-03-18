@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using AOT;
 using UnityEngine;
+using UIContentSizeCategory = System.String;
 
 namespace iOSNativePlugin
 {
     public static class NativeUI
     {
+        [DllImport("__Internal")] static extern string NativeUI_PreferredContentSizeCategory();
+        [DllImport("__Internal")] static extern void NativeUI_RegisterUIContentSizeCategoryDidChangeNotification(Action @event);
         [DllImport("__Internal")] static extern void NativeUI_GetUnityViewSize(ref double x, ref double y);
         [DllImport("__Internal")] static extern void NativeUI_OpenUrl(string url);
         [DllImport("__Internal")] static extern void NativeUI_SafariViewFromUrl(string url, CompletionCallback onCompletionCallback);
@@ -23,9 +26,37 @@ namespace iOSNativePlugin
         [DllImport("__Internal")] static extern void NativeUI_SetStatusBarStyle(int style, bool animated);
         [DllImport("__Internal")] static extern void NativeUI_ShowDialog(string title, string message, string[] actions, int count, int style, double posX, double posY, DialogSelectionCallback callback);
 
-        
+
         /// <summary>
-        /// 获取游戏的iOS视图大小，用于与iOS原生UI进行交互、计算
+        /// 获取系统字体大小
+        /// <returns>(string) UIContentSizeCategory: https://developer.apple.com/documentation/uikit/uicontentsizecategory?language=objc</returns>
+        /// </summary>
+        public static UIContentSizeCategory PreferredContentSizeCategory =>
+            NativeUI_PreferredContentSizeCategory();
+
+        /// <summary>
+        /// 系统字体大小变更事件
+        /// </summary>
+        public static event Action OnUIContentSizeCategoryChange
+        {
+            add
+            {
+                NativeUI_RegisterUIContentSizeCategoryDidChangeNotification(UIContentSizeCategoryDidChangeNotification);
+                onUIContentSizeCategoryChange += value;
+            }
+            remove => onUIContentSizeCategoryChange -= value;
+        }
+
+        static event Action onUIContentSizeCategoryChange;
+
+        [MonoPInvokeCallback(typeof(Action))]
+        static void UIContentSizeCategoryDidChangeNotification()
+        {
+            onUIContentSizeCategoryChange?.Invoke();
+        }
+
+        /// <summary>
+        /// 获取游戏的逻辑分辨率，用于与iOS原生UI进行交互、计算
         /// </summary>
         public static Vector2 UnityViewSize
         {

@@ -3,6 +3,8 @@
 
 //SFSafariViewControllerDelegate 实现SafariView回调协议
 @interface NativeUI : NSObject <SFSafariViewControllerDelegate>
++(UIContentSizeCategory)PreferredContentSizeCategory;
++(void)RegisterUIContentSizeCategoryDidChangeNotification:(Action)event;
 +(CGSize)GetUnityViewSize;
 +(void)OpenUrl:(NSString *)url;
 +(void)SafariViewFromUrl:(NSString *)url onCompletionCallback:(CompletionCallback)callback;
@@ -26,6 +28,15 @@
 
 extern "C"
 {
+    void NativeUI_RegisterUIContentSizeCategoryDidChangeNotification(Action event)
+    {
+        [NativeUI RegisterUIContentSizeCategoryDidChangeNotification:event];
+    }
+
+    const char* NativeUI_PreferredContentSizeCategory()
+    {
+        return StringCopy([[NativeUI PreferredContentSizeCategory] UTF8String]);
+    }
     void NativeUI_GetUnityViewSize(double &x, double &y)
     {
         CGSize size = [NativeUI GetUnityViewSize];

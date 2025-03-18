@@ -3,6 +3,29 @@
 
 
 @implementation NativeUI
++(UIContentSizeCategory)PreferredContentSizeCategory
+{
+    return [UIApplication sharedApplication].preferredContentSizeCategory;
+}
+
+static Action onUIContentSizeCategoryChange;
++(void)RegisterUIContentSizeCategoryDidChangeNotification:(Action)event
+{
+    if(onUIContentSizeCategoryChange)
+        return;
+    [[NSNotificationCenter defaultCenter] addObserver:[NativeUI class]
+                                             selector:@selector(HandleUIContentSizeCategoryDidChangeNotification)
+                                                 name:UIContentSizeCategoryDidChangeNotification
+                                               object:nil];
+    onUIContentSizeCategoryChange = event;
+}
+
++(void)HandleUIContentSizeCategoryDidChangeNotification
+{
+    if(onUIContentSizeCategoryChange)
+        onUIContentSizeCategoryChange();
+}
+
 +(CGSize)GetUnityViewSize
 {
     return UnityGetGLViewController().view.frame.size;
