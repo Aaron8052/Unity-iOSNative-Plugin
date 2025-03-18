@@ -37,19 +37,19 @@ extern "C"
     {
         UIContentSizeCategory category = [NativeUI PreferredContentSizeCategory];
         
-        if(category == UIContentSizeCategoryExtraSmall)
+        if([category isEqualToString: UIContentSizeCategoryExtraSmall])
             return 0;
-        else if(category == UIContentSizeCategorySmall)
+        else if([category isEqualToString: UIContentSizeCategorySmall])
             return 1;
-        else if(category == UIContentSizeCategoryMedium)
+        else if([category isEqualToString:  UIContentSizeCategoryMedium])
             return 2;
-        else if(category == UIContentSizeCategoryLarge)
+        else if([category isEqualToString:  UIContentSizeCategoryLarge])
             return 3;
-        else if(category == UIContentSizeCategoryExtraLarge)
+        else if([category isEqualToString:  UIContentSizeCategoryExtraLarge])
             return 4;
-        else if(category == UIContentSizeCategoryExtraExtraLarge)
+        else if([category isEqualToString: UIContentSizeCategoryExtraExtraLarge])
             return 5;
-        else if(category == UIContentSizeCategoryExtraExtraExtraLarge)
+        else if([category isEqualToString: UIContentSizeCategoryExtraExtraExtraLarge])
             return 6;
         
         return -1;
