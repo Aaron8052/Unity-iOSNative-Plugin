@@ -12,6 +12,17 @@ namespace iOSNativePlugin
     delegate void UserSettingsChangeCallback();
     delegate void LongCallback(long value);
 
+    public enum UIContentSizeCategory
+    {
+        Unspecified = -1,
+        ExtraSmall = 0,
+        Small = 1,
+        Medium = 2,
+        Large = 3,
+        ExtraLarge = 4,
+        ExtraExtraLarge = 5,
+        ExtraExtraExtraLarge = 6,
+    }
 
     static class CF_OPTIONS
     {

@@ -33,9 +33,26 @@ extern "C"
         [NativeUI RegisterUIContentSizeCategoryDidChangeNotification:event];
     }
 
-    const char* NativeUI_PreferredContentSizeCategory()
+    int NativeUI_PreferredContentSizeCategory()
     {
-        return StringCopy([[NativeUI PreferredContentSizeCategory] UTF8String]);
+        UIContentSizeCategory category = [NativeUI PreferredContentSizeCategory];
+        
+        if(category == UIContentSizeCategoryExtraSmall)
+            return 0;
+        else if(category == UIContentSizeCategorySmall)
+            return 1;
+        else if(category == UIContentSizeCategoryMedium)
+            return 2;
+        else if(category == UIContentSizeCategoryLarge)
+            return 3;
+        else if(category == UIContentSizeCategoryExtraLarge)
+            return 4;
+        else if(category == UIContentSizeCategoryExtraExtraLarge)
+            return 5;
+        else if(category == UIContentSizeCategoryExtraExtraExtraLarge)
+            return 6;
+        
+        return -1;
     }
     void NativeUI_GetUnityViewSize(double &x, double &y)
     {

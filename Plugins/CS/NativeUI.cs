@@ -4,13 +4,12 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using AOT;
 using UnityEngine;
-using UIContentSizeCategory = System.String;
 
 namespace iOSNativePlugin
 {
     public static class NativeUI
     {
-        [DllImport("__Internal")] static extern string NativeUI_PreferredContentSizeCategory();
+        [DllImport("__Internal")] static extern int NativeUI_PreferredContentSizeCategory();
         [DllImport("__Internal")] static extern void NativeUI_RegisterUIContentSizeCategoryDidChangeNotification(Action @event);
         [DllImport("__Internal")] static extern void NativeUI_GetUnityViewSize(ref double x, ref double y);
         [DllImport("__Internal")] static extern void NativeUI_OpenUrl(string url);
@@ -28,11 +27,11 @@ namespace iOSNativePlugin
 
 
         /// <summary>
-        /// 获取系统字体大小
+        /// 获取系统字体大小，UIContentSizeCategory.Medium 为标准大小
         /// <returns>(string) UIContentSizeCategory: https://developer.apple.com/documentation/uikit/uicontentsizecategory?language=objc</returns>
         /// </summary>
         public static UIContentSizeCategory PreferredContentSizeCategory =>
-            NativeUI_PreferredContentSizeCategory();
+            (UIContentSizeCategory)NativeUI_PreferredContentSizeCategory();
 
         /// <summary>
         /// 系统字体大小变更事件
