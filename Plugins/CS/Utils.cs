@@ -15,13 +15,18 @@ namespace iOSNativePlugin
     public enum UIContentSizeCategory
     {
         Unspecified = -1,
-        ExtraSmall = 0,
-        Small = 1,
-        Medium = 2,
-        Large = 3,
-        ExtraLarge = 4,
-        ExtraExtraLarge = 5,
-        ExtraExtraExtraLarge = 6,
+        ExtraSmall = 0,                             // 80%
+        Small = 1,                                  // 85%
+        Medium = 2,                                 // 90%
+        Large = 3,                                  // 100%
+        ExtraLarge = 4,                             // 110%
+        ExtraExtraLarge = 5,                        // 120%
+        ExtraExtraExtraLarge = 6,                   // 135%
+        AccessibilityMedium = 7,                    // 160%
+        AccessibilityLarge = 8,                     // 190%
+        AccessibilityExtraLarge = 9,                // 235%
+        AccessibilityExtraExtraLarge = 10,          // 275%
+        AccessibilityExtraExtraExtraLarge = 11,     // 310%
     }
 
     static class CF_OPTIONS

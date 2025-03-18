@@ -36,21 +36,31 @@ extern "C"
     int NativeUI_PreferredContentSizeCategory()
     {
         UIContentSizeCategory category = [NativeUI PreferredContentSizeCategory];
-        
+
+        if([category isEqualToString:  UIContentSizeCategoryLarge])
+            return 3;
         if([category isEqualToString: UIContentSizeCategoryExtraSmall])
             return 0;
-        else if([category isEqualToString: UIContentSizeCategorySmall])
+        if([category isEqualToString: UIContentSizeCategorySmall])
             return 1;
-        else if([category isEqualToString:  UIContentSizeCategoryMedium])
+        if([category isEqualToString:  UIContentSizeCategoryMedium])
             return 2;
-        else if([category isEqualToString:  UIContentSizeCategoryLarge])
-            return 3;
-        else if([category isEqualToString:  UIContentSizeCategoryExtraLarge])
+        if([category isEqualToString:  UIContentSizeCategoryExtraLarge])
             return 4;
-        else if([category isEqualToString: UIContentSizeCategoryExtraExtraLarge])
+        if([category isEqualToString: UIContentSizeCategoryExtraExtraLarge])
             return 5;
-        else if([category isEqualToString: UIContentSizeCategoryExtraExtraExtraLarge])
+        if([category isEqualToString: UIContentSizeCategoryExtraExtraExtraLarge])
             return 6;
+        if([category isEqualToString: UIContentSizeCategoryAccessibilityMedium])
+            return 7;
+        if([category isEqualToString: UIContentSizeCategoryAccessibilityLarge])
+            return 8;
+        if([category isEqualToString: UIContentSizeCategoryAccessibilityExtraLarge])
+            return 9;
+        if([category isEqualToString: UIContentSizeCategoryAccessibilityExtraExtraLarge])
+            return 10;
+        if([category isEqualToString: UIContentSizeCategoryAccessibilityExtraExtraExtraLarge])
+            return 11;
         
         return -1;
     }

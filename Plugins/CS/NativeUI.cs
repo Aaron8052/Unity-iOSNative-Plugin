@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using AOT;
 using UnityEngine;
@@ -33,6 +31,28 @@ namespace iOSNativePlugin
         public static UIContentSizeCategory PreferredContentSizeCategory =>
             (UIContentSizeCategory)NativeUI_PreferredContentSizeCategory();
 
+        public static float PreferredContentSizeCategoryScale
+        {
+            get
+            {
+                return PreferredContentSizeCategory switch
+                {
+                    UIContentSizeCategory.ExtraSmall => 0.80f,
+                    UIContentSizeCategory.Small => 0.85f,
+                    UIContentSizeCategory.Medium => 0.9f,
+                    UIContentSizeCategory.Large => 1f,
+                    UIContentSizeCategory.ExtraLarge => 1.1f,
+                    UIContentSizeCategory.ExtraExtraLarge => 1.2f,
+                    UIContentSizeCategory.ExtraExtraExtraLarge => 1.35f,
+                    UIContentSizeCategory.AccessibilityMedium => 1.6f,
+                    UIContentSizeCategory.AccessibilityLarge => 1.9f,
+                    UIContentSizeCategory.AccessibilityExtraLarge => 2.35f,
+                    UIContentSizeCategory.AccessibilityExtraExtraLarge => 2.75f,
+                    UIContentSizeCategory.AccessibilityExtraExtraExtraLarge => 3.1f,
+                    _ => 1f,
+                };
+            }
+        }
         /// <summary>
         /// 系统字体大小变更事件
         /// </summary>
