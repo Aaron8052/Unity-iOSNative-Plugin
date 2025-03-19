@@ -26,11 +26,14 @@ namespace iOSNativePlugin
         [DllImport("__Internal")] static extern void NativeUI_ShowDialog(string title, string message, string[] actions, int count, int style, double posX, double posY, DialogSelectionCallback callback);
 
         /// <summary>
-        /// 用户是否开启粗体文本
+        /// 系统设置 - 粗体文本
         /// </summary>
         /// <returns></returns>
         public static bool UIAccessibilityIsBoldTextEnabled() => NativeUI_UIAccessibilityIsBoldTextEnabled();
 
+        /// <summary>
+        /// 系统设置 - 粗体文本 状态变更事件
+        /// </summary>
         public static event Action OnUIAccessibilityBoldTextStatusChange
         {
             add
@@ -51,12 +54,15 @@ namespace iOSNativePlugin
 
 
         /// <summary>
-        /// 获取系统字体大小，UIContentSizeCategory.Medium 为标准大小
+        /// 获取系统字体大小，UIContentSizeCategory.Large 为标准大小
         /// <returns>(string) UIContentSizeCategory: https://developer.apple.com/documentation/uikit/uicontentsizecategory?language=objc</returns>
         /// </summary>
         public static UIContentSizeCategory PreferredContentSizeCategory =>
             (UIContentSizeCategory)NativeUI_PreferredContentSizeCategory();
 
+        /// <summary>
+        /// 获取系统字体大小缩放比例，1f 为 100% 大小
+        /// </summary>
         public static float PreferredContentSizeCategoryScale
         {
             get
@@ -130,6 +136,10 @@ namespace iOSNativePlugin
         }
 
 
+        /// <summary>
+        /// 打开 Url，与 Application.OpenURL 功能一致
+        /// </summary>
+        /// <param name="url">Url</param>
         public static void OpenURL(string url)
         {
             NativeUI_OpenUrl(url);
@@ -137,55 +147,55 @@ namespace iOSNativePlugin
 
 
         /// <summary>
-        /// 调用游戏内Safari窗口打开url
+        /// 调用游戏内 Safari 窗口打开 Url
         /// </summary>
-        /// <param name="url">URL</param>
+        /// <param name="url">Url</param>
         /// <param name="onCompletionCallback">用户关闭窗口回调</param>
         public static void SafariViewFromUrl(string url, Action onCompletionCallback = null)
         {
             NativeUI_SafariViewFromUrl(url, OnSafariViewCompletionCallback);
-            _onSafariViewComplete = onCompletionCallback;
+            onSafariViewComplete = onCompletionCallback;
         }
         
         /// <summary>
-        /// 调用游戏内Safari窗口打开url（以UIModalPresentationPageSheet方式）
+        /// 调用游戏内 Safari 窗口打开 Url（以 UIModalPresentationPageSheet 方式）
         /// </summary>
         /// <param name="url">URL</param>
         /// <param name="onCompletionCallback">用户关闭窗口回调</param>
         public static void SafariPageSheetFromUrl(string url, Action onCompletionCallback = null)
         {
             NativeUI_SafariPageSheetFromUrl(url, OnSafariViewCompletionCallback);
-            _onSafariViewComplete = onCompletionCallback;
+            onSafariViewComplete = onCompletionCallback;
         }
 
-        static Action _onSafariViewComplete;
+        static Action onSafariViewComplete;
         
         [MonoPInvokeCallback(typeof(CompletionCallback))]
         static void OnSafariViewCompletionCallback()
         {
-            _onSafariViewComplete?.Invoke();
-            _onSafariViewComplete = null;
+            onSafariViewComplete?.Invoke();
+            onSafariViewComplete = null;
         }
         
         
 
-        static Action<UIInterfaceOrientation> _onStatusBarOrientationChanged;
+        static Action<UIInterfaceOrientation> onStatusBarOrientationChanged;
             
         /// <summary>
-        /// UI朝向变更事件
+        /// UI 朝向变更事件
         /// </summary>
         public static event Action<UIInterfaceOrientation> OnStatusBarOrientationChanged
         {
             add
             {
-                _onStatusBarOrientationChanged += value;
+                onStatusBarOrientationChanged += value;
                 NativeUI_RegisterStatusBarOrientationChangeCallback(OnStatusBarOrientationChangeCallback);
             }
             remove
             {
-                _onStatusBarOrientationChanged -= value;
+                onStatusBarOrientationChanged -= value;
                     
-                if(_onStatusBarOrientationChanged == null)
+                if(onStatusBarOrientationChanged == null)
                     NativeUI_UnregisterStatusBarOrientationChangeCallback();
             }
         }
@@ -194,11 +204,11 @@ namespace iOSNativePlugin
         [MonoPInvokeCallback(typeof(OrientationChangeCallback))]
         static void OnStatusBarOrientationChangeCallback(int orientation)
         {
-            _onStatusBarOrientationChanged?.Invoke((UIInterfaceOrientation)orientation);
+            onStatusBarOrientationChanged?.Invoke((UIInterfaceOrientation)orientation);
         }
             
         /// <summary>
-        /// 当前UI的朝向
+        /// 当前 UI 的朝向
         /// </summary>
         public static UIInterfaceOrientation StatusBarOrientation
         {
@@ -209,7 +219,7 @@ namespace iOSNativePlugin
         /// <summary>
         /// 判断当前系统状态栏是否被隐藏
         /// </summary>
-        /// <returns><c>true</c> - 隐藏 <para><c>false</c> - 显示</para></returns>
+        /// <returns></returns>
         public static bool IsStatusBarHidden() => NativeUI_IsStatusBarHidden();
 
 
@@ -225,16 +235,16 @@ namespace iOSNativePlugin
         /// <summary>
         /// 设置状态栏的样式
         /// </summary>
-        /// <param name="style">样式：白色、黑色、自动（根据系统暗色主题）</param>
+        /// <param name="style">样式：白色、黑色、自动（根据系统暗色主题，iOS 16 以上根据画面亮度自动调整）</param>
         /// <param name="animated">应用渐变动画</param>
         public static void SetStatusBarStyle(UIStatusBarStyle style, bool animated = false)
             => NativeUI_SetStatusBarStyle((int)style, animated);
 
         /// <summary>
-        /// 在应用内顶部展示一个内容为<c>alertString</c>，时长<c>duration</c>秒的横幅
+        /// 在应用内顶部展示一个内容为 <c>alertString</c>，时长 <c>duration</c> 秒的横幅
         /// </summary>
         /// <param name="alertString">内容</param>
-        /// <param name="duration">时长 default - 5</param>
+        /// <param name="duration">时长，默认5秒</param>
         public static void ShowTempMessage(string alertString, int duration = 5)
             => NativeUI_ShowTempMessage(alertString, duration);
 
@@ -242,21 +252,35 @@ namespace iOSNativePlugin
         /// <summary>
         /// 显示一个对话框，允许用户进行回应
         /// </summary>
-        /// <param name="title">对话框标题</param>
-        /// <param name="message">对话框内容</param>
-        /// <param name="callback">回调（参数int，依据用户的选择，回调对应action的index）</param>
+        /// <param name="title">对话框标题（Nullable）</param>
+        /// <param name="message">对话框内容（Nullable）</param>
+        /// <param name="callback">回调（参数int，依据用户的选择，回调对应 action 在数组中的 index）</param>
         /// <param name="style">对话框样式（UIAlertControllerStyle）</param>
-        /// <param name="actions">（params数组）对话框选项（action）<para><b>注 - UIAlertActionStyle会影响最终呈现在玩家屏幕上的选项顺序，但不会影响回调中的index顺序</b></para></param>
+        /// <param name="actions">对话框选项 params<para><b>注 - 每个 action 的 UIAlertActionStyle 的不同会影响最终呈现在玩家屏幕上的选项顺序，但不会影响回调中的 index 顺序</b></para></param>
         public static void ShowDialog(string title, string message, Action<int> callback, UIAlertControllerStyle style, params UIAlertAction[] actions)
         {
             var pos = UnityViewSize;
             pos.x /= 2; // 将对话框放置在屏幕底部中间位置
             ShowDialog(title, message, callback, style, pos, actions);
         }
-        
+
+        /// <summary>
+        /// 显示一个样式为 UIAlertControllerStyle.Alert 的对话框，允许用户进行回应
+        /// </summary>
+        /// <param name="title">对话框标题（Nullable）</param>
+        /// <param name="message">对话框内容（Nullable）</param>
+        /// <param name="callback">回调（参数int，依据用户的选择，回调对应 action 在数组中的 index）</param>
+        /// <param name="actions">对话框选项 params<para><b>注 - 每个 action 的 UIAlertActionStyle 的不同会影响最终呈现在玩家屏幕上的选项顺序，但不会影响回调中的 index 顺序</b></para></param>
         public static void ShowAlert(string title, string message, Action<int> callback, params UIAlertAction[] actions)
             => ShowDialog(title, message, callback, UIAlertControllerStyle.Alert, Vector2.zero, actions);
 
+        /// <summary>
+        /// 显示一个样式为 UIAlertControllerStyle.ActionSheet 的对话框，允许用户进行回应
+        /// </summary>
+        /// <param name="title">对话框标题（Nullable）</param>
+        /// <param name="message">对话框内容（Nullable）</param>
+        /// <param name="callback">回调（参数int，依据用户的选择，回调对应 action 在数组中的 index）</param>
+        /// <param name="actions">对话框选项 params<para><b>注 - 每个 action 的 UIAlertActionStyle 的不同会影响最终呈现在玩家屏幕上的选项顺序，但不会影响回调中的 index 顺序</b></para></param>
         public static void ShowActionSheet(string title, string message, Action<int> callback, params UIAlertAction[] actions)
         {
             var pos = UnityViewSize;
@@ -264,7 +288,14 @@ namespace iOSNativePlugin
             ShowActionSheet(title, message, callback, pos, actions);
         }
         
-        
+        /// <summary>
+        /// 显示一个样式为 UIAlertControllerStyle.ActionSheet 的对话框，允许用户进行回应
+        /// </summary>
+        /// <param name="title">对话框标题（Nullable）</param>
+        /// <param name="message">对话框内容（Nullable）</param>
+        /// <param name="callback">回调（参数int，依据用户的选择，回调对应 action 在数组中的 index）</param>
+        /// <param name="pos">iPad 设备上分享对话框的显示位置，调用 NativeUI.UnityViewSize 获取游戏的视图大小</param>
+        /// <param name="actions">对话框选项 params<para><b>注 - 每个 action 的 UIAlertActionStyle 的不同会影响最终呈现在玩家屏幕上的选项顺序，但不会影响回调中的 index 顺序</b></para></param>
         public static void ShowActionSheet(string title, string message, Action<int> callback, Vector2 pos, params UIAlertAction[] actions)
             => ShowDialog(title, message, callback, UIAlertControllerStyle.ActionSheet, pos, actions);
 

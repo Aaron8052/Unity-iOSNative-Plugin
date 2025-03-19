@@ -19,11 +19,28 @@ namespace iOSNativePlugin
         [DllImport("__Internal")] static extern string Device_GetLocaleISOCode();
         [DllImport("__Internal")] static extern string Device_GetLanguageISOCode();
 
+        /// <summary>
+        /// 获取系统版本
+        /// </summary>
+        /// <returns>系统版本，获取失败返回 Version(0, 0) </returns>
         public static Version GetIOSVersion()
         {
             if(Version.TryParse(UnityEngine.iOS.Device.systemVersion, out var iOSVersion))
                 return iOSVersion;
             return new Version(0, 0);
+        }
+
+        /// <summary>
+        /// 获取系统版本
+        /// </summary>
+        /// <param name="iOSVersion">out 输出 Version 对象，失败则为 null</param>
+        /// <returns>是否成功获取系统版本</returns>
+        public static bool TryGetIOSVersion(out Version iOSVersion)
+        {
+            if (Version.TryParse(UnityEngine.iOS.Device.systemVersion, out iOSVersion))
+                return true;
+            iOSVersion = null;
+            return false;
         }
 
         /// <summary>
@@ -49,7 +66,7 @@ namespace iOSNativePlugin
             => Audio_IsBluetoothHeadphonesConnected();
 
         /// <summary>
-        /// 判断当前app是否运行在 Mac Catalyst 环境下
+        /// 判断当前 app 是否运行在 Mac Catalyst 环境下
         /// </summary>
         /// <returns></returns>
         [Obsolete("Use IsRunningOnMac instead.")]
@@ -63,7 +80,7 @@ namespace iOSNativePlugin
             => Device_IsMacCatalyst() || UnityEngine.iOS.Device.iosAppOnMac;
 
         /// <summary>
-        /// 判断当前 app 是否运行在iPad环境下
+        /// 判断当前 app 是否运行在 iPad 环境下
         /// </summary>
         /// <returns></returns>
         public static bool IsRunningOnIpad()
@@ -72,7 +89,7 @@ namespace iOSNativePlugin
         /// <summary>
         /// 判断当前设备是否越狱
         /// </summary>
-        /// <returns><c>true</c> - 已越狱 <para><c>false</c> - 未越狱</para></returns>
+        /// <returns>是否越狱</returns>
         public static bool IsSuperuser() => Device_IsSuperuser();
 
         /// <summary>

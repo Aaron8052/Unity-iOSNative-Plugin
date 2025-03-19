@@ -18,6 +18,9 @@ namespace iOSNativePlugin
 
         static Action onAudioSessionRouteChangedEvent;
 
+        /// <summary>
+        /// 玩家音频设备变更事件
+        /// </summary>
         public static event Action OnAudioSessionRouteChangedEvent
         {
             add

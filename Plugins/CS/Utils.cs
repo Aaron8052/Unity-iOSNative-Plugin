@@ -49,7 +49,9 @@ namespace iOSNativePlugin
             kCFCalendarUnitDayOfYear = (1UL << 16);
     };
 
-    //https://developer.apple.com/documentation/foundation/nscalendarunit
+    /// <summary>
+    /// https://developer.apple.com/documentation/foundation/nscalendarunit
+    /// </summary>
     [Flags] public enum NSCalendarUnit : ulong
     {
         Era                = CF_OPTIONS.kCFCalendarUnitEra,
@@ -69,7 +71,9 @@ namespace iOSNativePlugin
         DayOfYear          = CF_OPTIONS.kCFCalendarUnitDayOfYear,
     }
 
-    // https://developer.apple.com/documentation/foundation/nsdatecomponents?language=objc
+    /// <summary>
+    /// https://developer.apple.com/documentation/foundation/nsdatecomponents?language=objc
+    /// </summary>
     public readonly struct NSDateComponents
     {
         public NSDateComponents(NSCalendarUnit components, DateTime fromDate)

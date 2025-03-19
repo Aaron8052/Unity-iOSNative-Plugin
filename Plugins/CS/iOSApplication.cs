@@ -23,20 +23,29 @@ namespace iOSNativePlugin
         [DllImport("__Internal")] static extern float iOSApplication_GetUserSettingsFloat(string identifier);
         [DllImport("__Internal")] static extern void iOSApplication_SetUserSettingsInt(string identifier, long value);
         [DllImport("__Internal")] static extern long iOSApplication_GetUserSettingsInt(string identifier);
-        [DllImport("__Internal")] static extern void iOSApplication_RegisterUserSettingsChangeCallback(UserSettingsChangeCallback callback);
-        [DllImport("__Internal")] static extern void iOSApplication_UnregisterUserSettingsChangeCallback();
 
+        /*[DllImport("__Internal")] static extern void iOSApplication_RegisterUserSettingsChangeCallback(UserSettingsChangeCallback callback);
+        [DllImport("__Internal")] static extern void iOSApplication_UnregisterUserSettingsChangeCallback();*/
+
+        /// <summary>
+        /// 获取当前使用的游戏图标
+        /// </summary>
+        /// <returns>当前使用的 AppIcon，默认图标返回 null</returns>
         public static string GetAlternateIconName()
         {
             return iOSApplication_GetAlternateIconName();
         }
 
+        /// <summary>
+        /// 设置要使用的 AppIcon，使用默认图标可传入 null
+        /// </summary>
+        /// <param name="iconName"></param>
         public static void SetAlternateIconName(string iconName)
         {
             iOSApplication_SetAlternateIconName(iconName);
         }
         /// <summary>
-        /// 获取当前应用的Bundle Identifier
+        /// 获取当前应用的 Bundle Identifier
         /// </summary>
         /// <returns>Bundle Identifier (与<c>Application.identifier</c>一致)</returns>
         public static string GetBundleIdentifier() => iOSApplication_GetBundleIdentifier();
@@ -54,7 +63,7 @@ namespace iOSNativePlugin
         public static string GetBundleVersion() => iOSApplication_GetBundleVersion();
 
         /// <summary>
-        /// 打开本App的系统设置界面
+        /// 打开本 App 的系统设置界面
         /// </summary>
         public static void OpenAppSettings() => iOSApplication_OpenAppSettings();
 
@@ -122,11 +131,8 @@ namespace iOSNativePlugin
         public static long GetUserSettingsInt(string identifier)
             => iOSApplication_GetUserSettingsInt(identifier);
 
-        static Action _onUserSettingsChanged;
-            
-        /// <summary>
-        /// !!该事件目前会导致游戏崩溃，不要调用
-        /// </summary>
+        /*static Action _onUserSettingsChanged;
+
         public static event Action OnUserSettingsChanged
         {
             add
@@ -137,13 +143,13 @@ namespace iOSNativePlugin
             remove
             {
                 _onUserSettingsChanged -= value;
-                    
+
                 if(_onUserSettingsChanged == null)
                     iOSApplication_UnregisterUserSettingsChangeCallback();
             }
         }
-        
+
         [MonoPInvokeCallback(typeof(UserSettingsChangeCallback))]
-        static void OnStatusBarOrientationChangeCallback() => _onUserSettingsChanged?.Invoke();
+        static void OnStatusBarOrientationChangeCallback() => _onUserSettingsChanged?.Invoke();*/
     }
 }
