@@ -83,4 +83,8 @@
     NSString *lang = [NSLocale preferredLanguages].firstObject;
     return lang;
 }
++(NSArray<NSString*>*)GetLanguageISOCodes
+{
+    return [NSLocale preferredLanguages];
+}
 @end

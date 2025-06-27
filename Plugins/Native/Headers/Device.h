@@ -9,6 +9,7 @@
 +(void)PlayHaptics:(int)style _intensity:(float)intensity;
 +(NSString *)GetLocaleISOCode;
 +(NSString *)GetLanguageISOCode;
++(NSArray<NSString*>*)GetLanguageISOCodes;
 
 @end
 
@@ -39,5 +40,16 @@ extern "C"
     }
     const char* Device_GetLanguageISOCode(){
         return StringCopy([[Device GetLanguageISOCode] UTF8String]);
+    }
+    char** Device_GetLanguageCodes(long* count)
+    {
+        auto array = [Device GetLanguageISOCodes];
+        *count = array.count;
+        char** languages = (char**)malloc(sizeof(char*) * array.count);
+        for (long i = 0; i < *count; i++)
+        {
+            languages[i] = StringCopy([array[i] UTF8String]);
+        }
+        return languages;
     }
 }

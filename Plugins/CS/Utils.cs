@@ -1,7 +1,32 @@
 using System;
+using System.Runtime.InteropServices;
 
 namespace iOSNativePlugin
 {
+    public static class Utils
+    {
+        [DllImport("__Internal")] static extern unsafe void FreeCPtr(void* ptr);
+
+        public static unsafe void FreePtr(IntPtr ptr) => FreeCPtr(ptr.ToPointer());
+
+        public static unsafe void FreePtr(void* ptr) => FreeCPtr(ptr);
+
+        public static unsafe string StrFromPtr(char* ptr)
+        {
+            if (ptr == null)
+                return string.Empty;
+            return new string(ptr);
+        }
+
+        public static unsafe string PtrToStr(char* ptr)
+        {
+            var str = StrFromPtr(ptr);
+            FreePtr(ptr);
+            return str;
+        }
+    }
+
+
     delegate void SaveImageToAlbumCallback(bool saved);
     delegate void DialogSelectionCallback(int selection);
     delegate void ShareCloseCallback();

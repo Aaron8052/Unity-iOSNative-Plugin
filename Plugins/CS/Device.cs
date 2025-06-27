@@ -18,6 +18,7 @@ namespace iOSNativePlugin
         [DllImport("__Internal")] static extern void Device_PlayHaptics(int style, float intensity);
         [DllImport("__Internal")] static extern string Device_GetLocaleISOCode();
         [DllImport("__Internal")] static extern string Device_GetLanguageISOCode();
+        //[DllImport("__Internal")] static extern unsafe char** Device_GetLanguageCodes(ref long count);
 
         /// <summary>
         /// 获取系统版本
@@ -123,9 +124,29 @@ namespace iOSNativePlugin
         public static string GetLocaleISOCode() => Device_GetLocaleISOCode();
 
         /// <summary>
-        /// 获取当前设备语言的ISO码（例：zh-Hans-CN）
+        /// 获取用户系统设置的主要语言的IETF标签（例：zh-Hans-CN）
+        /// <para>格式：[language]-[Script]-[REGION]_[sort order]</para>
         /// </summary>
-        /// <returns>语言ISO码</returns>
+        /// <returns>语言IETF标签</returns>
         public static string GetLanguageISOCode() => Device_GetLanguageISOCode();
+
+        /*/// <summary>
+        /// 获取用户系统设置的所有语言的IETF标签（例：zh-Hans-CN）
+        /// </summary>
+        /// <returns>语言IETF标签数组，按用户语言优先级排列</returns>*/
+        /*public static unsafe string[] GetLanguageCodes()
+        {
+            long count = 0;
+            char** languages = Device_GetLanguageCodes(ref count);
+            if (languages == null || count < 1)
+                return null;
+            string[] arr = new string[count];
+            for (int i = 0; i < count; i++)
+            {
+                arr[i] = Utils.StrFromPtr(languages[i]);
+            }
+            Utils.FreePtr(languages);
+            return arr;
+        }*/
     }
 }

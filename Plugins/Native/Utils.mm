@@ -22,6 +22,12 @@ static char* StringCopy(const char* string)
     return newString;
 }
 
+extern "C" void FreeCPtr(void* ptr)
+{
+    free(ptr);
+}
+
+
 static NSDate* DateFromLong(long year, long month, long day, long hour, long minute, long second)
 {
     NSDateComponents *components = [[NSDateComponents alloc] init];
