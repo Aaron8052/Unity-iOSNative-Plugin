@@ -4,6 +4,8 @@
 
 +(void)Init:(Action)audioSessionRouteChangedCallback
     audioInterruptionCallback:(ULongCallback)audioInterruptionCallback;
++(BOOL)SetActive:(BOOL)active;
++(bool)GetAudioInterrupted;
 +(bool)GetPrefersNoInterruptionsFromSystemAlerts;
 +(void)SetPrefersNoInterruptionsFromSystemAlerts:(BOOL)prefersNoInterruptions;
 +(float)SystemVolume;
@@ -22,6 +24,12 @@ extern "C"
     {
         [Audio Init:audioSessionRouteChangedCallback
                     audioInterruptionCallback:audioInterruptionCallback];
+    }
+    bool Audio_SetActive(bool active){
+        return [Audio SetActive:active];
+    }
+    bool Audio_GetAudioInterrupted(){
+        return [Audio GetAudioInterrupted];
     }
     bool Audio_GetPrefersNoInterruptionsFromSystemAlerts(){
         return [Audio GetPrefersNoInterruptionsFromSystemAlerts];

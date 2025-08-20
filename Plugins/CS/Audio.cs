@@ -10,6 +10,8 @@ namespace iOSNativePlugin
     {
         [DllImport("__Internal")] static extern void Audio_Init(Action audioSessionRouteChangedCallback,
             ULongCallback audioInterruptionCallback);
+        [DllImport("__Internal")] static extern bool Audio_SetActive(bool active);
+        [DllImport("__Internal")] static extern bool Audio_GetAudioInterrupted();
         [DllImport("__Internal")] static extern bool Audio_GetPrefersNoInterruptionsFromSystemAlerts();
         [DllImport("__Internal")] static extern void Audio_SetPrefersNoInterruptionsFromSystemAlerts(bool prefersNoInterruptions);
         [DllImport("__Internal")] static extern float Audio_SystemVolume();
@@ -26,6 +28,16 @@ namespace iOSNativePlugin
             if (inited) return;
             Audio_Init(OnAudioSessionRouteChanged, OnAudioInterruption);
             inited = true;
+        }
+
+        /// <summary>
+        /// 设置AVAudioSession的激活状态
+        /// </summary>
+        /// <param name="active"></param>
+        /// <returns>是否成功抢占音频优先权</returns>
+        public static bool SetActive(bool active)
+        {
+            return Audio_SetActive(active);
         }
 
 #region AudioInterruption
@@ -48,6 +60,8 @@ namespace iOSNativePlugin
         }
 
         static Action<AVAudioSessionInterruptionType> audioInterruptionEvent;
+
+        public static bool AudioInterrupted => Audio_GetAudioInterrupted();
 
         /// <summary>
         /// 游戏音频中断与恢复事件

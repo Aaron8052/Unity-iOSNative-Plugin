@@ -26,7 +26,19 @@ static BOOL inited;
     inited = YES;
 }
 
-//static BOOL audioInterrupted;
++(BOOL)SetActive:(BOOL)active
+{
+    auto success = [[AVAudioSession sharedInstance] setActive:active error:nil];
+    if(success)
+        audioInterrupted = false;
+    return success;
+}
+
+static BOOL audioInterrupted;
++(bool)GetAudioInterrupted
+{
+    return audioInterrupted;
+}
 
 +(bool)GetPrefersNoInterruptionsFromSystemAlerts
 {
@@ -45,9 +57,8 @@ static BOOL inited;
 {
     auto userInfo = notification.userInfo;
     auto typeValue = [userInfo[AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
-    //auto type = (AVAudioSessionInterruptionType)typeValue;
-    
-    //audioInterrupted = type == AVAudioSessionInterruptionTypeBegan;
+    auto type = (AVAudioSessionInterruptionType)typeValue;
+    audioInterrupted = type == AVAudioSessionInterruptionTypeBegan;
     
     /*switch (type) {
         case AVAudioSessionInterruptionTypeBegan:
