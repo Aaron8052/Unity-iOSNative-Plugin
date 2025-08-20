@@ -3,11 +3,12 @@
 
 @implementation Audio
 
-static Action onAudioSessionRouteChangedEvent;
 static Action audioSessionRouteChangedEvent;
+static ULongCallback audioInterruptionEvent;
 static BOOL inited;
 
-+(void)Init:(Action)OnAudioSessionRouteChangedCallback
++(void)Init:(Action)audioSessionRouteChangedCallback
+    audioInterruptionCallback:(ULongCallback)audioInterruptionCallback
 {
     if(inited)
         return;
@@ -16,7 +17,38 @@ static BOOL inited;
                                              selector: @selector(OnAudioSessionRouteChanged:)
                                                  name: AVAudioSessionRouteChangeNotification
                                                object: nil];
+    
+    audioInterruptionEvent = audioInterruptionCallback;
+    [[NSNotificationCenter defaultCenter] addObserver: [Audio class]
+                                             selector: @selector(OnAudioInterruptionEvent:)
+                                                 name: AVAudioSessionInterruptionNotification
+                                               object: nil];
     inited = YES;
+}
+
+//static BOOL audioInterrupted;
+
+
++(void)OnAudioInterruptionEvent:(NSNotification *)notification
+{
+    auto userInfo = notification.userInfo;
+    auto typeValue = [userInfo[AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
+    auto type = (AVAudioSessionInterruptionType)typeValue;
+    
+    //audioInterrupted = type == AVAudioSessionInterruptionTypeBegan;
+    
+    /*switch (type) {
+        case AVAudioSessionInterruptionTypeBegan:
+            audioInterrupted = true;
+            break;
+            
+        default:
+            audioInterrupted = false;
+            break;
+    }*/
+    
+    if(audioInterruptionEvent != nil)
+        audioInterruptionEvent(typeValue);
 }
 
 +(void)OnAudioSessionRouteChanged:(NSNotification *)notification

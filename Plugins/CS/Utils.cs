@@ -36,6 +36,15 @@ namespace iOSNativePlugin
     delegate void CompletionCallback();
     delegate void UserSettingsChangeCallback();
     delegate void LongCallback(long value);
+    delegate void ULongCallback(ulong value);
+
+    /// Values for AVAudioSessionInterruptionTypeKey in AVAudioSessionInterruptionNotification's
+    /// userInfo dictionary.
+    public enum AVAudioSessionInterruptionType : ulong
+    {
+        Began = 1, // the system has interrupted your audio session
+        Ended = 0, // the interruption has ended
+    }
 
     public enum UIContentSizeCategory
     {

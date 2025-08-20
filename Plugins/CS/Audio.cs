@@ -8,7 +8,8 @@ namespace iOSNativePlugin
 {
     public static class Audio
     {
-        [DllImport("__Internal")] static extern float Audio_Init(Action OnAudioSessionRouteChangedCallback);
+        [DllImport("__Internal")] static extern void Audio_Init(Action audioSessionRouteChangedCallback,
+            ULongCallback audioInterruptionCallback);
         [DllImport("__Internal")] static extern float Audio_SystemVolume();
         [DllImport("__Internal")] static extern double Audio_InputLatency();
         [DllImport("__Internal")] static extern double Audio_OutputLatency();
@@ -16,7 +17,40 @@ namespace iOSNativePlugin
         [DllImport("__Internal")] static extern bool Audio_IsBluetoothHeadphonesConnected();
         [DllImport("__Internal")] static extern void Audio_SetAudioExclusive(bool exclusive);
 
-        static Action onAudioSessionRouteChangedEvent;
+
+        static bool inited;
+        static void Init()
+        {
+            if (inited) return;
+            Audio_Init(OnAudioSessionRouteChanged, OnAudioInterruption);
+            inited = true;
+        }
+
+#region AudioInterruption
+
+        static Action<AVAudioSessionInterruptionType> audioInterruptionEvent;
+
+        /// <summary>
+        /// 游戏音频干扰与恢复事件
+        /// </summary>
+        public static event Action<AVAudioSessionInterruptionType> AudioInterruptionEvent
+        {
+            add
+            {
+                Init();
+                audioInterruptionEvent += value;
+            }
+            remove => audioInterruptionEvent -= value;
+        }
+
+        [MonoPInvokeCallback(typeof(ULongCallback))]
+        static void OnAudioInterruption(ulong type)
+        {
+            audioInterruptionEvent?.Invoke((AVAudioSessionInterruptionType)type);
+        }
+
+#endregion
+
 #region AudioSessionRouteChanged
 
         static Action audioSessionRouteChangedEvent;
