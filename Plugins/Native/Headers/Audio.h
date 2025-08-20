@@ -2,7 +2,8 @@
 
 @interface Audio : NSObject
 
-+(void)Init:(Action)OnAudioSessionRouteChangedCallback;
++(void)Init:(Action)audioSessionRouteChangedCallback
+    audioInterruptionEvent:(ULongCallback)audioInterruptionCallback;
 +(float)SystemVolume;
 +(double)InputLatency;
 +(double)OutputLatency;
@@ -14,9 +15,11 @@
 
 extern "C"
 {
-    void Audio_Init(Action OnAudioSessionRouteChangedCallback)
+    void Audio_Init(Action audioSessionRouteChangedCallback,
+                    ULongCallback audioInterruptionCallback)
     {
-        [Audio Init:OnAudioSessionRouteChangedCallback];
+        [Audio Init:audioSessionRouteChangedCallback
+            audioInterruptionEvent:audioInterruptionCallback];
     }
     float Audio_SystemVolume()
     {

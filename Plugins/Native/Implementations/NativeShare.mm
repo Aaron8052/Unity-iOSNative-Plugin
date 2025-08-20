@@ -138,7 +138,7 @@
     };
     
 }
-+(void)SaveFileDialog:(NSString *)content fileName:(NSString *)fileName callback:(FileSavedCallback)callback
++(void)SaveFileDialog:(NSString *)content fileName:(NSString *)fileName callback:(BoolCallback)callback
 {
     filePickerAction = 2;
     NSData *fileData = [content dataUsingEncoding:NSUTF8StringEncoding];
@@ -180,7 +180,7 @@ static NSURL* tempFileUrl;
 static NSString* tempContent;
 static NSString * targetExt;
 
-static FileSavedCallback OnFileSavedCallback  = nil;
+static BoolCallback OnFileSavedCallback  = nil;
 static FileSelectCallback OnFileSelectedCallback = nil;
 
 static int filePickerAction = 0;//0: none 1: PickingFile 2: SavingFile

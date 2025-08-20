@@ -9,7 +9,7 @@ namespace iOSNativePlugin
     {
         [DllImport("__Internal")] static extern void NativeShare_Share(string message, string url, string imagePath, double posX, double posY, ShareCloseCallback callback);
 		[DllImport("__Internal")] static extern void NativeShare_ShareObjects(string[] objects, int count, double posX, double posY, ShareCloseCallback callback);
-        [DllImport("__Internal")] static extern void NativeShare_SaveFileDialog(string content, string fileName, FileSavedCallback callback);
+        [DllImport("__Internal")] static extern void NativeShare_SaveFileDialog(string content, string fileName, BoolCallback callback);
         [DllImport("__Internal")] static extern void NativeShare_SelectFileDialog(string ext, FileSelectCallback callback);
         [DllImport("__Internal")] static extern void NativeShare_SaveImageBytesToAlbum(byte[] bytes, long length, SaveImageToAlbumCallback callback);
         [DllImport("__Internal")] static extern void NativeShare_SaveImageToAlbum(string imagePath, SaveImageToAlbumCallback callback);
@@ -188,7 +188,7 @@ namespace iOSNativePlugin
             
         static event Action OnFileSaved;
             
-        [MonoPInvokeCallback(typeof(FileSavedCallback))]
+        [MonoPInvokeCallback(typeof(BoolCallback))]
         static void OnFileSavedCallback(bool saved)
         {
             if (saved)

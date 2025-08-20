@@ -31,25 +31,32 @@ namespace iOSNativePlugin
         /// <returns></returns>
         public static bool UIAccessibilityIsBoldTextEnabled() => NativeUI_UIAccessibilityIsBoldTextEnabled();
 
+        [Obsolete("Use UIAccessibilityBoldTextStatusChange instead")]
+        public static event Action OnUIAccessibilityBoldTextStatusChange
+        {
+            add => UIAccessibilityBoldTextStatusChange += value;
+            remove => UIAccessibilityBoldTextStatusChange -= value;
+        }
+
         /// <summary>
         /// 系统设置 - 粗体文本 状态变更事件
         /// </summary>
-        public static event Action OnUIAccessibilityBoldTextStatusChange
+        public static event Action UIAccessibilityBoldTextStatusChange
         {
             add
             {
-                NativeUI_RegisterUIAccessibilityBoldTextStatusDidChangeNotification(UIAccessibilityBoldTextStatusDidChangeNotification);
-                onUIAccessibilityBoldTextStatusChange += value;
+                NativeUI_RegisterUIAccessibilityBoldTextStatusDidChangeNotification(OnUIAccessibilityBoldTextStatusDidChangeNotification);
+                uiAccessibilityBoldTextStatusChange += value;
             }
-            remove => onUIAccessibilityBoldTextStatusChange -= value;
+            remove => uiAccessibilityBoldTextStatusChange -= value;
         }
 
-        static event Action onUIAccessibilityBoldTextStatusChange;
+        static event Action uiAccessibilityBoldTextStatusChange;
 
         [MonoPInvokeCallback(typeof(Action))]
-        static void UIAccessibilityBoldTextStatusDidChangeNotification()
+        static void OnUIAccessibilityBoldTextStatusDidChangeNotification()
         {
-            onUIAccessibilityBoldTextStatusChange?.Invoke();
+            uiAccessibilityBoldTextStatusChange?.Invoke();
         }
 
 
@@ -86,25 +93,32 @@ namespace iOSNativePlugin
             }
         }
 
+        [Obsolete("Use UIContentSizeCategoryChange instead")]
+        public static event Action OnUIContentSizeCategoryChange
+        {
+            add => UIContentSizeCategoryChange += value;
+            remove => UIContentSizeCategoryChange -= value;
+        }
+
         /// <summary>
         /// 系统字体大小变更事件
         /// </summary>
-        public static event Action OnUIContentSizeCategoryChange
+        public static event Action UIContentSizeCategoryChange
         {
             add
             {
-                NativeUI_RegisterUIContentSizeCategoryDidChangeNotification(UIContentSizeCategoryDidChangeNotification);
-                onUIContentSizeCategoryChange += value;
+                NativeUI_RegisterUIContentSizeCategoryDidChangeNotification(OnUIContentSizeCategoryDidChangeNotification);
+                uiContentSizeCategoryChange += value;
             }
-            remove => onUIContentSizeCategoryChange -= value;
+            remove => uiContentSizeCategoryChange -= value;
         }
 
-        static event Action onUIContentSizeCategoryChange;
+        static event Action uiContentSizeCategoryChange;
 
         [MonoPInvokeCallback(typeof(Action))]
-        static void UIContentSizeCategoryDidChangeNotification()
+        static void OnUIContentSizeCategoryDidChangeNotification()
         {
-            onUIContentSizeCategoryChange?.Invoke();
+            uiContentSizeCategoryChange?.Invoke();
         }
 
         /// <summary>

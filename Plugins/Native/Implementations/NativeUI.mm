@@ -10,22 +10,22 @@
 }
 
 
-static Action onUIAccessibilityBoldTextStatusDidChange;
+static Action uiAccessibilityBoldTextStatusDidChange;
 +(void)RegisterUIAccessibilityBoldTextStatusDidChangeNotification:(Action)event
 {
-    if(onUIAccessibilityBoldTextStatusDidChange)
+    if(uiAccessibilityBoldTextStatusDidChange)
         return;
     [[NSNotificationCenter defaultCenter] addObserver:[NativeUI class]
                                              selector:@selector(HandleUIAccessibilityBoldTextStatusDidChangeNotification)
                                                  name:UIAccessibilityBoldTextStatusDidChangeNotification
                                                object:nil];
-    onUIAccessibilityBoldTextStatusDidChange = event;
+    uiAccessibilityBoldTextStatusDidChange = event;
 }
 
 +(void)HandleUIAccessibilityBoldTextStatusDidChangeNotification
 {
-    if(onUIAccessibilityBoldTextStatusDidChange)
-        onUIAccessibilityBoldTextStatusDidChange();
+    if(uiAccessibilityBoldTextStatusDidChange)
+        uiAccessibilityBoldTextStatusDidChange();
 }
 
 +(UIContentSizeCategory)PreferredContentSizeCategory
@@ -33,22 +33,22 @@ static Action onUIAccessibilityBoldTextStatusDidChange;
     return [UIApplication sharedApplication].preferredContentSizeCategory;
 }
 
-static Action onUIContentSizeCategoryChange;
+static Action uiContentSizeCategoryChange;
 +(void)RegisterUIContentSizeCategoryDidChangeNotification:(Action)event
 {
-    if(onUIContentSizeCategoryChange)
+    if(uiContentSizeCategoryChange)
         return;
     [[NSNotificationCenter defaultCenter] addObserver:[NativeUI class]
                                              selector:@selector(HandleUIContentSizeCategoryDidChangeNotification)
                                                  name:UIContentSizeCategoryDidChangeNotification
                                                object:nil];
-    onUIContentSizeCategoryChange = event;
+    uiContentSizeCategoryChange = event;
 }
 
 +(void)HandleUIContentSizeCategoryDidChangeNotification
 {
-    if(onUIContentSizeCategoryChange)
-        onUIContentSizeCategoryChange();
+    if(uiContentSizeCategoryChange)
+        uiContentSizeCategoryChange();
 }
 
 +(CGSize)GetUnityViewSize

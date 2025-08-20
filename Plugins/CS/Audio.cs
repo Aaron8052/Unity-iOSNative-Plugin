@@ -17,26 +17,38 @@ namespace iOSNativePlugin
         [DllImport("__Internal")] static extern void Audio_SetAudioExclusive(bool exclusive);
 
         static Action onAudioSessionRouteChangedEvent;
+#region AudioSessionRouteChanged
+
+        static Action audioSessionRouteChangedEvent;
 
         /// <summary>
         /// 玩家音频设备变更事件
         /// </summary>
-        public static event Action OnAudioSessionRouteChangedEvent
+        public static event Action AudioSessionRouteChangedEvent
         {
             add
             {
-                Audio_Init(OnAudioSessionRouteChanged);
-                onAudioSessionRouteChangedEvent += value;
+                Init();
+                audioSessionRouteChangedEvent += value;
             }
-            remove => onAudioSessionRouteChangedEvent -= value;
+            remove => audioSessionRouteChangedEvent -= value;
+        }
+
+        [Obsolete("Use AudioSessionRouteChangedEvent instead")]
+        public static event Action OnAudioSessionRouteChangedEvent
+        {
+            add => AudioSessionRouteChangedEvent += value;
+            remove => AudioSessionRouteChangedEvent -= value;
         }
 
 
         [MonoPInvokeCallback(typeof(Action))]
         static void OnAudioSessionRouteChanged()
         {
-            onAudioSessionRouteChangedEvent?.Invoke();
+            audioSessionRouteChangedEvent?.Invoke();
         }
+
+#endregion
 
         /// <summary>
         /// 当前系统音量

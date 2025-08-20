@@ -12,7 +12,7 @@
           callback:(ShareCloseCallback)callback;
 +(void)SaveFileDialog:(NSString *)content
              fileName:(NSString *)fileName
-             callback:(FileSavedCallback)callback;
+             callback:(BoolCallback)callback;
 +(void)SelectFileDialog:(NSString *)ext
                callback:(FileSelectCallback)callback;
 
@@ -104,7 +104,7 @@ extern "C"
         
         [NativeShare ShareObject:objectsArray posX:posY posY:posY callback:callback];
     }
-    void NativeShare_SaveFileDialog(const char* content, const char* fileName, FileSavedCallback callback)
+    void NativeShare_SaveFileDialog(const char* content, const char* fileName, BoolCallback callback)
     {
         [NativeShare SaveFileDialog:[NSString stringWithUTF8String:content ?: ""] fileName:[NSString stringWithUTF8String:fileName ?: ""]
         callback:callback];

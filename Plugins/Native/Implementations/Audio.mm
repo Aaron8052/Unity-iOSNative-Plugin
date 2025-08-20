@@ -4,13 +4,14 @@
 @implementation Audio
 
 static Action onAudioSessionRouteChangedEvent;
+static Action audioSessionRouteChangedEvent;
 static BOOL inited;
 
 +(void)Init:(Action)OnAudioSessionRouteChangedCallback
 {
     if(inited)
         return;
-    onAudioSessionRouteChangedEvent = OnAudioSessionRouteChangedCallback;
+    audioSessionRouteChangedEvent = audioSessionRouteChangedCallback;
     [[NSNotificationCenter defaultCenter] addObserver: [Audio class]
                                              selector: @selector(OnAudioSessionRouteChanged:)
                                                  name: AVAudioSessionRouteChangeNotification
@@ -20,8 +21,8 @@ static BOOL inited;
 
 +(void)OnAudioSessionRouteChanged:(NSNotification *)notification
 {
-    if(onAudioSessionRouteChangedEvent != nil)
-        onAudioSessionRouteChangedEvent();
+    if(audioSessionRouteChangedEvent != nil)
+        audioSessionRouteChangedEvent();
 }
 
 

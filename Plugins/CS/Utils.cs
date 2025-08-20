@@ -31,7 +31,7 @@ namespace iOSNativePlugin
     delegate void DialogSelectionCallback(int selection);
     delegate void ShareCloseCallback();
     delegate void FileSelectCallback(bool selected, string content);
-    delegate void FileSavedCallback(bool saved);
+    delegate void BoolCallback(bool saved);
     delegate void OrientationChangeCallback(int orientation);
     delegate void CompletionCallback();
     delegate void UserSettingsChangeCallback();

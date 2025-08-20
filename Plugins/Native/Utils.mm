@@ -45,13 +45,14 @@ static NSDate* DateFromLong(long year, long month, long day, long hour, long min
 typedef void (*Action)();
 typedef void (*SaveImageToAlbumCallback)(bool);
 typedef void (*ShareCloseCallback)();
-typedef void (*FileSavedCallback)(bool);
+typedef void (*BoolCallback)(bool);
 typedef void (*FileSelectCallback)(bool, const char*);
 typedef void (*DialogSelectionCallback)(int);
 typedef void (*OrientationChangeCallback)(int);
 typedef void (*CompletionCallback)();
 typedef void (*UserSettingsChangeCallback)();
 typedef void (*LongCallback)(long);
+typedef void (*ULongCallback)(unsigned long);
 
 static void InitUIPopoverViewController(UIViewController *viewController, float posX, float posY)
 {
