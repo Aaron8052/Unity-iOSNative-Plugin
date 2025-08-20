@@ -28,12 +28,24 @@ static BOOL inited;
 
 //static BOOL audioInterrupted;
 
++(bool)GetPrefersNoInterruptionsFromSystemAlerts
+{
+    if (@available(iOS 14.5, *))
+        return [[AVAudioSession sharedInstance] prefersNoInterruptionsFromSystemAlerts];
+    return false;
+}
+
++(void)SetPrefersNoInterruptionsFromSystemAlerts:(BOOL)prefersNoInterruptions
+{
+    if (@available(iOS 14.5, *))
+        [[AVAudioSession sharedInstance] setPrefersNoInterruptionsFromSystemAlerts:prefersNoInterruptions error:nil];
+}
 
 +(void)OnAudioInterruptionEvent:(NSNotification *)notification
 {
     auto userInfo = notification.userInfo;
     auto typeValue = [userInfo[AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
-    auto type = (AVAudioSessionInterruptionType)typeValue;
+    //auto type = (AVAudioSessionInterruptionType)typeValue;
     
     //audioInterrupted = type == AVAudioSessionInterruptionTypeBegan;
     

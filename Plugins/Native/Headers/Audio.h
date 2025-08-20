@@ -3,7 +3,9 @@
 @interface Audio : NSObject
 
 +(void)Init:(Action)audioSessionRouteChangedCallback
-    audioInterruptionEvent:(ULongCallback)audioInterruptionCallback;
+    audioInterruptionCallback:(ULongCallback)audioInterruptionCallback;
++(bool)GetPrefersNoInterruptionsFromSystemAlerts;
++(void)SetPrefersNoInterruptionsFromSystemAlerts:(BOOL)prefersNoInterruptions;
 +(float)SystemVolume;
 +(double)InputLatency;
 +(double)OutputLatency;
@@ -19,7 +21,13 @@ extern "C"
                     ULongCallback audioInterruptionCallback)
     {
         [Audio Init:audioSessionRouteChangedCallback
-            audioInterruptionEvent:audioInterruptionCallback];
+                    audioInterruptionCallback:audioInterruptionCallback];
+    }
+    bool Audio_GetPrefersNoInterruptionsFromSystemAlerts(){
+        return [Audio GetPrefersNoInterruptionsFromSystemAlerts];
+    }
+    void Audio_SetPrefersNoInterruptionsFromSystemAlerts(bool prefersNoInterruptions){
+        [Audio SetPrefersNoInterruptionsFromSystemAlerts:prefersNoInterruptions];
     }
     float Audio_SystemVolume()
     {

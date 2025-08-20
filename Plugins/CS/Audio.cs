@@ -10,6 +10,8 @@ namespace iOSNativePlugin
     {
         [DllImport("__Internal")] static extern void Audio_Init(Action audioSessionRouteChangedCallback,
             ULongCallback audioInterruptionCallback);
+        [DllImport("__Internal")] static extern bool Audio_GetPrefersNoInterruptionsFromSystemAlerts();
+        [DllImport("__Internal")] static extern void Audio_SetPrefersNoInterruptionsFromSystemAlerts(bool prefersNoInterruptions);
         [DllImport("__Internal")] static extern float Audio_SystemVolume();
         [DllImport("__Internal")] static extern double Audio_InputLatency();
         [DllImport("__Internal")] static extern double Audio_OutputLatency();
@@ -28,10 +30,27 @@ namespace iOSNativePlugin
 
 #region AudioInterruption
 
+        // https://developer.apple.com/documentation/avfaudio/avaudiosession/setprefersnointerruptionsfromsystemalerts(_:)?language=objc
+
+        /// <summary>
+        /// <para>设置系统铃声时是否中断Audio Session</para>
+        /// <para>Beginning in iOS 14, users can set a global preference that indicates whether the system displays incoming calls using a banner or a full-screen display style.
+        /// If using the banner style, setting this value to true prevents the system from interrupting the audio session with incoming call notifications,
+        /// and gives the user an opportunity to accept or decline the call. The system only interrupts the audio session if the user accepts the call.</para>
+        /// <para>Enabling this preference can improve the user experience of apps with audio sessions that
+        /// you don’t want to interrupt, such as those that record audiovisual media or that you use for music performance.</para>
+        /// <para>This preference has no effect if the device uses the full-screen display style—the system interrupts the audio session on incoming calls.</para>
+        /// </summary>
+        public static bool PrefersNoInterruptionsFromSystemAlerts
+        {
+            get => Audio_GetPrefersNoInterruptionsFromSystemAlerts();
+            set => Audio_SetPrefersNoInterruptionsFromSystemAlerts(value);
+        }
+
         static Action<AVAudioSessionInterruptionType> audioInterruptionEvent;
 
         /// <summary>
-        /// 游戏音频干扰与恢复事件
+        /// 游戏音频中断与恢复事件
         /// </summary>
         public static event Action<AVAudioSessionInterruptionType> AudioInterruptionEvent
         {
