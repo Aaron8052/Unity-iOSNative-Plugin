@@ -194,11 +194,18 @@ namespace iOSNativePlugin
         
 
         static Action<UIInterfaceOrientation> onStatusBarOrientationChanged;
-            
+
+        [Obsolete("Use OnStatusBarOrientationChanged instead")]
+        public static event Action<UIInterfaceOrientation> OnStatusBarOrientationChanged
+        {
+            add => StatusBarOrientationChanged += value;
+            remove => StatusBarOrientationChanged -= value;
+        }
+
         /// <summary>
         /// UI 朝向变更事件
         /// </summary>
-        public static event Action<UIInterfaceOrientation> OnStatusBarOrientationChanged
+        public static event Action<UIInterfaceOrientation> StatusBarOrientationChanged
         {
             add
             {
