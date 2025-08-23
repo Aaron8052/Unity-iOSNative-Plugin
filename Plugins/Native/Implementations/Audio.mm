@@ -28,9 +28,12 @@ static BOOL inited;
 
 +(BOOL)SetActive:(BOOL)active
 {
-    auto success = [[AVAudioSession sharedInstance] setActive:active error:nil];
+    __autoreleasing NSError* outError = nil;
+    auto success = [[AVAudioSession sharedInstance] setActive:active error:&outError];
+    if((outError) != nil)
+        return NO;
     if(success)
-        audioInterrupted = false;
+        audioInterrupted = NO;
     return success;
 }
 
