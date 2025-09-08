@@ -41,7 +41,7 @@ extern "C"
             [iOSApplication SetAlternateIconName:nil];
             return;
         }
-        [iOSApplication SetAlternateIconName:[NSString stringWithUTF8String:iconName]];
+        [iOSApplication SetAlternateIconName:NSStringFromCStr(iconName)];
     }
 
 
@@ -63,7 +63,7 @@ extern "C"
     }
 
     void iOSApplication_SetUserSettingsBool(const char* identifier, bool value){
-        [iOSApplication SetUserSettingsBool:[NSString stringWithUTF8String:identifier]
+        [iOSApplication SetUserSettingsBool:NSStringFromCStr(identifier)
                                       value:value];
     }
     bool iOSApplication_GetUserSettingsBool(const char* identifier)
@@ -71,23 +71,22 @@ extern "C"
         if(identifier == nil)
             return NO;
         
-        return [iOSApplication GetUserSettingsBool: [NSString stringWithUTF8String:identifier]];
+        return [iOSApplication GetUserSettingsBool: NSStringFromCStr(identifier)];
     }
-
     void iOSApplication_SetUserSettingsString(const char* identifier, const char* value){
-        [iOSApplication SetUserSettingsString:[NSString stringWithUTF8String:identifier]
-                                      value:[NSString stringWithUTF8String:value]];
+        [iOSApplication SetUserSettingsString:NSStringFromCStr(identifier)
+                                      value:NSStringFromCStr(value)];
     }
     const char* iOSApplication_GetUserSettingsString(const char* identifier)
     {
         if(identifier == nil)
             return nil;
         
-        return StringCopy([[iOSApplication GetUserSettingsString: [NSString stringWithUTF8String:identifier]] UTF8String]);
+        return StringCopy([[iOSApplication GetUserSettingsString: NSStringFromCStr(identifier)] UTF8String]);
     }
 
     void iOSApplication_SetUserSettingsFloat(const char* identifier, float value){
-        [iOSApplication SetUserSettingsFloat:[NSString stringWithUTF8String:identifier]
+        [iOSApplication SetUserSettingsFloat:NSStringFromCStr(identifier)
                                       value:value];
     }
     float iOSApplication_GetUserSettingsFloat(const char* identifier)
@@ -95,11 +94,11 @@ extern "C"
         if(identifier == nil)
             return 0;
         
-        return [iOSApplication GetUserSettingsFloat: [NSString stringWithUTF8String:identifier]];
+        return [iOSApplication GetUserSettingsFloat: NSStringFromCStr(identifier)];
     }
 
     void iOSApplication_SetUserSettingsInt(const char* identifier, long value){
-        [iOSApplication SetUserSettingsInt:[NSString stringWithUTF8String:identifier]
+        [iOSApplication SetUserSettingsInt:NSStringFromCStr(identifier)
                                       value:value];
     }
     long iOSApplication_GetUserSettingsInt(const char* identifier)
@@ -107,7 +106,7 @@ extern "C"
         if(identifier == nil)
             return 0;
         
-        return [iOSApplication GetUserSettingsInt: [NSString stringWithUTF8String:identifier]];
+        return [iOSApplication GetUserSettingsInt: NSStringFromCStr(identifier)];
     }
     void iOSApplication_RegisterUserSettingsChangeCallback(UserSettingsChangeCallback callback)
     {

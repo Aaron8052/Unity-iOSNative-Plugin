@@ -24,7 +24,7 @@ extern "C"
     {
         if(imagePath == nil)
             return;
-        UIImage *image = [UIImage imageWithContentsOfFile:[NSString stringWithUTF8String:imagePath]];
+        UIImage *image = [UIImage imageWithContentsOfFile:NSStringFromCStr(imagePath)];
         [NativeShare CopyImageToClipboard:image];
     }
     void NativeShare_CopyImageBytesToClipboard(char* bytes, long length)
@@ -39,14 +39,14 @@ extern "C"
     {
         if(string == nil)
             return;
-        NSString* str = [NSString stringWithUTF8String:string];
+        NSString* str = NSStringFromCStr(string);
         [NativeShare CopyStringToClipboard:str];
     }
     void NativeShare_CopyUrlToClipboard(const char* url)
     {
         if(url == nil)
             return;
-        NSString* str = [NSString stringWithUTF8String:url];
+        NSString* str = NSStringFromCStr(url);
         NSURL* nsUrl = [NSURL URLWithString:str];
         [NativeShare CopyUrlToClipboard:nsUrl];
     }
@@ -71,7 +71,7 @@ extern "C"
             }
             return;
         }
-        UIImage *image = [UIImage imageWithContentsOfFile:[NSString stringWithUTF8String:imagePath]];
+        UIImage *image = [UIImage imageWithContentsOfFile:NSStringFromCStr(imagePath)];
         [NativeShare SaveImageToAlbum:image callback:callback];
     }
     void NativeShare_Share(const char* message, const char* url, const char* imagePath, double posX, double posY, ShareCloseCallback callback)
@@ -79,13 +79,13 @@ extern "C"
         NSMutableArray<NSString*>* array = [NSMutableArray new];
         
         if(message != nil)
-            [array addObject:[NSString stringWithFormat:@"0%@", [NSString stringWithUTF8String:message]]];
+            [array addObject:[NSString stringWithFormat:@"0%@", NSStringFromCStr(message)]];
         
         if(url != nil)
-            [array addObject:[NSString stringWithFormat:@"1%@", [NSString stringWithUTF8String:url]]];
+            [array addObject:[NSString stringWithFormat:@"1%@", NSStringFromCStr(url)]];
         
         if(imagePath != nil)
-            [array addObject:[NSString stringWithFormat:@"2%@", [NSString stringWithUTF8String:imagePath]]];
+            [array addObject:[NSString stringWithFormat:@"2%@", NSStringFromCStr(imagePath)]];
         
         
         [NativeShare ShareObject:array posX:posX posY:posY callback:callback];
@@ -98,7 +98,7 @@ extern "C"
         NSMutableArray<NSString*> *objectsArray = [NSMutableArray array];
         
         for(int i = 0; i< count; i++){
-            NSString *str = [NSString stringWithUTF8String:objects[i]];
+            NSString *str = NSStringFromCStr(objects[i]);
             [objectsArray addObject:str];
         }
         
@@ -106,13 +106,13 @@ extern "C"
     }
     void NativeShare_SaveFileDialog(const char* content, const char* fileName, BoolCallback callback)
     {
-        [NativeShare SaveFileDialog:[NSString stringWithUTF8String:content ?: ""] fileName:[NSString stringWithUTF8String:fileName ?: ""]
+        [NativeShare SaveFileDialog:NSStringFromCStr(content) fileName:NSStringFromCStr(fileName)
         callback:callback];
 
     }
     void NativeShare_SelectFileDialog(const char* ext, FileSelectCallback callback)
     {
-        [NativeShare SelectFileDialog:[NSString stringWithUTF8String:ext ?: ""]
+        [NativeShare SelectFileDialog:NSStringFromCStr(ext)
         callback:callback];
     }
 }

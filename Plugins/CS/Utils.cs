@@ -1,5 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
+using NSUInteger = System.UInt64;
+using NSInteger = System.Int64;
 
 namespace iOSNativePlugin
 {
@@ -35,12 +37,27 @@ namespace iOSNativePlugin
     delegate void OrientationChangeCallback(int orientation);
     delegate void CompletionCallback();
     delegate void UserSettingsChangeCallback();
-    delegate void LongCallback(long value);
-    delegate void ULongCallback(ulong value);
+    delegate void LongCallback(NSInteger value);
+    delegate void ULongCallback(NSUInteger value);
+
+
+    public enum UIMenuOptions : NSUInteger
+    {
+        DisplayInline  = 1 << 0,
+
+        /// Indicates whether the menu should be rendered with a destructive appearance in its parent
+        Destructive    = 1 << 1,
+
+        /// Indicates whether the menu (and any submenus) should only allow a single "on" menu item.
+        SingleSelection  = 1 << 5, // API_AVAILABLE(ios(15.0)) API_UNAVAILABLE(watchos)
+
+        /// Indicates that this menu should be rendered as a palette.
+        DisplayAsPalette  = 1 << 7, // API_AVAILABLE(ios(17.0)) API_UNAVAILABLE(watchos)
+    }
 
     /// Values for AVAudioSessionInterruptionTypeKey in AVAudioSessionInterruptionNotification's
     /// userInfo dictionary.
-    public enum AVAudioSessionInterruptionType : ulong
+    public enum AVAudioSessionInterruptionType : NSUInteger
     {
         Began = 1, // the system has interrupted your audio session
         Ended = 0, // the interruption has ended
@@ -65,7 +82,7 @@ namespace iOSNativePlugin
 
     static class CF_OPTIONS
     {
-        public const ulong
+        public const NSUInteger
             kCFCalendarUnitEra = (1UL << 1),
             kCFCalendarUnitYear = (1UL << 2),
             kCFCalendarUnitMonth = (1UL << 3),
@@ -86,7 +103,7 @@ namespace iOSNativePlugin
     /// <summary>
     /// https://developer.apple.com/documentation/foundation/nscalendarunit
     /// </summary>
-    [Flags] public enum NSCalendarUnit : ulong
+    [Flags] public enum NSCalendarUnit : NSUInteger
     {
         Era                = CF_OPTIONS.kCFCalendarUnitEra,
         Year               = CF_OPTIONS.kCFCalendarUnitYear,

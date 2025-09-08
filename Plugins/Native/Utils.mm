@@ -11,6 +11,28 @@ static void LOG(NSString* log){
     }
 }
 
+
+
+static BOOL StringIsNullOrEmpty(NSString* str)
+{
+    return str == nil || [str isEqualToString:@""];
+}
+
+static NSString* NSStringFromCStr(const char* str){
+    return [NSString stringWithUTF8String:str ?: ""];
+}
+
+static UIImage* UIImageFromString(NSString* str){
+    if(StringIsNullOrEmpty(str))
+        return nil;
+    if([[NSFileManager defaultManager] fileExistsAtPath:str])
+        return [UIImage imageWithContentsOfFile:str] ?: nil;
+    
+    if (@available(iOS 13.0, *))
+        return [UIImage systemImageNamed:str] ?: nil;
+    return nil;
+}
+
 static char* StringCopy(const char* string)
 {
     if (string == NULL)
@@ -26,6 +48,8 @@ extern "C" void FreeCPtr(void* ptr)
 {
     free(ptr);
 }
+
+
 
 
 static NSDate* DateFromLong(long year, long month, long day, long hour, long minute, long second)
@@ -47,6 +71,7 @@ typedef void (*SaveImageToAlbumCallback)(bool);
 typedef void (*ShareCloseCallback)();
 typedef void (*BoolCallback)(bool);
 typedef void (*FileSelectCallback)(bool, const char*);
+typedef void (*StringCallback)(char*);
 typedef void (*DialogSelectionCallback)(int);
 typedef void (*OrientationChangeCallback)(int);
 typedef void (*CompletionCallback)();

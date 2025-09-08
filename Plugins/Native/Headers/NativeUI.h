@@ -26,7 +26,31 @@
             style:(UIAlertControllerStyle)style
              posX:(CGFloat)posX posY:(CGFloat)posY
          callback:(DialogSelectionCallback)callback;
+
+
+
 @end
+
+#pragma pack(push, 1)
+struct UIActionInfo
+{
+    char *title, *image, *identifier;
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct UIMenuInfo
+{
+    bool isTopMenu;
+    char *title, *image, *identifier;
+    UIMenuOptions options;
+    UIMenuInfo* childrenMenus;
+    UIActionInfo* childrenActions;
+    int childrenMenusCount, childrenActionsCount;
+};
+#pragma pack(pop)
+
+
 
 extern "C"
 {
@@ -88,7 +112,7 @@ extern "C"
         if(url == NULL)
             return;
         
-        [NativeUI OpenUrl:[NSString stringWithUTF8String:url]];
+        [NativeUI OpenUrl:NSStringFromCStr(url)];
     }
 
     void NativeUI_SafariViewFromUrl(const char* url, CompletionCallback onCompletionCallback)
@@ -96,7 +120,7 @@ extern "C"
         if(url == NULL)
             return;
         
-        [NativeUI SafariViewFromUrl:[NSString stringWithUTF8String:url]
+        [NativeUI SafariViewFromUrl:NSStringFromCStr(url)
                onCompletionCallback:onCompletionCallback];
     }
 
@@ -105,7 +129,7 @@ extern "C"
         if(url == NULL)
             return;
         
-        [NativeUI SafariPageSheetFromUrl:[NSString stringWithUTF8String:url]
+        [NativeUI SafariPageSheetFromUrl:NSStringFromCStr(url)
                onCompletionCallback:onCompletionCallback];
     }
     void NativeUI_RegisterStatusBarOrientationChangeCallback(OrientationChangeCallback callback)
@@ -132,7 +156,7 @@ extern "C"
     }
 
     void NativeUI_ShowTempMessage(const char* alertString, int duration = 5){
-        [NativeUI ShowTempMessage:[NSString stringWithUTF8String:alertString ?: ""] duration:duration];
+        [NativeUI ShowTempMessage:NSStringFromCStr(alertString) duration:duration];
     }
 
     void NativeUI_ShowDialog(const char* title, const char* message, const char** actions, int count, int style, double posX, double posY, DialogSelectionCallback callback)
@@ -143,12 +167,12 @@ extern "C"
         NSMutableArray *actionsArray = [NSMutableArray array];
         
         for(int i = 0; i< count; i++){
-            NSString *str = [NSString stringWithUTF8String:actions[i]];
+            NSString *str = NSStringFromCStr(actions[i]);
             [actionsArray addObject:str];
         }
         
-        [NativeUI ShowDialog:[NSString stringWithUTF8String:title ?: ""]
-                     message:[NSString stringWithUTF8String:message ?: ""]
+        [NativeUI ShowDialog:NSStringFromCStr(title)
+                     message:NSStringFromCStr(message)
                   actions:actionsArray
                        style:(UIAlertControllerStyle)style
                         posX:posX posY:posY

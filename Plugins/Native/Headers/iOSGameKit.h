@@ -17,6 +17,6 @@ extern "C"
     }
     void iOSGameKit_LoadScore(const char* leaderboardID, LongCallback callback)
     {
-        [iOSGameKit LoadScore:[NSString stringWithUTF8String:leaderboardID] callback:callback];
+        [iOSGameKit LoadScore:NSStringFromCStr(leaderboardID) callback:callback];
     }
 }

@@ -4,6 +4,63 @@
 
 @implementation NativeUI
 
+API_AVAILABLE(ios(13.0))
+UIMenu* CreateUIMenuFromInfo(UIMenuInfo &menuInfo)
+{
+    NSMutableArray<UIMenuElement *> *elements = [NSMutableArray array];
+    NSInteger a;
+    for (int i = 0; i < menuInfo.childrenActionsCount; i++) {
+        auto childActionInfo = menuInfo.childrenActions[i];
+
+        auto *childAction = [UIAction actionWithTitle:NSStringFromCStr(childActionInfo.title)
+                                           image:UIImageFromString(NSStringFromCStr(childActionInfo.image))
+                                      identifier:NSStringFromCStr(childActionInfo.identifier)
+                                         handler:^(__kindof UIAction * _Nonnull action)
+                             {
+                                if(dummyUIMenuButton)
+                                    [dummyUIMenuButton removeFromSuperview];
+                                // CALLBACk
+                            }];
+        [elements addObject:childAction];
+    }
+    
+    for (int i = 0; i < menuInfo.childrenMenusCount; i++){
+        auto childMenuInfo = menuInfo.childrenMenus[i];
+        auto childMenu = CreateUIMenuFromInfo(childMenuInfo);
+        [elements addObject:childMenu];
+    }
+    
+    // 判断是否是顶层菜单，顶层不需要title和image
+    if(menuInfo.isTopMenu)
+        return [UIMenu menuWithTitle: NSStringFromCStr(menuInfo.title)
+                            children:elements];
+    
+    return [UIMenu menuWithTitle:NSStringFromCStr(menuInfo.title)
+                           image:UIImageFromString(NSStringFromCStr(menuInfo.image))
+                      identifier:NSStringFromCStr(menuInfo.identifier)
+                         options:menuInfo.options
+                        children:elements];
+}
+
+static UIButton* dummyUIMenuButton;
+
++(void)ShowUIMenu:(UIMenuInfo)menuInfo
+{
+    if(@available(iOS 14.0, *)){
+        auto menu = CreateUIMenuFromInfo(menuInfo);
+        auto unityView = UnityGetGLViewController().view;
+        if(dummyUIMenuButton == nil)
+            dummyUIMenuButton = [[UIButton alloc] init];
+        dummyUIMenuButton.frame = unityView.bounds;
+        dummyUIMenuButton.showsMenuAsPrimaryAction = YES;
+        dummyUIMenuButton.menu = menu;
+        [unityView addSubview:dummyUIMenuButton];
+        [unityView sendSubviewToBack:dummyUIMenuButton];
+    }
+    
+}
+
+
 +(BOOL)UIAccessibilityIsBoldTextEnabled
 {
     return UIAccessibilityIsBoldTextEnabled();
@@ -305,6 +362,7 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
     });
     
 }
+
 
 +(void)ShowDialog:(NSString *) title
           message:(NSString *)message

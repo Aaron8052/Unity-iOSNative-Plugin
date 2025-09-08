@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace iOSNativePlugin
 {
+    using @char = System.Byte;
     public static class NativeUI
     {
         [DllImport("__Internal")] static extern bool NativeUI_UIAccessibilityIsBoldTextEnabled();
@@ -24,6 +25,23 @@ namespace iOSNativePlugin
         [DllImport("__Internal")] static extern void NativeUI_SetStatusBarHidden(bool hidden, int withAnimation);
         [DllImport("__Internal")] static extern void NativeUI_SetStatusBarStyle(int style, bool animated);
         [DllImport("__Internal")] static extern void NativeUI_ShowDialog(string title, string message, string[] actions, int count, int style, double posX, double posY, DialogSelectionCallback callback);
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        unsafe struct UIActionInfo
+        {
+            @char* title, image, identifier;
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        unsafe struct UIMenuInfo
+        {
+            bool isTopMenu;
+            @char* title, image, identifier;
+            UIMenuOptions options;
+            UIMenuInfo* childrenMenus;
+            UIActionInfo* childrenActions;
+            int childrenMenusCount, childrenActionsCount;
+        }
 
         /// <summary>
         /// 系统设置 - 粗体文本

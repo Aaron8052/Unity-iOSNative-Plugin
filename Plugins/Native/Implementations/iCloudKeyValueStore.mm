@@ -50,7 +50,7 @@ static BOOL canWrite;
 
 +(BOOL)IsKeyExists:(NSString*)key
 {
-    if(key == nil)
+    if(StringIsNullOrEmpty(key))
         return NO;
     
     if([iCloudKeyValueStore IsICloudAvailable]){
@@ -62,7 +62,7 @@ static BOOL canWrite;
 
 +(BOOL)DeleteKey:(NSString*)key
 {
-    if(key == nil)
+    if(StringIsNullOrEmpty(key))
         return NO;
     
     if([iCloudKeyValueStore IsKeyExists:key])
