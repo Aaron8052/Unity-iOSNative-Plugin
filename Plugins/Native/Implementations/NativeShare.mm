@@ -72,6 +72,7 @@
 
 +(void)ShareObject:(NSMutableArray<NSString*>*)objects
               posX:(CGFloat)posX posY:(CGFloat)posY
+             width:(CGFloat)width height:(CGFloat)height
           callback:(ShareCloseCallback)callback
 {
     if(objects == nil || objects == nil){
@@ -119,7 +120,7 @@
     UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
  
     //为iPad初始化分享界面
-    InitUIPopoverViewController(activity, posX, posY);
+    InitUIPopoverViewController(activity, posX, posY, width, height);
     
     //显示分享界面
     [UnityGetGLViewController() presentViewController:activity animated:YES completion:nil];

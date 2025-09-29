@@ -369,6 +369,7 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
           actions:(NSMutableArray*)actions
             style:(UIAlertControllerStyle)style
              posX:(CGFloat)posX posY:(CGFloat)posY
+             width:(CGFloat)width height:(CGFloat)height
          callback:(DialogSelectionCallback)callback
 {
     
@@ -378,7 +379,7 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
     
     if (style == UIAlertControllerStyleActionSheet)
     {
-        InitUIPopoverViewController(alertController, posX, posY);
+        InitUIPopoverViewController(alertController, posX, posY, width, height);
     }
     
     UIAlertAction *action;

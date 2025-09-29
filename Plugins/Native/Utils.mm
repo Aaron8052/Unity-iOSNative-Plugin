@@ -79,7 +79,7 @@ typedef void (*UserSettingsChangeCallback)();
 typedef void (*LongCallback)(long);
 typedef void (*ULongCallback)(unsigned long);
 
-static void InitUIPopoverViewController(UIViewController *viewController, float posX, float posY)
+static void InitUIPopoverViewController(UIViewController *viewController, double posX, double posY, double width, double height)
 {
     if(viewController == nil)
         return;
@@ -94,7 +94,7 @@ static void InitUIPopoverViewController(UIViewController *viewController, float 
     }
     
     viewController.popoverPresentationController.sourceView = UnityGetGLViewController().view;
-    viewController.popoverPresentationController.sourceRect = CGRectMake(posX, posY, 1, 1 );
+    viewController.popoverPresentationController.sourceRect = CGRectMake(posX, posY, width, height);
 }
 
 static void InitUIPopoverViewController(UIViewController *viewController)
@@ -103,5 +103,5 @@ static void InitUIPopoverViewController(UIViewController *viewController)
     CGSize size = unityView.frame.size;
     
     // 不指定位置的话默认设到屏幕中间
-    InitUIPopoverViewController(viewController, size.width / 2, size.height);
+    InitUIPopoverViewController(viewController, size.width / 2, size.height, 1, 1);
 }
