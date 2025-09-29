@@ -81,7 +81,10 @@ typedef void (*ULongCallback)(unsigned long);
 
 static void InitUIPopoverViewController(UIViewController *viewController, float posX, float posY)
 {
-    if(viewController == nil || UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
+    if(viewController == nil)
+        return;
+    if(@available(iOS 26.0, *)){}
+    else if(UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
         return;
     
     if (@available(iOS 13.0, *)) {
@@ -96,9 +99,6 @@ static void InitUIPopoverViewController(UIViewController *viewController, float 
 
 static void InitUIPopoverViewController(UIViewController *viewController)
 {
-    if(viewController == nil || UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
-        return;
-    
     UIView* unityView = UnityGetGLViewController().view;
     CGSize size = unityView.frame.size;
     

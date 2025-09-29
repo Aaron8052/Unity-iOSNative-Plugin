@@ -297,7 +297,7 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
         }
     }
     else{
-        label.textColor = [UIColor labelColor];
+        label.textColor = [UIColor darkTextColor];
         label.backgroundColor  = [UIColor whiteColor];
     }
     
