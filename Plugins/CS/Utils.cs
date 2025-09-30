@@ -40,6 +40,16 @@ namespace iOSNativePlugin
     delegate void LongCallback(NSInteger value);
     delegate void ULongCallback(NSUInteger value);
 
+    [Flags] public enum UIPopoverArrowDirection : NSUInteger
+    {
+        Up = 1UL << 0,
+        Down = 1UL << 1,
+        Left = 1UL << 2,
+        Right = 1UL << 3,
+        Any = Up | Down | Left | Right,
+        Unknown = NSUInteger.MaxValue
+    }
+
 
     public enum UIMenuOptions : NSUInteger
     {

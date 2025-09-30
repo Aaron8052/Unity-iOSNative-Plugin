@@ -8,6 +8,7 @@
 +(void)SaveImageToAlbum:(UIImage *)image
                callback:(SaveImageToAlbumCallback)callback;
 +(void)ShareObject:(NSMutableArray<NSString*>*)objects
+          arrowDir:(UIPopoverArrowDirection)arrowDir
               posX:(CGFloat)posX posY:(CGFloat)posY
              width:(CGFloat)width height:(CGFloat)height
           callback:(ShareCloseCallback)callback;
@@ -75,7 +76,8 @@ extern "C"
         UIImage *image = [UIImage imageWithContentsOfFile:NSStringFromCStr(imagePath)];
         [NativeShare SaveImageToAlbum:image callback:callback];
     }
-    void NativeShare_Share(const char* message, const char* url, const char* imagePath, double posX, double posY, double width, double height,ShareCloseCallback callback)
+    void NativeShare_Share(const char* message, const char* url, const char* imagePath, UIPopoverArrowDirection arrowDir,
+                           double posX, double posY, double width, double height, ShareCloseCallback callback)
     {
         NSMutableArray<NSString*>* array = [NSMutableArray new];
         
@@ -90,11 +92,13 @@ extern "C"
         
         
         [NativeShare ShareObject:array
+                        arrowDir:arrowDir
                             posX:posX posY:posY
                            width:width height:height
                         callback:callback];
     }
-    void NativeShare_ShareObjects(const char** objects, int count, double posX, double posY, double width, double height, ShareCloseCallback callback)
+    void NativeShare_ShareObjects(const char** objects, int count, UIPopoverArrowDirection arrowDir,
+                                  double posX, double posY, double width, double height, ShareCloseCallback callback)
     {
         if(count <= 0)
             return;
@@ -107,6 +111,7 @@ extern "C"
         }
         
         [NativeShare ShareObject:objectsArray
+                        arrowDir:arrowDir
                             posX:posY posY:posY
                            width:width height:height
                         callback:callback];

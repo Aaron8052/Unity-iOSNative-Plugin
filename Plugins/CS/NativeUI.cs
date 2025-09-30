@@ -24,7 +24,7 @@ namespace iOSNativePlugin
         [DllImport("__Internal")] static extern void NativeUI_ShowTempMessage(string alertString, int duration = 5);
         [DllImport("__Internal")] static extern void NativeUI_SetStatusBarHidden(bool hidden, int withAnimation);
         [DllImport("__Internal")] static extern void NativeUI_SetStatusBarStyle(int style, bool animated);
-        [DllImport("__Internal")] static extern void NativeUI_ShowDialog(string title, string message, string[] actions, int count, int style,
+        [DllImport("__Internal")] static extern void NativeUI_ShowDialog(string title, string message, string[] actions, int count, int style, UIPopoverArrowDirection arrowDir,
             double posX, double posY, double width, double height,
             DialogSelectionCallback callback);
 
@@ -302,7 +302,7 @@ namespace iOSNativePlugin
         {
             var pos = UnityViewSize;
             pos.x /= 2; // 将对话框放置在屏幕底部中间位置
-            ShowDialog(title, message, callback, style, new Rect(pos, Vector2.one), actions);
+            ShowDialog(title, message, callback, style, UIPopoverArrowDirection.Any, new Rect(pos, Vector2.one), actions);
         }
 
         /// <summary>
@@ -313,7 +313,7 @@ namespace iOSNativePlugin
         /// <param name="callback">回调（参数int，依据用户的选择，回调对应 action 在数组中的 index）</param>
         /// <param name="actions">对话框选项 params<para><b>注 - 每个 action 的 UIAlertActionStyle 的不同会影响最终呈现在玩家屏幕上的选项顺序，但不会影响回调中的 index 顺序</b></para></param>
         public static void ShowAlert(string title, string message, Action<int> callback, params UIAlertAction[] actions)
-            => ShowDialog(title, message, callback, UIAlertControllerStyle.Alert, Rect.zero, actions);
+            => ShowDialog(title, message, callback, UIAlertControllerStyle.Alert, UIPopoverArrowDirection.Any, Rect.zero, actions);
 
         /// <summary>
         /// 显示一个样式为 UIAlertControllerStyle.ActionSheet 的对话框，允许用户进行回应
@@ -338,7 +338,7 @@ namespace iOSNativePlugin
         /// <param name="pos">iPad 设备上分享对话框的显示位置，调用 NativeUI.UnityViewSize 获取游戏的视图大小</param>
         /// <param name="actions">对话框选项 params<para><b>注 - 每个 action 的 UIAlertActionStyle 的不同会影响最终呈现在玩家屏幕上的选项顺序，但不会影响回调中的 index 顺序</b></para></param>
         public static void ShowActionSheet(string title, string message, Action<int> callback, Vector2 pos, params UIAlertAction[] actions)
-            => ShowDialog(title, message, callback, UIAlertControllerStyle.ActionSheet, new Rect(pos, Vector2.one), actions);
+            => ShowDialog(title, message, callback, UIAlertControllerStyle.ActionSheet, UIPopoverArrowDirection.Any, new Rect(pos, Vector2.one), actions);
 
         /// <summary>
         /// 显示一个样式为 UIAlertControllerStyle.ActionSheet 的对话框，允许用户进行回应
@@ -346,12 +346,15 @@ namespace iOSNativePlugin
         /// <param name="title">对话框标题（Nullable）</param>
         /// <param name="message">对话框内容（Nullable）</param>
         /// <param name="callback">回调（参数int，依据用户的选择，回调对应 action 在数组中的 index）</param>
+        /// <param name="arrowDir">箭头指向方向</param>
         /// <param name="bound">iPad 设备上分享对话框的显示目标bound，对话框将会指向该bound，调用 NativeUI.UnityViewSize 获取游戏的视图大小</param>
         /// <param name="actions">对话框选项 params<para><b>注 - 每个 action 的 UIAlertActionStyle 的不同会影响最终呈现在玩家屏幕上的选项顺序，但不会影响回调中的 index 顺序</b></para></param>
-        public static void ShowActionSheet(string title, string message, Action<int> callback, Rect bound, params UIAlertAction[] actions)
-            => ShowDialog(title, message, callback, UIAlertControllerStyle.ActionSheet, bound, actions);
+        public static void ShowActionSheet(string title, string message, Action<int> callback, UIPopoverArrowDirection arrowDir,
+            Rect bound, params UIAlertAction[] actions)
+            => ShowDialog(title, message, callback, UIAlertControllerStyle.ActionSheet, arrowDir, bound, actions);
 
-        static void ShowDialog(string title, string message, Action<int> callback, UIAlertControllerStyle style, Rect bound, params UIAlertAction[] actions)
+        static void ShowDialog(string title, string message, Action<int> callback, UIAlertControllerStyle style, UIPopoverArrowDirection arrowDir,
+            Rect bound, params UIAlertAction[] actions)
         {
             if(actions == null || actions.Length <= 0)
                 return;
@@ -363,7 +366,8 @@ namespace iOSNativePlugin
                 actionsArray[i] = actions[i];
             }
 
-            NativeUI_ShowDialog(title, message, actionsArray, actions.Length, (int)style, bound.x, bound.y, bound.width, bound.height, OnDialogSelectionCallback);
+            NativeUI_ShowDialog(title, message, actionsArray, actions.Length, (int)style, arrowDir,
+                bound.x, bound.y, bound.width, bound.height, OnDialogSelectionCallback);
             ShowDialogCallback = callback;
         }
             

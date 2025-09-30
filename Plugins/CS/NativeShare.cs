@@ -7,8 +7,10 @@ namespace iOSNativePlugin
 {
     public static class NativeShare
     {
-        [DllImport("__Internal")] static extern void NativeShare_Share(string message, string url, string imagePath, double posX, double posY, double width, double height, ShareCloseCallback callback);
-		[DllImport("__Internal")] static extern void NativeShare_ShareObjects(string[] objects, int count, double posX, double posY, double width, double height, ShareCloseCallback callback);
+        [DllImport("__Internal")] static extern void NativeShare_Share(string message, string url, string imagePath, UIPopoverArrowDirection arrowDir,
+            double posX, double posY, double width, double height, ShareCloseCallback callback);
+		[DllImport("__Internal")] static extern void NativeShare_ShareObjects(string[] objects, int count, UIPopoverArrowDirection arrowDir,
+            double posX, double posY, double width, double height, ShareCloseCallback callback);
         [DllImport("__Internal")] static extern void NativeShare_SaveFileDialog(string content, string fileName, BoolCallback callback);
         [DllImport("__Internal")] static extern void NativeShare_SelectFileDialog(string ext, FileSelectCallback callback);
         [DllImport("__Internal")] static extern void NativeShare_SaveImageBytesToAlbum(byte[] bytes, long length, SaveImageToAlbumCallback callback);
@@ -125,12 +127,12 @@ namespace iOSNativePlugin
         /// <param name="closeCallback">用户关闭分享面板的回调</param>
         public static void Share(string message, string url = "", string imagePath = "", Vector2 pos = default(Vector2),
             Action closeCallback = null) =>
-            Share(message, url, imagePath, new Rect(pos, Vector2.one), closeCallback);
+            Share(message, url, imagePath, UIPopoverArrowDirection.Any, new Rect(pos, Vector2.one), closeCallback);
 
-        public static void Share(string message, string url = "", string imagePath = "", Rect bound = default, Action closeCallback = null)
+        public static void Share(string message, string url = "", string imagePath = "", UIPopoverArrowDirection arrowDir = UIPopoverArrowDirection.Any, Rect bound = default, Action closeCallback = null)
         {
             OnShareClose = closeCallback;
-            NativeShare_Share(message, url, imagePath, bound.x, bound.y, bound.width, bound.height, OnShareCloseCallback);
+            NativeShare_Share(message, url, imagePath, arrowDir, bound.x, bound.y, bound.width, bound.height, OnShareCloseCallback);
         }
 
         /// <summary>
@@ -154,10 +156,10 @@ namespace iOSNativePlugin
         public static void ShareObjects(Action closeCallback = null, Vector2 pos = default(Vector2),
             params ShareObject[] shareObjects)
         {
-            ShareObjects(closeCallback, new Rect(pos, Vector2.one), shareObjects);
+            ShareObjects(closeCallback, new Rect(pos, Vector2.one), UIPopoverArrowDirection.Any, shareObjects);
         }
 
-		public static void ShareObjects(Action closeCallback = null, Rect bound = default, params ShareObject[] shareObjects)
+		public static void ShareObjects(Action closeCallback = null, Rect bound = default, UIPopoverArrowDirection arrowDir = UIPopoverArrowDirection.Any, params ShareObject[] shareObjects)
         {
             if(shareObjects == null || shareObjects.Length <= 0)
                 return;
@@ -169,7 +171,7 @@ namespace iOSNativePlugin
                 objectsArray[i] = shareObjects[i];
             }
 
-            NativeShare_ShareObjects(objectsArray, objectsArray.Length, bound.x, bound.y, bound.width, bound.height, OnShareCloseCallback);
+            NativeShare_ShareObjects(objectsArray, objectsArray.Length, arrowDir, bound.x, bound.y, bound.width, bound.height, OnShareCloseCallback);
             OnShareClose = closeCallback;
         }
         static event Action OnShareClose;

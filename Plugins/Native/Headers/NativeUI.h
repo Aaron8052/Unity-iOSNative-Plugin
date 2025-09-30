@@ -24,6 +24,7 @@
           message:(NSString *)message
           actions:(NSMutableArray*)actions
             style:(UIAlertControllerStyle)style
+         arrowDir:(UIPopoverArrowDirection)arrowDir
              posX:(CGFloat)posX posY:(CGFloat)posY
              width:(CGFloat)width height:(CGFloat)height
          callback:(DialogSelectionCallback)callback;
@@ -160,7 +161,7 @@ extern "C"
         [NativeUI ShowTempMessage:NSStringFromCStr(alertString) duration:duration];
     }
 
-    void NativeUI_ShowDialog(const char* title, const char* message, const char** actions, int count, int style,
+    void NativeUI_ShowDialog(const char* title, const char* message, const char** actions, int count, int style, UIPopoverArrowDirection arrowDir,
                              double posX, double posY, double width, double height,
                              DialogSelectionCallback callback)
     {
@@ -178,6 +179,7 @@ extern "C"
                      message:NSStringFromCStr(message)
                   actions:actionsArray
                        style:(UIAlertControllerStyle)style
+                    arrowDir:arrowDir
                         posX:posX posY:posY
                         width:width height:height
                     callback:callback];

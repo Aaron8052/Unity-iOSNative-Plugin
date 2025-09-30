@@ -79,7 +79,8 @@ typedef void (*UserSettingsChangeCallback)();
 typedef void (*LongCallback)(long);
 typedef void (*ULongCallback)(unsigned long);
 
-static void InitUIPopoverViewController(UIViewController *viewController, double posX, double posY, double width, double height)
+static void InitUIPopoverViewController(UIViewController *viewController, UIPopoverArrowDirection arrowDir,
+                                        double posX, double posY, double width, double height)
 {
     if(viewController == nil)
         return;
@@ -95,6 +96,7 @@ static void InitUIPopoverViewController(UIViewController *viewController, double
     
     viewController.popoverPresentationController.sourceView = UnityGetGLViewController().view;
     viewController.popoverPresentationController.sourceRect = CGRectMake(posX, posY, width, height);
+    viewController.popoverPresentationController.permittedArrowDirections = arrowDir;
 }
 
 static void InitUIPopoverViewController(UIViewController *viewController)
@@ -103,5 +105,5 @@ static void InitUIPopoverViewController(UIViewController *viewController)
     CGSize size = unityView.frame.size;
     
     // 不指定位置的话默认设到屏幕中间
-    InitUIPopoverViewController(viewController, size.width / 2, size.height, 1, 1);
+    InitUIPopoverViewController(viewController, UIPopoverArrowDirectionAny ,size.width / 2, size.height, 1, 1);
 }
