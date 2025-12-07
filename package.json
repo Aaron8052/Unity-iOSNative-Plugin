@@ -1,7 +1,7 @@
 {
   "name": "com.fengyan.ios-native-plugin",
   "version": "2.6.3",
-  "displayName": "iOS Native Plugin",
+  "displayName": "iOS Native",
   "description": "iOS Native Plugin for Unity",
   "documentationUrl": "https://github.com/Aaron8052/Unity-iOSNative-Plugin/tree/main?tab=readme-ov-file#unity-iosnative-plugin",
   "changelogUrl": "https://github.com/Aaron8052/Unity-iOSNative-Plugin/releases",
