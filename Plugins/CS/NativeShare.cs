@@ -30,7 +30,7 @@ namespace iOSNativePlugin
         /// <summary>
         /// 拷贝图片到剪切板中
         /// </summary>
-        /// <param name="bytes">图片字节</param>
+        /// <param name="bytes">PNG或JPG图片字节</param>
         public static void CopyImageToClipboard(byte[] bytes)
             => NativeShare_CopyImageBytesToClipboard(bytes, bytes.Length);
 
