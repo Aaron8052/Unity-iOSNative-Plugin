@@ -369,15 +369,15 @@ namespace iOSNativePlugin
 
             NativeUI_ShowDialog(title, message, actionsArray, actions.Length, (int)style, arrowDir,
                 bound.x, bound.y, bound.width, bound.height, OnDialogSelectionCallback);
-            dialogCallbacks.Enqueue(callback);
+            dialogCallbacks.Push(callback);
         }
             
-        static readonly Queue<Action<int>> dialogCallbacks = new Queue<Action<int>>(1);
+        static readonly Stack<Action<int>> dialogCallbacks = new Stack<Action<int>>(1);
             
         [MonoPInvokeCallback(typeof(DialogSelectionCallback))]
         static void OnDialogSelectionCallback(int selection)
         {
-            if(dialogCallbacks.TryDequeue(out var callback))
+            if(dialogCallbacks.TryPop(out var callback))
                 callback?.Invoke(selection);
         }
     }
