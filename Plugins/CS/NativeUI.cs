@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using AOT;
 using UnityEngine;
@@ -368,17 +369,16 @@ namespace iOSNativePlugin
 
             NativeUI_ShowDialog(title, message, actionsArray, actions.Length, (int)style, arrowDir,
                 bound.x, bound.y, bound.width, bound.height, OnDialogSelectionCallback);
-            ShowDialogCallback = callback;
+            dialogCallbacks.Enqueue(callback);
         }
             
-
-        private static Action<int> ShowDialogCallback;
+        static readonly Queue<Action<int>> dialogCallbacks = new Queue<Action<int>>(1);
             
         [MonoPInvokeCallback(typeof(DialogSelectionCallback))]
         static void OnDialogSelectionCallback(int selection)
         {
-            ShowDialogCallback?.Invoke(selection);
-            ShowDialogCallback = null;
+            if(dialogCallbacks.TryDequeue(out var callback))
+                callback?.Invoke(selection);
         }
     }
 }
