@@ -388,8 +388,8 @@ BOOL StatusBarOrientationChangeCallbackRegistered;
     for(int i = 0; i < actions.count; i++){
         NSString *actionStr = actions[i];
         
-        NSString *firstChar = [actionStr substringToIndex:1];
-        NSInteger style = [firstChar intValue];
+        auto firstChar = [actionStr characterAtIndex:0];
+        NSInteger style = firstChar - '0';
         
         action = [UIAlertAction actionWithTitle:[actionStr substringFromIndex:1]
                     style:(UIAlertActionStyle)style
