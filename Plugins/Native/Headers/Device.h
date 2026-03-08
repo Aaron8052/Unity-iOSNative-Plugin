@@ -15,6 +15,10 @@
 
 extern "C"
 {
+    long Device_MaximumFramesPerSecond()
+    {
+        return [UIScreen mainScreen].maximumFramesPerSecond;
+    }
     bool Device_IsIPhoneNotchScreen()
     {
         return [Device IsIPhoneNotchScreen];

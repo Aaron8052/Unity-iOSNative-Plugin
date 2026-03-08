@@ -8,6 +8,7 @@ namespace iOSNativePlugin
 {
     public static class Device
     {
+        [DllImport("__Internal")] static extern long Device_MaximumFramesPerSecond();
         [DllImport("__Internal")] static extern bool Device_IsIPhoneNotchScreen();
         [DllImport("__Internal")] static extern bool Device_IsIPad();
         [DllImport("__Internal")] static extern int Device_GetDeviceOrientation();
@@ -19,6 +20,11 @@ namespace iOSNativePlugin
         [DllImport("__Internal")] static extern string Device_GetLocaleISOCode();
         [DllImport("__Internal")] static extern string Device_GetLanguageISOCode();
         //[DllImport("__Internal")] static extern unsafe char** Device_GetLanguageCodes(ref long count);
+
+        /// <summary>
+        /// The maximumFramesPerSecond this screen is capable of
+        /// </summary>
+        public static long MaximumFramesPerSecond => Device_MaximumFramesPerSecond();
 
         /// <summary>
         /// 获取系统版本
